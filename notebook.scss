@@ -80,6 +80,9 @@ a { text-underline-offset: 0.18em; }
 a:visited { color: var(--nb-link-visited); }
 a:hover { text-decoration-thickness: 2px; }
 
+/* Long URLs (e.g. in reference lists) wrap instead of widening phone pages. */
+#quarto-document-content { overflow-wrap: break-word; }
+
 :focus-visible {
   outline: 2px solid var(--nb-brand);
   outline-offset: 2px;
@@ -308,6 +311,7 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
   line-height: 1.15;
   margin: 0 0 16px;
   max-width: 20ch;
+  text-wrap: balance;
 }
 
 .prose-cell h2 { margin: 0 0 12px; }
@@ -469,6 +473,14 @@ html.has-notebook-js .run-cell { display: inline-flex; }
   font-size: 20px;
   margin: 16px 0;
   padding-left: 16px;
+}
+
+/* Short source line at the end of an output */
+.cell-output .cell-source {
+  color: var(--nb-text-muted);
+  font-size: var(--nb-size-small);
+  line-height: 1.5;
+  margin-top: 16px;
 }
 
 .error-output {
