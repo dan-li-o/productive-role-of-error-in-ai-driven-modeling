@@ -1,0 +1,15 @@
+---
+title: "Research"
+---
+
+## Research question
+
+**How can error play a productive role in AI-driven modeling for climate and
+weather science?**
+
+This is a working formulation based on the project title; the project team will
+refine it and add the supporting research questions, approach, and milestones.
+
+## Project goals and milestones
+
+Project goals, research phases, and deliverables will be added when confirmed.

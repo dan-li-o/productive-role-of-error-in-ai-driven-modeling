@@ -1,0 +1,27 @@
+---
+title: "The Productive Role of Error in AI-Driven Modeling"
+---
+
+## Understanding error in climate and weather science
+
+This project investigates the role of error in AI-driven modeling, with a focus
+on climate and weather science. Project aims, methods, and a plain-language
+overview will be added here.
+
+::: {.callout-note}
+Project description pending confirmation by the project team.
+:::
+
+## Join the conversation
+
+We welcome expressions of interest from researchers working across disciplines.
+AI is used in many areas of science, and we are especially interested in
+perspectives beyond our current focus on climate and weather science.
+
+[Get in touch](contact.qmd) to learn more or express interest.
+
+## Upcoming
+
+- **February 2027:** Planned call for extended abstracts and invitations to
+  workshop speakers. Details will be announced here.
+- **Workshop:** Date, venue, registration, and travel information to be added.

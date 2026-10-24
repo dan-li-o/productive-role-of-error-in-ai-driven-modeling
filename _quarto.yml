@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "The Productive Role of Error in AI-Driven Modeling"
+  description: "A research project on error in AI-driven climate and weather modeling."
+  site-url: "https://dan-li-o.github.io/productive-role-of-error-in-ai-driven-modeling/"
+  repo-url: "https://github.com/dan-li-o/productive-role-of-error-in-ai-driven-modeling"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: people.qmd
+        text: People
+      - href: workshop.qmd
+        text: Workshop
+      - href: outputs.qmd
+        text: Outputs
+      - href: news.qmd
+        text: News
+      - href: contact.qmd
+        text: Get involved
+  page-footer:
+    center: "The Productive Role of Error in AI-Driven Modeling"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    link-external-newwindow: true

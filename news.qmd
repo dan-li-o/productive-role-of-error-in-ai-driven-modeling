@@ -1,0 +1,10 @@
+---
+title: "News and updates"
+---
+
+Project news, announcements, and progress updates will appear here.
+
+## February 2027
+
+Planned announcement of the call for extended abstracts and invitations for
+workshop speakers.

@@ -1,0 +1,25 @@
+---
+title: "Project team"
+---
+
+Short biographies and public contact details will be added with approval from
+each team member.
+
+## Dan Li
+
+Project team member. Biography and public contact information to be added.
+
+## Matt
+
+Project team member. Full name, biography, and public contact information to be
+added.
+
+## Advisory board
+
+- [Steve Easterbrook](https://www.environment.utoronto.ca/people/directories/all-faculty/steve-easterbrook)
+- [Paul Edwards](https://profiles.stanford.edu/paul-edwards)
+- [Travis O'Brien](https://earth.indiana.edu/directory/faculty/obrien-travis.html)
+- [Wendy Parker](https://sites.google.com/site/wendyparkerphilosophy/)
+- [David Ribes](https://www.hcde.washington.edu/ribes)
+- [Gavin Schmidt](https://www.giss.nasa.gov/staff/gschmidt/)
+- [Daniele Visioni](https://cals.cornell.edu/people/daniele-visioni)

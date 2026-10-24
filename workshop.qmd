@@ -1,0 +1,30 @@
+---
+title: "Workshop"
+---
+
+Workshop dates, venue, and format will be announced here.
+
+## Call for extended abstracts and speakers
+
+We plan to circulate a call for extended abstracts and invitations for speakers
+in **February 2027**. Submission instructions and deadlines will be posted here.
+
+## Travel and registration
+
+Travel guidance, accessibility information, costs, and registration details are
+not yet available.
+
+## Program
+
+The program will be posted when confirmed.
+
+## Presentation files
+
+This site is hosted as a static GitHub Pages website and cannot receive file
+uploads directly. A secure external upload service and submission instructions
+must be selected before participants can submit presentation files. Please do
+not email or upload presentation files until the project team publishes
+instructions.
+
+Presentation slides, recordings, or other materials will only be shared when
+the relevant participants have given permission.
