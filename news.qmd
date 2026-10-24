@@ -1,10 +1,14 @@
 ---
-title: "News and updates"
+title: "News"
+description: "Calls, announcements, workshop recaps, talks and new papers from the project."
+toc: false
+listing:
+  contents: news
+  sort: "date desc"
+  type: default
+  fields: [date, title, description]
+  feed: true
 ---
 
-Project news, announcements, and progress updates will appear here.
-
-## February 2027
-
-Planned announcement of the call for extended abstracts and invitations for
-workshop speakers.
+<!-- To add a post: copy a file in news/, rename it YYYY-MM-DD-short-name.qmd,
+and edit its title, date, description and text. -->

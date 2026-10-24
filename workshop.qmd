@@ -1,30 +1,48 @@
 ---
 title: "Workshop"
+description: "An interdisciplinary workshop for scientists, philosophers and STS scholars on error in AI-driven modeling."
 ---
 
-Workshop dates, venue, and format will be announced here.
+A two-day interdisciplinary workshop where scientists, philosophers and STS
+scholars work through real cases of error in AI-driven modeling, and where the
+project's developing framework is presented for feedback. The program will mix
+invited talks, discussion sessions and working groups.
+
+We especially welcome early-career researchers, including graduate students,
+as participants and presenters, and researchers from sciences beyond climate.
+
+**When:** at the end of the project's first year; date to be announced.
+
+**Venue:** to be announced.
 
 ## Call for extended abstracts and speakers
 
-We plan to circulate a call for extended abstracts and invitations for speakers
-in **February 2027**. Submission instructions and deadlines will be posted here.
+The call for extended abstracts and invitations to speakers will go out in
+**February 2027**. Topics, deadlines and submission instructions will be posted
+here. To hear when the call opens, [get in touch](contact.qmd).
 
 ## Travel and registration
 
-Travel guidance, accessibility information, costs, and registration details are
-not yet available.
+Details on registration and the venue will be posted with the call. We plan
+to offer support for PhD students and early-career researchers to attend and
+present.
+
+## Venue accessibility
+
+Information on step-free access, captioning and other accommodations will be
+posted here. If you have an access need, please [contact us](contact.qmd).
+
+## Code of conduct
+
+The workshop will have a code of conduct, posted here before registration
+opens.
 
 ## Program
 
-The program will be posted when confirmed.
+The program will be posted once speakers are confirmed.
 
 ## Presentation files
 
-This site is hosted as a static GitHub Pages website and cannot receive file
-uploads directly. A secure external upload service and submission instructions
-must be selected before participants can submit presentation files. Please do
-not email or upload presentation files until the project team publishes
-instructions.
-
-Presentation slides, recordings, or other materials will only be shared when
-the relevant participants have given permission.
+Accepted presenters will receive instructions for uploading slides. Recordings
+and slides are published on the [Deliverables](deliverables.qmd) page only with
+each presenter's permission.

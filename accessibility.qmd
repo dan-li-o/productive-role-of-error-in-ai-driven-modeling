@@ -1,0 +1,18 @@
+---
+title: "Accessibility"
+toc: false
+---
+
+We want this site to work for everyone. It aims to meet the Web Content
+Accessibility Guidelines (WCAG) 2.1 at level AA: text has sufficient contrast,
+everything works by keyboard, images have text alternatives, and animations
+are turned off when your device asks for reduced motion.
+
+The homepage "notebook" reveals its outputs as you scroll. All of the text is
+in the page from the start, so screen readers and search engines see
+everything, and the **Run all** button shows every output at once.
+
+If you meet a barrier on this site, or need a document in another format,
+please write to
+<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>.
+We will do our best to help.

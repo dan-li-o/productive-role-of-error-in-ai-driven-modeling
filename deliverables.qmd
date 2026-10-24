@@ -1,0 +1,40 @@
+---
+title: "Deliverables"
+description: "Publications, talks and workshop materials from the project."
+---
+
+## Project outputs
+
+Papers and talks will be linked here as they become available. The project
+plans:
+
+- Two articles in philosophy of science
+- One article in science and technology studies (STS)
+- A perspective piece for climate scientists
+- A public-facing article for a general audience
+- A report or proceedings from the [workshop](workshop.qmd)
+- Symposia at the Philosophy of Science Association and Society for Social
+  Studies of Science meetings
+
+## Background publications
+
+Earlier work by the project team that this project builds on.
+
+<!-- Team: add or remove items; keep the same citation style. -->
+
+- O'Loughlin, R. J., Li, D., Neale, R., & O'Brien, T. A. (2025). Moving beyond
+  post hoc explainable artificial intelligence: A perspective paper on lessons
+  learned from dynamical climate modeling. *Geoscientific Model Development*,
+  18(3), 787–802. <https://doi.org/10.5194/gmd-18-787-2025>
+- O'Loughlin, R. (2023). Diagnosing errors in climate model intercomparisons.
+  *European Journal for Philosophy of Science*, 13(2).
+  <https://doi.org/10.1007/s13194-023-00522-z>
+- Mayernik, M. S. (2021). Credibility via coupling: Institutions and
+  infrastructures in climate model intercomparisons. *Engaging Science,
+  Technology, and Society*, 7(2), 10–32. <https://doi.org/10.17351/ests2021.769>
+
+## Workshop materials
+
+Workshop presentations, videos, and slides may be shared here only with each
+presenter's permission. Videos will be hosted by an external video service, and
+slides may be shared as PDFs or deposited in a repository such as Zenodo.

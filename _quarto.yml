@@ -3,35 +3,43 @@ project:
   output-dir: _site
   resources:
     - notebook.js
+    # - CNAME   # add when the custom domain is set up (see README)
 
 website:
-  title: "The Productive Role of Error in AI-Driven Modeling"
-  description: "A research project on error in AI-driven climate and weather modeling."
+  title: "Productive Error"
+  description: "The Productive Role of Error in AI-Driven Modeling, an Alfred P. Sloan Foundation project."
+  # Switch to the custom domain once it exists (see README).
   site-url: "https://dan-li-o.github.io/productive-role-of-error-in-ai-driven-modeling/"
   repo-url: "https://github.com/dan-li-o/productive-role-of-error-in-ai-driven-modeling"
   favicon: favicon.svg
   search: false
+  open-graph: true
+  twitter-card: true
+  # image: share.png   # a screenshot of a notebook cell, 1200×630
   navbar:
     pinned: true
     logo: favicon.svg
     logo-alt: "Productive Error home"
     left:
-      - href: index.qmd
-        text: Home
-      - href: research.qmd
-        text: Research
+      - href: about.qmd
+        text: About
+      - href: news.qmd
+        text: News
       - href: people.qmd
         text: People
       - href: workshop.qmd
         text: Workshop
-      - href: outputs.qmd
-        text: Outputs
-      - href: news.qmd
-        text: News
+      - href: deliverables.qmd
+        text: Deliverables
       - href: contact.qmd
         text: Get involved
   page-footer:
-    center: "The Productive Role of Error in AI-Driven Modeling"
+    left: |
+      Supported by the Alfred P. Sloan Foundation · Queens College, CUNY ·
+      NSF National Center for Atmospheric Research
+    right: |
+      <span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
+      · [Accessibility](/accessibility.qmd) · Text [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 format:
   html:
@@ -40,10 +48,10 @@ format:
       - notebook.scss
     include-after-body: notebook-loader.html
     toc: true
-    link-external-newwindow: true
     # Quarto extras the site doesn't use; each one adds a script.
     code-copy: false
     anchor-sections: false
     footnotes-hover: false
     crossrefs-hover: false
     citations-hover: false
+    link-external-newwindow: true

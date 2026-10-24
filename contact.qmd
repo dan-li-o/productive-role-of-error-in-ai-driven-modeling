@@ -1,18 +1,27 @@
 ---
 title: "Get involved"
+description: "Collaborate with the project, share an error story, or contact the team."
+toc: false
 ---
 
-We welcome collaborators, especially researchers bringing perspectives from
-scientific fields beyond our current focus on climate and weather science.
+We welcome collaborators, especially researchers using AI in sciences beyond
+climate and Earth system science, and anyone with an error story to share.
 
 ## Express interest
 
-The project contact address and expression-of-interest form will be added here
-once the team confirms how it would like to receive inquiries. Until then,
-please contact a project team member through their institution.
+Write to us with a few lines about your work and how you'd like to be
+involved:
 
-## Funder
+<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
 
-Funder name, grant number, required acknowledgment, logo, and any funding
-disclaimer will be added after the project team provides the award information
-and funder guidance.
+<!-- Switch to the project alias (contact@[domain]) once it exists, and to an
+embedded form if volume grows. -->
+
+## Workshop
+
+The call for extended abstracts and speakers goes out in February 2027. See the
+[Workshop](workshop.qmd) page.
+
+## Media enquiries
+
+Journalists are welcome to use the same address.

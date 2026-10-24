@@ -1,25 +1,69 @@
 ---
-title: "Project team"
+title: "People"
+description: "The project team, advisory board and partner institutions."
 ---
 
-Short biographies and public contact details will be added with approval from
-each team member.
+## Project team
 
-## Dan Li
+<!-- Photos: add a square image (e.g. people/ryan.jpg, about 400×400px,
+compressed) and replace the placeholder div with
+![Ryan O'Loughlin](people/ryan.jpg){fig-alt="Portrait of Ryan O'Loughlin"} -->
 
-Project team member. Biography and public contact information to be added.
+::: {.person}
+::: {.person-photo-placeholder aria-hidden="true"}
+:::
 
-## Matt
+::: {.person-text}
+### [Ryan O'Loughlin](https://ryanoloughlin.org/)
 
-Project team member. Full name, biography, and public contact information to be
-added.
+[Principal investigator · Assistant Professor of Philosophy, Queens College,
+City University of New York]{.role}
+
+<!-- Bio (2–3 sentences) to come. -->
+
+<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
+:::
+:::
+
+::: {.person}
+::: {.person-photo-placeholder aria-hidden="true"}
+:::
+
+::: {.person-text}
+### [Matthew Mayernik](https://library.ucar.edu/directory/matt-mayernik)
+
+[Co-principal investigator · Project Scientist and Research Data Services
+Specialist, NCAR Library, NSF National Center for Atmospheric
+Research]{.role}
+
+<!-- Bio (2–3 sentences) to come.
+Email, once confirmed (store in pieces, never as one address):
+<span class="email-obfuscate" data-user="USER" data-domain="DOMAIN">USER [at] DOMAIN</span> -->
+:::
+:::
 
 ## Advisory board
 
+<!-- Confirm each member's current affiliation and preferred link before launch. -->
+
+::: {.advisory-list}
 - [Steve Easterbrook](https://www.environment.utoronto.ca/people/directories/all-faculty/steve-easterbrook)
+  · [University of Toronto]{.affiliation}
 - [Paul Edwards](https://profiles.stanford.edu/paul-edwards)
+  · [Stanford University]{.affiliation}
 - [Travis O'Brien](https://earth.indiana.edu/directory/faculty/obrien-travis.html)
+  · [Indiana University]{.affiliation}
 - [Wendy Parker](https://sites.google.com/site/wendyparkerphilosophy/)
+  · [Virginia Tech]{.affiliation}
 - [David Ribes](https://www.hcde.washington.edu/ribes)
+  · [University of Washington]{.affiliation}
 - [Gavin Schmidt](https://www.giss.nasa.gov/staff/gschmidt/)
+  · [NASA Goddard Institute for Space Studies]{.affiliation}
 - [Daniele Visioni](https://cals.cornell.edu/people/daniele-visioni)
+  · [Cornell University]{.affiliation}
+:::
+
+## Partner institutions
+
+- Queens College, City University of New York
+- NSF National Center for Atmospheric Research

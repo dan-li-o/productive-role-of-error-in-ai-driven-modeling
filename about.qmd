@@ -1,0 +1,119 @@
+---
+title: "About the project"
+description: "Why errors in AI-driven scientific modeling can be productive, and how this Sloan Foundation project studies them: research questions, approach and milestones."
+---
+
+## Why study error?
+
+AI is changing science, and AI models often get things wrong: they produce
+biased results, fail on data unlike what they were trained on, break known
+physical laws, and crash in ways their developers didn't expect. The usual
+response is to remove the error as fast as possible.
+
+But when scientists take an error seriously, they often learn something they
+would not have learned otherwise. One AI weather model gave good short-range
+forecasts, then became unstable about ten days in. Researchers traced the
+failure to the model's assumption of a flat, repeating map instead of a round
+Earth. Rebuilt for a sphere, it ran stably for a full simulated year
+([Bonev et al. 2023](#references)). The error showed what the model needed to
+respect. By diagnosing it, the team also showed they understood a system
+that is otherwise hard to see inside.
+
+Our question: **how can errors, and the ways scientists deal with them, make
+AI-driven science better?**
+
+## Goal
+
+To develop a conceptual framework for understanding error as a productive and
+generative feature of AI-driven scientific modeling, with a focus on climate
+and Earth system science.
+
+## Research questions
+
+In plain terms, we are asking three things:
+
+1. **Understanding.** What do scientists learn when an AI-driven model goes
+   wrong, and does tracking down the error help explain how the model works?
+2. **Antifragility.** Some systems gain from shocks rather than just surviving
+   them ([Taleb 2012](#references)). When do models and modeling teams come
+   out of a failure stronger, not just repaired?
+3. **Credibility.** How do errors, and the way teams record, share and fix
+   them, affect how far a model is trusted and how the teams themselves are
+   organized?
+
+::: {.callout-note collapse="true" appearance="simple"}
+## The research questions as worded in the proposal
+
+1. How do errors in AI-driven models contribute to or constrain scientific
+   understanding, and what do practices of error diagnosis reveal about model
+   explainability?
+2. In what ways do modeling communities develop antifragile responses to error,
+   using failures to strengthen rather than merely repair their systems?
+3. How do errors and their management shape the credibility of AI-driven models
+   and the social organization of modeling teams?
+:::
+
+## Approach
+
+- **Interviews** with scientists, software engineers and data specialists who
+  work with AI-driven models at NSF NCAR, the LEAP Center (Learning the Earth
+  with Artificial Intelligence and Physics) and NASA GISS.
+- **Document analysis** of how errors are recorded: technical reports, code
+  repositories, issue trackers and dataset documentation.
+- **Philosophical analysis** that brings these findings together with work in
+  philosophy of science and science and technology studies (STS).
+- **An interdisciplinary [workshop](workshop.qmd)** where the developing
+  framework is presented for feedback.
+- **Talks** at the Philosophy of Science Association (PSA), the Society for
+  Social Studies of Science (4S) and the American Geophysical Union (AGU).
+
+## Why climate and Earth system science?
+
+Climate scientists are adopting AI quickly while insisting that models respect
+physical laws. Future climates lie outside the data any model was trained on,
+so the reliability of AI models has direct stakes for society. The field also
+has decades of shared model evaluation and data sharing to build on. We aim
+for a framework that carries over to other sciences where AI is raising the
+same questions.
+
+## Milestones
+
+- **October 1, 2026:** Project begins.
+- **February 2027:** Call for extended abstracts and invitations to workshop
+  speakers.
+- **End of the first project year (date to be announced):**
+  Interdisciplinary workshop.
+- **September 30, 2028:** Project ends.
+
+## Expected outcomes
+
+- A recognized conceptual framework for error as a productive feature of
+  AI-driven scientific modeling.
+- A network connecting philosophers, STS scholars and scientists around this
+  theme.
+- Demonstrated relevance to scientific practice.
+
+## Funder
+
+This project is supported by the Alfred P. Sloan Foundation
+(October 1, 2026 – September 30, 2028).
+
+## References
+
+- Bonev, B., Kurth, T., Hundt, C., Pathak, J., Baust, M., Kashinath, K., &
+  Anandkumar, A. (2023). Spherical Fourier neural operators: Learning stable
+  dynamics on the sphere. *Proceedings of the 40th International Conference on
+  Machine Learning*, PMLR 202, 2806–2823.
+  <https://proceedings.mlr.press/v202/bonev23a.html>
+- Mayernik, M. S. (2021). Credibility via coupling: Institutions and
+  infrastructures in climate model intercomparisons. *Engaging Science,
+  Technology, and Society*, 7(2), 10–32. <https://doi.org/10.17351/ests2021.769>
+- O'Loughlin, R. (2023). Diagnosing errors in climate model intercomparisons.
+  *European Journal for Philosophy of Science*, 13(2).
+  <https://doi.org/10.1007/s13194-023-00522-z>
+- O'Loughlin, R. J., Li, D., Neale, R., & O'Brien, T. A. (2025). Moving beyond
+  post hoc explainable artificial intelligence: A perspective paper on lessons
+  learned from dynamical climate modeling. *Geoscientific Model Development*,
+  18(3), 787–802. <https://doi.org/10.5194/gmd-18-787-2025>
+- Taleb, N. N. (2012). *Antifragile: Things that gain from disorder*. Random
+  House.

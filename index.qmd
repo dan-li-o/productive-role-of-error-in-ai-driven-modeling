@@ -1,27 +1,227 @@
 ---
-title: "The Productive Role of Error in AI-Driven Modeling"
+pagetitle: "Productive Error · The Productive Role of Error in AI-Driven Modeling"
+description: "How errors in AI-driven scientific modeling can lead to new knowledge. A Sloan Foundation project focused on climate and Earth system science."
+toc: false
+page-layout: full
 ---
 
-## Understanding error in climate and weather science
+<!--
+How this page works
+- Each code cell is a `.notebook-cell .code-cell` div. Edit the code line inside
+  `.code-input` and the text inside `.cell-output`; leave the prompt divs empty
+  (notebook.scss and notebook.js fill in "In [ ]:" and "Out[n]:").
+- Code colors: wrap words in <span class="code-function">, code-variable,
+  code-string, code-keyword, code-number or code-comment. Use <br> for a
+  second code line.
+- The error cell uses `.error-output` and has no Out prompt.
+- Sources go in a `.cell-source` paragraph at the end of an output.
+-->
 
-This project investigates the role of error in AI-driven modeling, with a focus
-on climate and weather science. Project aims, methods, and a plain-language
-overview will be added here.
-
-::: {.callout-note}
-Project description pending confirmation by the project team.
+::: {.nb-toolbar role="toolbar" aria-label="Notebook"}
+<button type="button" class="nb-tool" data-nb-run title="Run this cell and advance (Shift+Enter)"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg>Run</button>
+<button type="button" class="nb-tool" data-nb-run-all title="Show every output at once"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1 3v10l7-5zM8 3v10l7-5z"/></svg>Run all</button>
 :::
 
-## Join the conversation
+:::: {.notebook aria-label="Project introduction notebook"}
 
-We welcome expressions of interest from researchers working across disciplines.
-AI is used in many areas of science, and we are especially interested in
-perspectives beyond our current focus on climate and weather science.
+::: {.notebook-cell .prose-cell tabindex="-1" data-cell="1"}
+::: {.cell-content}
+<p class="project-name">The Productive Role of Error in AI-Driven Modeling</p>
 
-[Get in touch](contact.qmd) to learn more or express interest.
+# When AI gets science wrong, what can we learn?
 
-## Upcoming
+[A Sloan Foundation project studying how errors in AI-driven scientific models
+can be productive: how failures lead to new understanding, stronger models and
+earned trust. We focus on climate and Earth system science.]{.lede}
 
-- **February 2027:** Planned call for extended abstracts and invitations to
-  workshop speakers. Details will be announced here.
-- **Workshop:** Date, venue, registration, and travel information to be added.
+::: {.cell-actions}
+[Read the question](about.qmd){.button .button-primary}
+[Get involved](contact.qmd){.button .button-secondary}
+:::
+
+::: {.latest-note}
+**Latest:** [Call for extended abstracts and speakers, February 2027](workshop.qmd)
+· Scroll to run the notebook
+:::
+:::
+:::
+
+::: {.notebook-cell .code-cell tabindex="0" data-cell="2" role="group" aria-label="Cell 2"}
+::: {.cell-prompt}
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 2"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+:::
+
+::: {.code-input}
+<code><span class="code-function">ask</span>(<span class="code-string">&quot;What happens when an AI model gets it wrong?&quot;</span>)</code>
+:::
+
+::: {.output-prompt aria-hidden="true"}
+:::
+
+::: {.cell-output}
+It happens all the time. AI models in science produce biased results, fail on
+data unlike what they were trained on, break known physical laws, and crash in
+ways their developers didn't expect.
+
+The usual response is to fix the error and move on. But when scientists dig
+into an error, they often learn something they couldn't have learned
+otherwise.
+:::
+:::
+
+::: {.notebook-cell .code-cell tabindex="0" data-cell="3" role="group" aria-label="Cell 3"}
+::: {.cell-prompt}
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 3"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+:::
+
+::: {.code-input}
+<code><span class="code-function">forecast</span>(<span class="code-variable">ai_weather_model</span>, <span class="code-variable">days</span><span class="code-operator">=</span><span class="code-number">14</span>)</code>
+:::
+
+<!-- Cells 3–4 follow the case in the proposal (Bonev et al. 2023;
+O'Loughlin et al. 2025). Ryan: confirm the wording before launch. -->
+
+::: {.cell-output .error-output}
+[InstabilityError]{.error-name}: forecast became unstable after about 10 days
+
+An AI model trained to emulate weather prediction, a Fourier neural operator,
+gave good short-range forecasts. Then, about ten days in, its forecasts broke
+down.
+:::
+:::
+
+::: {.notebook-cell .code-cell tabindex="0" data-cell="4" role="group" aria-label="Cell 4"}
+::: {.cell-prompt}
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 4"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+:::
+
+::: {.code-input}
+<code><span class="code-function">diagnose</span>(<span class="code-variable">error</span>)</code>
+:::
+
+::: {.output-prompt aria-hidden="true"}
+:::
+
+::: {.cell-output}
+Instead of abandoning the model, researchers traced the failure to one design
+choice. The model's math assumed a flat map that repeats at its edges, not a
+round Earth. Rebuilt with transforms made for a sphere (spherical harmonics),
+it ran stably for a full simulated year.
+
+> The error pointed to what the model was missing: the shape of the planet.
+
+::: {.cell-source}
+Sources: [Bonev et al. 2023](https://proceedings.mlr.press/v202/bonev23a.html),
+*Spherical Fourier Neural Operators*, ICML;
+[O'Loughlin et al. 2025](https://doi.org/10.5194/gmd-18-787-2025),
+*Geoscientific Model Development*.
+:::
+:::
+:::
+
+::: {.notebook-cell .code-cell tabindex="0" data-cell="5" role="group" aria-label="Cell 5"}
+::: {.cell-prompt}
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 5"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+:::
+
+::: {.code-input}
+<code><span class="code-comment"># Scientists often prefer &quot;bias&quot; or &quot;limitation&quot; to &quot;error&quot;</span><br><span class="code-function">learn_from</span>(<span class="code-variable">error</span>)</code>
+:::
+
+::: {.output-prompt aria-hidden="true"}
+:::
+
+::: {.cell-output}
+Errors like this can give science three things:
+
+- **Understanding:** working out why a model failed can show which part of it
+  is responsible, a deeper kind of understanding than most explainability
+  tools give.
+- **Antifragility:** some systems gain from shocks rather than just surviving
+  them. Models and modeling teams can come out of a failure stronger, not just
+  repaired.
+- **Credibility:** how errors are recorded, shared and fixed shapes whether the
+  science can be trusted.
+
+**When do errors make AI-driven science better than immediate success would
+have?**
+
+::: {.cell-source}
+Sources: [O'Loughlin 2023](https://doi.org/10.1007/s13194-023-00522-z) and
+[O'Loughlin et al. 2025](https://doi.org/10.5194/gmd-18-787-2025) on
+understanding; Taleb 2012, *Antifragile*, on antifragility;
+[Mayernik 2021](https://doi.org/10.17351/ests2021.769) on credibility.
+:::
+:::
+:::
+
+::: {.notebook-cell .code-cell tabindex="0" data-cell="6" role="group" aria-label="Cell 6"}
+::: {.cell-prompt}
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 6"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+:::
+
+::: {.code-input}
+<code><span class="code-function">run</span>(<span class="code-variable">project</span>)</code>
+:::
+
+::: {.output-prompt aria-hidden="true"}
+:::
+
+::: {.cell-output}
+We're asking the people who work through these errors: scientists, software
+engineers and data specialists at NSF NCAR, LEAP and NASA GISS. We're also
+reading the reports, code repositories and data records where errors get
+written down.
+
+::: {.project-links}
+::: {.project-card}
+## The questions
+
+Error and understanding, antifragility and credibility in AI-driven
+modeling.
+
+[About the project](about.qmd)
+:::
+
+::: {.project-card}
+## The workshop
+
+Scientists, philosophers and STS scholars working through real cases of error,
+side by side.
+
+[Workshop details](workshop.qmd)
+:::
+
+::: {.project-card}
+## The work
+
+A framework for how errors produce knowledge, with articles for
+philosophers, STS scholars, scientists and the public.
+
+[Deliverables](deliverables.qmd)
+:::
+:::
+
+**The people:** [our team and advisory board](people.qmd)
+:::
+:::
+
+::: {.notebook-cell .prose-cell .closing-cell tabindex="-1" data-cell="7"}
+::: {.cell-content}
+## Using AI in your science? We'd like to hear from you.
+
+We start with climate and Earth system science, but the same questions are
+arising in biology, astronomy and beyond. We welcome collaborators, and anyone
+with an error story to share.
+
+::: {.cell-actions}
+[Express interest](contact.qmd){.button .button-primary}
+[Workshop details](workshop.qmd){.button .button-secondary}
+[Latest news](news.qmd){.button .button-secondary}
+:::
+:::
+:::
+
+::: {.notebook-announcer .visually-hidden role="status" aria-live="polite" aria-atomic="true"}
+:::
+::::

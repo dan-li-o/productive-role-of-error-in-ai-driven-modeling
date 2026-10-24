@@ -1,42 +1,66 @@
 # The Productive Role of Error in AI-Driven Modeling
 
-Quarto website for the research project. The site is intended for publication
-with GitHub Pages.
+Quarto website for the Sloan Foundation project (October 1, 2026 – September
+30, 2028). The homepage is a notebook that "runs" as visitors scroll; the
+other pages are plain reading pages in the same style.
 
-## Work locally
+## How it's built
 
-Install [Quarto](https://quarto.org/docs/get-started/) and run:
+- Pages are Markdown (`.qmd`). Edit text directly, including in GitHub's web
+  editor; every push to `main` re-renders and publishes the site
+  (`.github/workflows/publish.yml`).
+- `notebook.scss` holds the Jupyter-style look; `notebook.js` runs the
+  homepage cells, assembles email links and adds the "Last updated" line.
+- The homepage cells are hand-written divs in `index.qmd`; a comment at the
+  top of that file explains how to edit them.
+- **News:** add a file to `news/` named `YYYY-MM-DD-short-name.qmd` with a
+  `title`, `date` and `description`. The News page lists posts newest first
+  and builds an RSS feed (`news.xml`).
+- **Email addresses** are never written out in full. Use
+  `<span class="email-obfuscate" data-user="name" data-domain="example.org">name [at] example.org</span>`.
 
-```sh
-quarto preview
-```
+To preview locally (optional): install [Quarto](https://quarto.org) and run
+`quarto preview`.
 
-To render the site without starting a preview server:
+## Custom domain
 
-```sh
-quarto render
-```
+1. Buy the domain; add a `CNAME` file containing it and list `CNAME` under
+   `project.resources` in `_quarto.yml`.
+2. Change `site-url` in `_quarto.yml` to `https://<domain>/`.
+3. In the repo's **Settings → Pages**, set the custom domain and tick
+   **Enforce HTTPS**. Point the domain's DNS at GitHub Pages.
+4. Set up `contact@<domain>` forwarding (registrar or Cloudflare Email Routing)
+   and replace the addresses in the footer, Get involved and Accessibility
+   pages.
 
-Rendered files are written to `_site/`.
+## Before launch
 
-## Publish
+- [ ] Ask CUNY's IRB whether fieldwork and interview wording counts as
+      recruitment material
+- [ ] Short site name, domain and wordmark (the site currently uses
+      "Productive Error")
+- [ ] Ryan checks the wording of the AI weather-model case in homepage cells
+      3–4 and on About (from the proposal: "unstable after about ten days")
+      and the pilot-interview remark in cell 5
+- [ ] Bios and photos for Ryan and Matthew; Matthew's public email
+- [ ] Confirm advisory board affiliations and links (`people.qmd`)
+- [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`
+- [ ] Analytics (cookie-free: GoatCounter or Plausible)
+- [ ] Mailing list (e.g. Buttondown), with sign-up on the homepage and Get
+      involved, before the February 2027 call
+- [ ] Workshop: date, venue, accessibility, fees, travel policy, code of
+      conduct, upload service (Dropbox File Request or Google Form), consent and
+      release form for recordings and slides
+- [ ] Ask Sloan's communications team about logo use; tell them when the site
+      launches and before the workshop
+- [ ] Permission for any partner logos
+- [ ] Decide who writes and approves News posts (aim for one a month)
+- [ ] QA: keyboard-only and screen-reader pass (VoiceOver, NVDA), broken-link
+      check, iPhone and Android, Lighthouse 90+ for accessibility and
+      performance
+- [ ] After the grant: prepay the domain, name who renews it, deposit a
+      snapshot on Zenodo or the Internet Archive
 
-The GitHub Actions workflow in `.github/workflows/publish.yml` renders the
-website and publishes it to GitHub Pages on pushes to `main`.
+## Licenses
 
-In the repository's GitHub settings, set **Pages → Build and deployment →
-Source** to **GitHub Actions**. The expected site address is:
-
-<https://dan-li-o.github.io/productive-role-of-error-in-ai-driven-modeling/>
-
-## Before announcing the site
-
-- Replace the project overview and working research question with approved text.
-- Add funder details and the required grant acknowledgment/disclaimer.
-- Add team members' approved biographies and public contact details.
-- Confirm workshop logistics, travel, registration, and program.
-- Select an external service for presentation-file uploads; GitHub Pages is
-  static and cannot process uploads.
-- Add an approved contact address or expression-of-interest form.
-- Publish workshop presentations or recordings only with participants'
-  permission.
+Site code: MIT (`LICENSE`). Written content: CC BY 4.0.

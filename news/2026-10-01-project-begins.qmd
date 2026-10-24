@@ -1,0 +1,17 @@
+---
+title: "The project begins"
+date: 2026-10-01
+description: "With support from the Alfred P. Sloan Foundation, a two-year study of how errors shape AI-driven climate and Earth system modeling gets under way."
+---
+
+*The Productive Role of Error in AI-Driven Modeling* starts today, with support
+from the Alfred P. Sloan Foundation. Over the next two years, philosopher Ryan
+O'Loughlin (Queens College, CUNY) and Matthew Mayernik (NSF National Center for
+Atmospheric Research) will study how scientists find, diagnose and learn from
+errors in AI-driven models of the climate and Earth system.
+
+The project will interview scientists at NSF NCAR, LEAP and NASA GISS and hold
+an interdisciplinary workshop. A call for extended abstracts and speakers is
+planned for February 2027.
+
+[Read more about the project](../about.qmd) or [get involved](../contact.qmd).
