@@ -1,13 +1,20 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - notebook.js
 
 website:
   title: "The Productive Role of Error in AI-Driven Modeling"
   description: "A research project on error in AI-driven climate and weather modeling."
   site-url: "https://dan-li-o.github.io/productive-role-of-error-in-ai-driven-modeling/"
   repo-url: "https://github.com/dan-li-o/productive-role-of-error-in-ai-driven-modeling"
+  favicon: favicon.svg
+  search: false
   navbar:
+    pinned: true
+    logo: favicon.svg
+    logo-alt: "Productive Error home"
     left:
       - href: index.qmd
         text: Home
@@ -28,6 +35,15 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme:
+      - default
+      - notebook.scss
+    include-after-body: notebook-loader.html
     toc: true
     link-external-newwindow: true
+    # Quarto extras the site doesn't use; each one adds a script.
+    code-copy: false
+    anchor-sections: false
+    footnotes-hover: false
+    crossrefs-hover: false
+    citations-hover: false

@@ -1,0 +1,11 @@
+<script>
+  // Load notebook.js from the site root, also on pages in subfolders (news/).
+  // Quarto gives every page a correctly prefixed site_libs path; reuse its prefix.
+  (() => {
+    const nav = document.querySelector('script[src$="site_libs/quarto-nav/quarto-nav.js"]');
+    const root = nav ? nav.getAttribute("src").replace("site_libs/quarto-nav/quarto-nav.js", "") : "";
+    const script = document.createElement("script");
+    script.src = `${root}notebook.js`;
+    document.body.append(script);
+  })();
+</script>

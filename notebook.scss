@@ -1,0 +1,598 @@
+/*-- scss:defaults --*/
+// Bootstrap and Quarto variables, so the navbar, footer and reading pages
+// share the notebook look. Bootstrap needs real values at compile time, so
+// these mirror the --nb-* tokens below; keep the two in sync.
+$font-family-sans-serif: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+$font-family-monospace: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+$font-size-root: 17px;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+$headings-font-weight: 500;
+$headings-line-height: 1.2;
+$body-bg: #FFFFFF;
+$body-color: #212121;
+$link-color: #0D47A1;
+$primary: #1976D2;
+$border-radius: 2px;
+$border-radius-sm: 2px;
+$border-radius-lg: 2px;
+$code-color: #212121;
+$navbar-bg: #FFFFFF;
+$navbar-fg: #212121;
+$navbar-hl: #0D47A1;
+$footer-bg: #FFFFFF;
+$footer-fg: #616161;
+
+/*-- scss:rules --*/
+:root {
+  /* Color */
+  --nb-page: #FFFFFF;
+  --nb-text: #212121;
+  --nb-text-muted: #616161;
+  --nb-border: #E0E0E0;
+  --nb-editor-bg: #F5F5F5;
+  --nb-brand: #1976D2;
+  --nb-link: #0D47A1;
+  --nb-link-visited: #7B1FA2;
+  --nb-in-prompt: #2A6AA8;
+  --nb-out-prompt: #A8492F;
+  --nb-error-bg: #FFDDDD;
+  --nb-error-text: #B71C1C;
+  --nb-success: #1B5E20;
+  --nb-focus-glow: #64B5F6;
+  --nb-menu-hover: #EEEEEE;
+  --nb-button-hover: #E3F2FD;
+
+  /* Type */
+  --nb-font-text: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --nb-font-code: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --nb-size-text: 17px;
+  --nb-size-code: 16px;
+  --nb-size-prompt: 15px;
+  --nb-size-small: 15px;
+  --nb-line-text: 1.6;
+  --nb-line-code: 1.5;
+
+  /* Layout */
+  --nb-max-width: 1040px;
+  --nb-prompt-width: 96px;
+  --nb-active-bar: 6px;
+  --nb-radius: 2px;
+  --nb-cell-gap: 16px;
+  --nb-gutter: 24px;
+  --nb-header-h: 0px; /* set by notebook.js */
+  --nb-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 1024px) { :root { --nb-prompt-width: 80px; } }
+@media (max-width: 639.98px) { :root { --nb-size-code: 15px; --nb-size-prompt: 14px; --nb-gutter: 16px; } }
+
+/* ---------- Base ---------- */
+
+/* Set here rather than through Bootstrap variables: Quarto's rules make h1/h2
+   600 and underline h2, and Bootstrap's responsive sizing assumes a 16px root. */
+h1, h2, h3, h4, .h1, .h2, .h3, .h4, .title { font-weight: 500; }
+h1, .h1, .title { font-size: 35px; }
+h2, .h2 { border-bottom: 0; font-size: 29px; padding-bottom: 0; }
+h3, .h3 { font-size: 24px; line-height: 1.25; }
+
+a { text-underline-offset: 0.18em; }
+a:visited { color: var(--nb-link-visited); }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--nb-brand);
+  outline-offset: 2px;
+}
+
+/* ---------- Header: title row + menu bar ---------- */
+
+#quarto-header { box-shadow: var(--nb-shadow-1); }
+
+.navbar {
+  border-bottom: 1px solid var(--nb-border);
+  padding-block: 4px;
+}
+
+.navbar-brand-container { align-items: center; }
+
+.navbar-title {
+  color: var(--nb-text);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.navbar-logo { height: 28px; width: 28px; }
+
+.navbar-nav .nav-link {
+  border-radius: var(--nb-radius);
+  color: var(--nb-text);
+  font-size: 15px;
+  padding: 10px 12px;
+}
+
+.navbar-nav .nav-link:focus-visible,
+.nb-tool:focus-visible {
+  background: var(--nb-menu-hover);
+  color: var(--nb-text);
+}
+
+@media (hover: hover) {
+  /* Only on devices that really hover; on touch, :hover sticks after a tap. */
+  .navbar-nav .nav-link:hover,
+  .nb-tool:hover {
+    background: var(--nb-menu-hover);
+    color: var(--nb-text);
+  }
+}
+
+.navbar-toggler:focus { box-shadow: none; }
+.navbar-toggler:focus-visible { outline: 2px solid var(--nb-brand); outline-offset: 2px; }
+
+.navbar-nav .nav-link.active {
+  color: var(--nb-link);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* "Last updated" and the kernel circle, added by notebook.js */
+.nb-checkpoint {
+  align-items: center;
+  color: var(--nb-text-muted);
+  display: inline-flex;
+  font-size: 13px;
+  gap: 8px;
+  margin-left: 16px;
+  white-space: nowrap;
+}
+
+.nb-kernel {
+  border: 1.5px solid var(--nb-text-muted);
+  border-radius: 50%;
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+}
+
+.nb-kernel.is-busy { background: var(--nb-text-muted); }
+
+@media (min-width: 992px) {
+  /* Desktop: title row above the menu bar. */
+  .navbar > .navbar-container { flex-wrap: wrap; }
+  .navbar .navbar-brand-container { flex: 1 0 100%; }
+
+  .navbar #navbarCollapse {
+    border-top: 1px solid var(--nb-border);
+    margin-top: 4px;
+  }
+
+  .navbar-nav .nav-link { padding: 4px 12px; }
+}
+
+@media (min-width: 992px) and (pointer: coarse) {
+  /* Touch screens keep 44px menu targets. */
+  .navbar-nav .nav-link { padding-block: 10px; }
+}
+
+@media (max-width: 639.98px) {
+  .nb-checkpoint { display: none; }
+}
+
+/* ---------- Footer ---------- */
+
+.nav-footer {
+  border-top: 1px solid var(--nb-border);
+  font-size: var(--nb-size-small);
+  line-height: 1.5;
+}
+
+.nav-footer a { color: var(--nb-link); }
+
+/* ---------- Buttons ---------- */
+
+.button {
+  align-items: center;
+  border: 1px solid var(--nb-brand);
+  border-radius: var(--nb-radius);
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 500;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.button-primary,
+.button-primary:visited {
+  background: var(--nb-brand);
+  color: #FFFFFF;
+}
+
+.button-primary:hover {
+  background: var(--nb-link);
+  border-color: var(--nb-link);
+  color: #FFFFFF;
+}
+
+.button-secondary,
+.button-secondary:visited {
+  background: var(--nb-page);
+  color: var(--nb-link);
+}
+
+.button-secondary:hover {
+  background: var(--nb-button-hover);
+  color: var(--nb-link);
+}
+
+/* ---------- Homepage toolbar ---------- */
+
+#quarto-document-content:has(.nb-toolbar) { margin-top: 0; padding-top: 0; }
+#quarto-document-content:has(.nb-toolbar) > .quarto-title-block { display: none; }
+
+.nb-toolbar {
+  background: var(--nb-page);
+  border-bottom: 1px solid var(--nb-border);
+  display: flex;
+  gap: 4px;
+  margin-inline: auto;
+  max-width: var(--nb-max-width);
+  padding: 4px var(--nb-gutter);
+  position: sticky;
+  top: var(--nb-header-h);
+  z-index: 10;
+}
+
+html:not(.has-notebook-js) .nb-toolbar { display: none; }
+
+.nb-tool {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--nb-radius);
+  color: var(--nb-text);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 15px;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 12px;
+}
+
+.nb-tool svg { fill: var(--nb-text-muted); height: 16px; width: 16px; }
+.nb-tool:hover svg,
+.nb-tool:focus-visible svg { fill: var(--nb-brand); }
+
+/* ---------- Notebook ---------- */
+
+.notebook {
+  counter-reset: nb-cell;
+  margin-inline: auto;
+  max-width: var(--nb-max-width);
+  padding: 32px var(--nb-gutter) 64px;
+}
+
+.notebook-cell {
+  display: grid;
+  grid-template-columns: var(--nb-prompt-width) minmax(0, 1fr);
+  margin-bottom: var(--nb-cell-gap);
+  padding: 8px 8px 8px 0;
+  scroll-margin-block: calc(var(--nb-header-h) + 72px) 24px;
+}
+
+.notebook-cell:focus { outline: none; }
+.notebook-cell:focus-visible { outline: 2px solid var(--nb-brand); outline-offset: 0; }
+
+/* Blue bar on the left edge: selected or running. */
+.notebook-cell.is-selected,
+.notebook-cell.is-running {
+  box-shadow: inset var(--nb-active-bar) 0 0 var(--nb-brand);
+}
+
+/* Prose cells (Jupyter markdown cells): no prompt, no box. */
+.prose-cell > .cell-content {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.prose-cell p,
+.prose-cell li,
+.cell-output p,
+.cell-output li {
+  max-width: 70ch;
+}
+
+.prose-cell h1 {
+  font-size: 52px;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  max-width: 20ch;
+}
+
+.prose-cell h2 { margin: 0 0 12px; }
+
+.project-name {
+  color: var(--nb-text-muted);
+  font-size: var(--nb-size-small);
+  margin-bottom: 12px;
+}
+
+.lede { font-size: 20px; line-height: 1.5; }
+
+.cell-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 24px;
+}
+
+.latest-note {
+  color: var(--nb-text-muted);
+  font-size: var(--nb-size-small);
+  line-height: 1.5;
+}
+
+.latest-note strong { color: var(--nb-text); font-weight: 500; }
+
+.closing-cell { margin-top: 32px; }
+
+/* Prompt column. Without JS a CSS counter numbers the cells (In [1]: ...);
+   with JS the prompts come from data-prompt and follow run order. */
+.cell-prompt,
+.output-prompt {
+  font-family: var(--nb-font-code);
+  font-size: var(--nb-size-prompt);
+  grid-column: 1;
+  line-height: var(--nb-line-code);
+  padding: 12px 8px 0 0;
+  text-align: right;
+}
+
+.cell-prompt {
+  align-items: flex-start;
+  color: var(--nb-in-prompt);
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.cell-prompt > p { display: contents; } /* Pandoc wraps inline content in <p> */
+
+.output-prompt { color: var(--nb-out-prompt); }
+
+.code-cell { counter-increment: nb-cell; }
+.prompt-label { white-space: nowrap; }
+.prompt-label::before { content: "In [" counter(nb-cell) "]:"; }
+.output-prompt::before { content: "Out[" counter(nb-cell) "]:"; }
+html.has-notebook-js .prompt-label::before,
+html.has-notebook-js .output-prompt::before { content: attr(data-prompt); }
+
+/* Run button: shown only with JS. Desktop: replaces the label on hover or
+   keyboard focus. Touch: always visible (beside the label on phones, under it
+   on tablets). */
+.run-cell {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--nb-radius);
+  cursor: pointer;
+  display: none;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  width: 44px;
+}
+
+html.has-notebook-js .run-cell { display: inline-flex; }
+
+.run-cell svg { fill: var(--nb-text-muted); height: 16px; width: 16px; }
+.run-cell:hover svg,
+.run-cell:focus-visible svg { fill: var(--nb-brand); }
+
+@media (hover: hover) and (min-width: 640px) {
+  html.has-notebook-js .run-cell {
+    opacity: 0;
+    position: absolute;
+    right: 4px;
+    top: 1px; /* centres the 44px button on the first prompt line */
+  }
+
+  html.has-notebook-js .code-cell:not(.is-running):hover .run-cell,
+  html.has-notebook-js .run-cell:focus-visible {
+    opacity: 1;
+  }
+
+  html.has-notebook-js .code-cell:not(.is-running):hover .prompt-label,
+  html.has-notebook-js .code-cell:has(.run-cell:focus-visible) .prompt-label {
+    visibility: hidden;
+  }
+}
+
+@media (hover: none) and (min-width: 640px) {
+  .cell-prompt {
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+/* Code input box */
+.code-input {
+  align-self: start;
+  background: var(--nb-editor-bg);
+  border: 1px solid var(--nb-border);
+  border-radius: var(--nb-radius);
+  min-width: 0;
+  padding: 12px 16px;
+}
+
+.code-input p { margin: 0; }
+
+/* :not(.sourceCode) matches Quarto's inline-code rule so this one wins. */
+.code-input code:not(.sourceCode) {
+  background: none;
+  color: var(--nb-text);
+  font-size: var(--nb-size-code);
+  line-height: var(--nb-line-code);
+  overflow-wrap: anywhere;
+  padding: 0;
+  white-space: pre-wrap;
+}
+
+.is-running .code-input {
+  border-color: var(--nb-brand);
+  box-shadow: inset 0 0 0 1px var(--nb-focus-glow);
+}
+
+/* Syntax colors (Jupyter's editor theme, contrast-adjusted) */
+.code-keyword { color: #008000; }
+.code-function { color: #0000FF; }
+.code-string { color: #BA2121; }
+.code-comment { color: #336B6B; font-style: italic; }
+.code-number { color: #006F00; }
+.code-operator { color: #7800C2; }
+.code-variable { color: #212121; }
+
+/* Outputs */
+.cell-output {
+  grid-column: 2;
+  min-width: 0;
+  padding: 12px 16px 4px;
+}
+
+.cell-output > :last-child { margin-bottom: 0; }
+
+.cell-output blockquote {
+  border-left: 3px solid var(--nb-border);
+  color: var(--nb-text);
+  font-size: 20px;
+  margin: 16px 0;
+  padding-left: 16px;
+}
+
+.error-output {
+  background: var(--nb-error-bg);
+  margin-top: 8px;
+  padding-bottom: 12px;
+}
+
+.error-name {
+  color: var(--nb-error-text);
+  font-family: var(--nb-font-code);
+  font-weight: 700;
+}
+
+.success-output { color: var(--nb-success); }
+
+/* Not yet run: hidden visually, still in the page for screen readers and search. */
+html.has-notebook-js .code-cell:not(.is-revealed) .cell-output,
+html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
+  opacity: 0;
+}
+
+.cell-output,
+.output-prompt {
+  transition: opacity 200ms ease;
+}
+
+/* Cards in the project cell */
+.project-links {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block: 16px;
+}
+
+.project-card {
+  border: 1px solid var(--nb-border);
+  border-radius: var(--nb-radius);
+  padding: 16px;
+}
+
+.project-card h2 { font-size: 21px; margin: 0 0 8px; }
+.project-card p { font-size: 16px; line-height: 1.5; }
+
+/* ---------- Reading pages ---------- */
+
+.person {
+  display: grid;
+  gap: 16px 24px;
+  grid-template-columns: 128px minmax(0, 1fr);
+  margin-block: 24px 32px;
+}
+
+.person img,
+.person-photo-placeholder {
+  border: 1px solid var(--nb-border);
+  border-radius: var(--nb-radius);
+  height: 128px;
+  width: 128px;
+}
+
+.person img { object-fit: cover; }
+.person-photo-placeholder { background: var(--nb-editor-bg); }
+
+.person h3 { margin-top: 0; }
+.person .role { color: var(--nb-text-muted); }
+
+.advisory-list li { margin-bottom: 8px; }
+.advisory-list .affiliation { color: var(--nb-text-muted); }
+
+/* ---------- Breakpoints ---------- */
+
+@media (max-width: 1024px) {
+  .project-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 639.98px) {
+  h1, .h1, .title { font-size: 30px; }
+  h2, .h2 { font-size: 26px; }
+  h3, .h3 { font-size: 21px; }
+
+  .notebook { padding-top: 24px; }
+
+  /* One column: the prompt sits on its own line above the cell. */
+  .notebook-cell {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 8px 0 8px 12px;
+  }
+
+  .prose-cell > .cell-content,
+  .cell-prompt,
+  .output-prompt,
+  .cell-output {
+    grid-column: 1;
+  }
+
+  .cell-prompt {
+    align-items: center;
+    gap: 4px;
+    justify-content: flex-start;
+    padding: 0 0 4px;
+  }
+
+  .output-prompt {
+    padding: 8px 0 0;
+    text-align: left;
+  }
+
+  .cell-output { padding-inline: 0; }
+  .error-output { padding-inline: 12px; }
+
+  .prose-cell h1 { font-size: 36px; }
+  .lede { font-size: 18px; }
+
+  .project-links { grid-template-columns: minmax(0, 1fr); }
+  .person { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

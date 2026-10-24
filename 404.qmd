@@ -1,0 +1,29 @@
+---
+pagetitle: "Page not found · Productive Error"
+toc: false
+page-layout: full
+---
+
+:::: {.notebook}
+::: {.notebook-cell .code-cell}
+::: {.cell-prompt}
+<span class="prompt-label" aria-hidden="true"></span>
+:::
+
+::: {.code-input}
+<code><span class="code-function">open</span>(<span class="code-variable">page</span>)</code>
+:::
+
+::: {.cell-output .error-output}
+[NameError]{.error-name}: page[]{data-missing-path=""} is not defined
+
+The page you asked for doesn't exist, or it has moved.
+:::
+:::
+
+::: {.notebook-cell .prose-cell}
+::: {.cell-content}
+[Back to the homepage](index.qmd){.button .button-primary}
+:::
+:::
+::::
