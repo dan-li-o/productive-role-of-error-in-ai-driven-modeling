@@ -14,7 +14,7 @@ How this page works
   code-string, code-keyword, code-number, code-operator or code-comment.
 - The error cell uses `.error-output` and has no Out prompt.
 - Sources go in a `.cell-source` div at the end of an output.
-- The bar chart in cell 3 is drawn to scale: 10 days vs 365 days
+- The bar chart in cell 4 is drawn to scale: 10 days vs 365 days
   (.bar-before / .bar-after in notebook.scss).
 -->
 
@@ -43,17 +43,26 @@ science.]{.lede}
 
 ::: {.latest-note}
 **Latest:** [Call for extended abstracts and speakers, February 2027](workshop.qmd)
-· Scroll to run the notebook
 :::
 :::
 :::
 
-<!-- Cells 2–4: the FourCastNet → SFNO case, as told in O'Loughlin et al. 2025
+::: {.notebook-cell .prose-cell .bridge-cell tabindex="-1" data-cell="2"}
+::: {.cell-content}
+## What does a productive error look like?
+
+Here's a real one, from AI weather forecasting: how the model failed, what the
+failure revealed, and what science gained. Scroll, or press Run, to step
+through it.
+:::
+:::
+
+<!-- Cells 3–5: the FourCastNet → SFNO case, as told in O'Loughlin et al. 2025
 (Sect. 4.2), citing Pathak et al. 2022 and Bonev et al. 2023. -->
 
-::: {.notebook-cell .code-cell tabindex="0" data-cell="2" role="group" aria-label="Cell 2"}
+::: {.notebook-cell .code-cell tabindex="0" data-cell="3" role="group" aria-label="Cell 3"}
 ::: {.cell-prompt}
-<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 2"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 3"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
 :::
 
 ::: {.code-input}
@@ -69,9 +78,9 @@ forecasts shorter than ten days.
 :::
 :::
 
-::: {.notebook-cell .code-cell tabindex="0" data-cell="3" role="group" aria-label="Cell 3"}
+::: {.notebook-cell .code-cell tabindex="0" data-cell="4" role="group" aria-label="Cell 4"}
 ::: {.cell-prompt}
-<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 3"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 4"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
 :::
 
 ::: {.code-input}
@@ -112,9 +121,9 @@ Sources: [Pathak et al. 2022](https://arxiv.org/abs/2202.11214), FourCastNet;
 :::
 :::
 
-::: {.notebook-cell .code-cell tabindex="0" data-cell="4" role="group" aria-label="Cell 4"}
+::: {.notebook-cell .code-cell tabindex="0" data-cell="5" role="group" aria-label="Cell 5"}
 ::: {.cell-prompt}
-<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 4"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 5"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
 :::
 
 ::: {.code-input}
@@ -147,9 +156,9 @@ understanding; Taleb 2012, *Antifragile*, on antifragility;
 :::
 :::
 
-::: {.notebook-cell .code-cell tabindex="0" data-cell="5" role="group" aria-label="Cell 5"}
+::: {.notebook-cell .code-cell tabindex="0" data-cell="6" role="group" aria-label="Cell 6"}
 ::: {.cell-prompt}
-<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 5"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 6"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
 :::
 
 ::: {.code-input}
@@ -177,9 +186,9 @@ Source: [ECMWF 2025](https://www.ecmwf.int/en/about/media-centre/news/2025/ecmwf
 :::
 :::
 
-::: {.notebook-cell .code-cell tabindex="0" data-cell="6" role="group" aria-label="Cell 6"}
+::: {.notebook-cell .code-cell tabindex="0" data-cell="7" role="group" aria-label="Cell 7"}
 ::: {.cell-prompt}
-<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 6"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 7"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
 :::
 
 ::: {.code-input}
@@ -229,7 +238,7 @@ Easterbrook, Paul Edwards, Wendy Parker and Gavin Schmidt.
 :::
 :::
 
-::: {.notebook-cell .prose-cell .closing-cell tabindex="-1" data-cell="7"}
+::: {.notebook-cell .prose-cell .closing-cell tabindex="-1" data-cell="8"}
 ::: {.cell-content}
 ## Have an error story? We want to hear it.
 

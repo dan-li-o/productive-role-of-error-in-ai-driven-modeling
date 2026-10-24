@@ -339,6 +339,7 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
 
 .latest-note strong { color: var(--nb-text); font-weight: 500; }
 
+.bridge-cell,
 .closing-cell { margin-top: 32px; }
 
 /* Prompt column. Without JS a CSS counter numbers the cells (In [1]: ...);
