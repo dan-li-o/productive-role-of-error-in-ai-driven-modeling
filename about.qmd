@@ -11,12 +11,14 @@ physical laws, and crash in ways their developers didn't expect. The usual
 response is to remove the error as fast as possible.
 
 But when scientists take an error seriously, they often learn something they
-would not have learned otherwise. One AI weather model gave good short-range
-forecasts, then became unstable about ten days in. Researchers traced the
-failure to the model's assumption of a flat, repeating map instead of a round
-Earth. Rebuilt for a sphere, it ran stably for a full simulated year
-([Bonev et al. 2023](#references)). The error showed what the model needed to
-respect. By diagnosing it, the team also showed they understood a system
+would not have learned otherwise. One AI weather model, FourCastNet, made
+fast, skillful short-range forecasts, but a numerical instability kept it to
+forecasts shorter than ten days. Researchers traced the problem to one
+component: a Fourier transform that treats the globe as a flat sheet that wraps
+around at the edges. Rebuilt with spherical harmonics, the model stayed stable
+for a full simulated year ([Pathak et al. 2022; Bonev et al. 2023;
+O'Loughlin et al. 2025](#references)). The error showed what the model needed
+to respect. By diagnosing it, the team also showed they understood a system
 that is otherwise hard to see inside.
 
 Our question: **how can errors, and the ways scientists deal with them, make
@@ -115,5 +117,10 @@ This project is supported by the Alfred P. Sloan Foundation
   post hoc explainable artificial intelligence: A perspective paper on lessons
   learned from dynamical climate modeling. *Geoscientific Model Development*,
   18(3), 787–802. <https://doi.org/10.5194/gmd-18-787-2025>
+- Pathak, J., Subramanian, S., Harrington, P., Raja, S., Chattopadhyay, A.,
+  Mardani, M., Kurth, T., Hall, D., Li, Z., Azizzadenesheli, K., Hassanzadeh,
+  P., Kashinath, K., & Anandkumar, A. (2022). FourCastNet: A global data-driven
+  high-resolution weather model using adaptive Fourier neural operators.
+  arXiv:2202.11214. <https://arxiv.org/abs/2202.11214>
 - Taleb, N. N. (2012). *Antifragile: Things that gain from disorder*. Random
   House.

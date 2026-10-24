@@ -475,6 +475,41 @@ html.has-notebook-js .run-cell { display: inline-flex; }
   padding-left: 16px;
 }
 
+/* Homepage bar chart: forecast length before and after the fix, to scale
+   (10 of 365 days). Labels carry the values, so the bars are decorative. */
+.forecast-chart { margin: 24px 0 8px; max-width: 70ch; }
+
+.forecast-chart figcaption {
+  color: var(--nb-text-muted);
+  font-size: var(--nb-size-small);
+  margin-bottom: 12px;
+}
+
+.bar-row + .bar-row { margin-top: 12px; }
+
+.bar-label {
+  display: block;
+  font-size: var(--nb-size-small);
+  margin-bottom: 4px;
+}
+
+.bar-label strong { font-weight: 600; }
+
+.bar-track {
+  border-left: 1px solid var(--nb-text-muted);
+  display: block;
+  height: 16px;
+}
+
+.bar {
+  border-radius: 0 4px 4px 0;
+  display: block;
+  height: 100%;
+}
+
+.bar-before { background: var(--nb-error-text); min-width: 4px; width: calc(10 / 365 * 100%); }
+.bar-after { background: var(--nb-brand); width: 100%; }
+
 /* Short source line at the end of an output */
 .cell-output .cell-source {
   color: var(--nb-text-muted);

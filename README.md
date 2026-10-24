@@ -39,9 +39,9 @@ To preview locally (optional): install [Quarto](https://quarto.org) and run
       recruitment material
 - [ ] Short site name, domain and wordmark (the site currently uses
       "Productive Error")
-- [ ] Ryan checks the wording of the AI weather-model case in homepage cells
-      3–4 and on About (from the proposal: "unstable after about ten days")
-      and the pilot-interview remark in cell 5
+- [ ] Ryan checks the plain-language wording of the FourCastNet → SFNO case
+      (homepage cells 2–4 and About; "It assumed the Earth was flat" glosses
+      the "Euclidean geometry" point in O'Loughlin et al. 2025, Sect. 4.2)
 - [ ] Bios and photos for Ryan and Matthew; Matthew's public email
 - [ ] Confirm advisory board affiliations and links (`people.qmd`)
 - [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`

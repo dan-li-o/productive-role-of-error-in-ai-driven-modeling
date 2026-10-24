@@ -1,6 +1,6 @@
 ---
 pagetitle: "Productive Error · The Productive Role of Error in AI-Driven Modeling"
-description: "How errors in AI-driven scientific modeling can lead to new knowledge. A Sloan Foundation project focused on climate and Earth system science."
+description: "Sometimes the most useful thing an AI model does is fail. A Sloan Foundation project on how errors in AI-driven science lead to new knowledge, starting with climate and Earth system science."
 toc: false
 page-layout: full
 ---
@@ -11,10 +11,11 @@ How this page works
   `.code-input` and the text inside `.cell-output`; leave the prompt divs empty
   (notebook.scss and notebook.js fill in "In [ ]:" and "Out[n]:").
 - Code colors: wrap words in <span class="code-function">, code-variable,
-  code-string, code-keyword, code-number or code-comment. Use <br> for a
-  second code line.
+  code-string, code-keyword, code-number, code-operator or code-comment.
 - The error cell uses `.error-output` and has no Out prompt.
-- Sources go in a `.cell-source` paragraph at the end of an output.
+- Sources go in a `.cell-source` div at the end of an output.
+- The bar chart in cell 3 is drawn to scale: 10 days vs 365 days
+  (.bar-before / .bar-after in notebook.scss).
 -->
 
 ::: {.nb-toolbar role="toolbar" aria-label="Notebook"}
@@ -28,15 +29,16 @@ How this page works
 ::: {.cell-content}
 <p class="project-name">The Productive Role of Error in AI-Driven Modeling</p>
 
-# When AI gets science wrong, what can we learn?
+# Sometimes the most useful thing an AI model does is fail.
 
-[A Sloan Foundation project studying how errors in AI-driven scientific models
-can be productive: how failures lead to new understanding, stronger models and
-earned trust. We focus on climate and Earth system science.]{.lede}
+[We study how errors in AI-driven science lead to new knowledge: deeper
+understanding, stronger models and earned trust. A two-year project funded by
+the Alfred P. Sloan Foundation, starting with climate and Earth system
+science.]{.lede}
 
 ::: {.cell-actions}
-[Read the question](about.qmd){.button .button-primary}
-[Get involved](contact.qmd){.button .button-secondary}
+[About the project](about.qmd){.button .button-primary}
+[Share an error story](contact.qmd){.button .button-secondary}
 :::
 
 ::: {.latest-note}
@@ -46,53 +48,30 @@ earned trust. We focus on climate and Earth system science.]{.lede}
 :::
 :::
 
+<!-- Cells 2–4: the FourCastNet → SFNO case, as told in O'Loughlin et al. 2025
+(Sect. 4.2), citing Pathak et al. 2022 and Bonev et al. 2023. -->
+
 ::: {.notebook-cell .code-cell tabindex="0" data-cell="2" role="group" aria-label="Cell 2"}
 ::: {.cell-prompt}
 <span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 2"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
 :::
 
 ::: {.code-input}
-<code><span class="code-function">ask</span>(<span class="code-string">&quot;What happens when an AI model gets it wrong?&quot;</span>)</code>
+<code><span class="code-function">forecast</span>(<span class="code-variable">ai_weather_model</span>, <span class="code-variable">days</span><span class="code-operator">=</span><span class="code-number">365</span>)</code>
 :::
 
-::: {.output-prompt aria-hidden="true"}
-:::
+::: {.cell-output .error-output}
+[InstabilityError]{.error-name}: forecast unstable beyond 10 days
 
-::: {.cell-output}
-It happens all the time. AI models in science produce biased results, fail on
-data unlike what they were trained on, break known physical laws, and crash in
-ways their developers didn't expect.
-
-The usual response is to fix the error and move on. But when scientists dig
-into an error, they often learn something they couldn't have learned
-otherwise.
+FourCastNet, an AI weather model built on Fourier neural operators, made fast,
+skillful short-range forecasts. But a numerical instability kept it to
+forecasts shorter than ten days.
 :::
 :::
 
 ::: {.notebook-cell .code-cell tabindex="0" data-cell="3" role="group" aria-label="Cell 3"}
 ::: {.cell-prompt}
 <span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 3"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
-:::
-
-::: {.code-input}
-<code><span class="code-function">forecast</span>(<span class="code-variable">ai_weather_model</span>, <span class="code-variable">days</span><span class="code-operator">=</span><span class="code-number">14</span>)</code>
-:::
-
-<!-- Cells 3–4 follow the case in the proposal (Bonev et al. 2023;
-O'Loughlin et al. 2025). Ryan: confirm the wording before launch. -->
-
-::: {.cell-output .error-output}
-[InstabilityError]{.error-name}: forecast became unstable after about 10 days
-
-An AI model trained to emulate weather prediction, a Fourier neural operator,
-gave good short-range forecasts. Then, about ten days in, its forecasts broke
-down.
-:::
-:::
-
-::: {.notebook-cell .code-cell tabindex="0" data-cell="4" role="group" aria-label="Cell 4"}
-::: {.cell-prompt}
-<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 4"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
 :::
 
 ::: {.code-input}
@@ -103,18 +82,67 @@ down.
 :::
 
 ::: {.cell-output}
-Instead of abandoning the model, researchers traced the failure to one design
-choice. The model's math assumed a flat map that repeats at its edges, not a
-round Earth. Rebuilt with transforms made for a sphere (spherical harmonics),
-it ran stably for a full simulated year.
+**It assumed the Earth was flat.**
 
-> The error pointed to what the model was missing: the shape of the planet.
+Researchers traced the problem to one component, the Fourier transform. Its
+math describes a flat sheet that wraps around at the edges, and it handles the
+poles badly. Replacing it with spherical harmonics, the sphere's version of the
+same math, gave a model that stayed stable for a full year of simulated
+weather.
+
+<figure class="forecast-chart">
+<figcaption>How far ahead each model could forecast before becoming unstable (to scale)</figcaption>
+<div class="bar-row">
+<span class="bar-label"><strong>Under 10 days</strong> · FourCastNet, flat Fourier transforms</span>
+<span class="bar-track" aria-hidden="true"><span class="bar bar-before"></span></span>
+</div>
+<div class="bar-row">
+<span class="bar-label"><strong>1 year</strong> · rebuilt with spherical harmonics</span>
+<span class="bar-track" aria-hidden="true"><span class="bar bar-after"></span></span>
+</div>
+</figure>
 
 ::: {.cell-source}
-Sources: [Bonev et al. 2023](https://proceedings.mlr.press/v202/bonev23a.html),
+Sources: [Pathak et al. 2022](https://arxiv.org/abs/2202.11214), FourCastNet;
+[Bonev et al. 2023](https://proceedings.mlr.press/v202/bonev23a.html),
 *Spherical Fourier Neural Operators*, ICML;
 [O'Loughlin et al. 2025](https://doi.org/10.5194/gmd-18-787-2025),
-*Geoscientific Model Development*.
+*Geoscientific Model Development*, Sect. 4.2.
+:::
+:::
+:::
+
+::: {.notebook-cell .code-cell tabindex="0" data-cell="4" role="group" aria-label="Cell 4"}
+::: {.cell-prompt}
+<span class="prompt-label" aria-hidden="true"></span><button type="button" class="run-cell" aria-label="Run cell 4"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg></button>
+:::
+
+::: {.code-input}
+<code><span class="code-function">learn_from</span>(<span class="code-variable">error</span>)</code>
+:::
+
+::: {.output-prompt aria-hidden="true"}
+:::
+
+::: {.cell-output}
+The error didn't just get fixed. It left science better off:
+
+- **Understanding.** Tracing the failure to one component showed how the
+  model works, insight that explainability tools rarely provide.
+- **Antifragility.** The model came back stronger than before, stable for a
+  year instead of ten days. Some systems gain from failure instead of merely
+  surviving it.
+- **Credibility.** By diagnosing the failure in the open, researchers showed
+  they understood a system that is hard to see inside.
+
+**Most discussions of AI in science ask how to eliminate errors. We ask what
+errors teach.**
+
+::: {.cell-source}
+Sources: [O'Loughlin 2023](https://doi.org/10.1007/s13194-023-00522-z) and
+[O'Loughlin et al. 2025](https://doi.org/10.5194/gmd-18-787-2025) on
+understanding; Taleb 2012, *Antifragile*, on antifragility;
+[Mayernik 2021](https://doi.org/10.17351/ests2021.769) on credibility.
 :::
 :::
 :::
@@ -125,32 +153,26 @@ Sources: [Bonev et al. 2023](https://proceedings.mlr.press/v202/bonev23a.html),
 :::
 
 ::: {.code-input}
-<code><span class="code-comment"># Scientists often prefer &quot;bias&quot; or &quot;limitation&quot; to &quot;error&quot;</span><br><span class="code-function">learn_from</span>(<span class="code-variable">error</span>)</code>
+<code><span class="code-function">why_it_matters</span>()</code>
 :::
 
 ::: {.output-prompt aria-hidden="true"}
 :::
 
 ::: {.cell-output}
-Errors like this can give science three things:
+AI models are moving into everyday science. Since February 2025, the European
+Centre for Medium-Range Weather Forecasts has run an AI forecast model
+operationally, alongside its physics-based one.
 
-- **Understanding:** working out why a model failed can show which part of it
-  is responsible, a deeper kind of understanding than most explainability
-  tools give.
-- **Antifragility:** some systems gain from shocks rather than just surviving
-  them. Models and modeling teams can come out of a failure stronger, not just
-  repaired.
-- **Credibility:** how errors are recorded, shared and fixed shapes whether the
-  science can be trusted.
+Climate is harder still. The future climate lies outside any data a model was
+trained on, so it can't simply be checked against observations.
 
-**When do errors make AI-driven science better than immediate success would
-have?**
+**Knowing how these models fail, and what their failures reveal, is how
+scientists will know when to trust them.**
 
 ::: {.cell-source}
-Sources: [O'Loughlin 2023](https://doi.org/10.1007/s13194-023-00522-z) and
-[O'Loughlin et al. 2025](https://doi.org/10.5194/gmd-18-787-2025) on
-understanding; Taleb 2012, *Antifragile*, on antifragility;
-[Mayernik 2021](https://doi.org/10.17351/ests2021.769) on credibility.
+Source: [ECMWF 2025](https://www.ecmwf.int/en/about/media-centre/news/2025/ecmwfs-ai-forecasts-become-operational),
+"ECMWF's AI forecasts become operational".
 :::
 :::
 :::
@@ -168,10 +190,10 @@ understanding; Taleb 2012, *Antifragile*, on antifragility;
 :::
 
 ::: {.cell-output}
-We're asking the people who work through these errors: scientists, software
-engineers and data specialists at NSF NCAR, LEAP and NASA GISS. We're also
-reading the reports, code repositories and data records where errors get
-written down.
+We're talking with the people who build and use these models: scientists,
+software engineers and data specialists at NSF NCAR, NASA GISS and Columbia
+University's LEAP Center. We also read the reports, code and data records
+where errors get written down.
 
 ::: {.project-links}
 ::: {.project-card}
@@ -202,20 +224,20 @@ philosophers, STS scholars, scientists and the public.
 :::
 :::
 
-**The people:** [our team and advisory board](people.qmd)
+**The people:** [our team and advisory board](people.qmd), including Steve
+Easterbrook, Paul Edwards, Wendy Parker and Gavin Schmidt.
 :::
 :::
 
 ::: {.notebook-cell .prose-cell .closing-cell tabindex="-1" data-cell="7"}
 ::: {.cell-content}
-## Using AI in your science? We'd like to hear from you.
+## Have an error story? We want to hear it.
 
-We start with climate and Earth system science, but the same questions are
-arising in biology, astronomy and beyond. We welcome collaborators, and anyone
-with an error story to share.
+Using AI in climate science, or in any other field? Tell us about a time a
+model went wrong and what it taught you. We also welcome collaborators.
 
 ::: {.cell-actions}
-[Express interest](contact.qmd){.button .button-primary}
+[Share an error story](contact.qmd){.button .button-primary}
 [Workshop details](workshop.qmd){.button .button-secondary}
 [Latest news](news.qmd){.button .button-secondary}
 :::

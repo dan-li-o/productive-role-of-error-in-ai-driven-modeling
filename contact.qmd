@@ -17,6 +17,15 @@ involved:
 <!-- Switch to the project alias (contact@[domain]) once it exists, and to an
 embedded form if volume grows. -->
 
+## Share an error story
+
+Tell us about a time an AI-driven model went wrong: what happened, how it was
+found, and what it taught you. A few lines by email is plenty, and we'll
+follow up.
+
+<!-- Check with CUNY's IRB before using shared stories in research or on the
+site (see README). -->
+
 ## Workshop
 
 The call for extended abstracts and speakers goes out in February 2027. See the
