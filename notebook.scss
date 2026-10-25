@@ -618,8 +618,49 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .person h3 { margin-top: 0; }
 .person .role { color: var(--nb-text-muted); }
 
-.advisory-list li { margin-bottom: 16px; max-width: 70ch; }
-.advisory-list .affiliation { color: var(--nb-text-muted); }
+/* Institution logos sit on white tiles so every mark reads the same way. */
+.logo {
+  background: #FFFFFF;
+  border: 1px solid var(--nb-border);
+  border-radius: var(--nb-radius);
+  box-sizing: border-box;
+  flex: none;
+  height: 40px;
+  object-fit: contain;
+  padding: 3px;
+  width: 40px;
+}
+
+/* NASA's insignia needs NASA's approval, so GISS gets a text tile. */
+.logo-text {
+  align-items: center;
+  color: var(--nb-text-muted);
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: 0.02em;
+}
+
+.org { align-items: center; display: flex; gap: 8px; margin: 8px 0 12px; }
+.org .logo { height: 32px; padding: 3px; width: 32px; }
+
+.advisor-grid,
+.partner-list {
+  display: grid;
+  gap: 20px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  list-style: none;
+  margin: 16px 0 32px;
+  padding: 0;
+}
+
+.advisor { align-items: flex-start; display: flex; gap: 12px; line-height: 1.4; }
+.advisor .affiliation,
+.advisor .topic { display: block; font-size: var(--nb-size-small); }
+.advisor .affiliation { color: var(--nb-text-muted); }
+
+.partner-list li { align-items: center; display: flex; gap: 12px; }
 
 /* ---------- Breakpoints ---------- */
 
@@ -666,7 +707,14 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   .lede { font-size: 18px; }
 
   .project-links { grid-template-columns: minmax(0, 1fr); }
-  .person { grid-template-columns: minmax(0, 1fr); }
+  /* Photo beside the name, role and institution; bio and email full width. */
+  .person { gap: 0 16px; grid-template-columns: 80px minmax(0, 1fr); }
+  .person > p:first-child { grid-row: 1 / span 3; }
+  .person > p img { height: 80px; width: 80px; }
+  .person-text { display: contents; }
+  .person-text > * { grid-column: 2; }
+  .person-text > :nth-child(n + 4) { grid-column: 1 / -1; }
+  .org { margin-bottom: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

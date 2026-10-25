@@ -49,6 +49,10 @@ To preview locally (optional): install [Quarto](https://quarto.org) and run
       NCAR Library directory) and Matthew's listed email (mayernik [at] ucar.edu)
 - [ ] Each advisor confirms their one-line description and affiliation
       (`people.qmd`; Paul Edwards retired from Stanford in January 2026)
+- [ ] Institution logos on People (`logos/`): check each institution's logo
+      guidelines, or ask, before launch. Marks came from each institution's
+      website or Wikimedia Commons; the NASA insignia is left out (it needs
+      NASA's approval), so GISS has a text tile
 - [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`
 - [ ] Analytics (cookie-free: GoatCounter or Plausible)
 - [ ] Mailing list (e.g. Buttondown), with sign-up on the homepage and Get

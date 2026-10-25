@@ -3,11 +3,13 @@ title: "People"
 description: "The project team, advisory board and partner institutions."
 ---
 
-## Project team
+<!-- Photos: square, 384×384px, in people/. Ryan's is his press headshot
+(ryanoloughlin.org/media.html); Matthew's is his NCAR Library staff photo.
+Logos: 80×80px marks in logos/, from each institution's website or Wikimedia
+Commons. The NASA insignia needs NASA's approval (14 CFR 1221), so GISS gets
+a text tile. Logos are decorative (alt=""); the name sits beside each one. -->
 
-<!-- Photos: square, 384×384px, compressed, in people/. Ryan's is his press
-headshot (ryanoloughlin.org/media.html); Matthew's is his NCAR Library staff
-photo. Both should confirm they're happy with them. -->
+## Project team
 
 ::: {.person}
 ![](people/ryan.jpg){fig-alt="Portrait of Ryan O'Loughlin" width="128" height="128"}
@@ -15,17 +17,13 @@ photo. Both should confirm they're happy with them. -->
 ::: {.person-text}
 ### [Ryan O'Loughlin](https://ryanoloughlin.org/)
 
-[Principal investigator · Assistant Professor of Philosophy, Queens College,
-City University of New York]{.role}
+[Principal investigator · Assistant Professor of Philosophy]{.role}
 
-Ryan is a philosopher of science who studies scientific modeling, especially
-how climate scientists gain trustworthy knowledge from imperfect models. He has
-published on the philosophy of climate modeling and co-authored a perspective
-paper on AI and climate science in *Geoscientific Model Development*
-([O'Loughlin et al. 2025](https://doi.org/10.5194/gmd-18-787-2025)). Since 2019
-he has interviewed scientists and made site visits at NSF NCAR and NASA GISS.
-On this project he leads the philosophical analysis, co-conducts interviews,
-and leads the publications on error, understanding and antifragility.
+<p class="org"><img src="logos/qc.png" alt="" class="logo" width="32" height="32"> Queens College, City University of New York</p>
+
+A philosopher of science who studies how climate scientists gain trustworthy
+knowledge from imperfect models. He has worked with scientists at NSF NCAR and
+NASA GISS since 2019, and leads the project's philosophical analysis.
 
 <span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
 :::
@@ -38,17 +36,13 @@ and leads the publications on error, understanding and antifragility.
 ### [Matthew Mayernik](https://library.ucar.edu/directory/matt-mayernik)
 
 [Co-principal investigator · Project Scientist and Research Data Services
-Specialist, NCAR Library, NSF National Center for Atmospheric
-Research]{.role}
+Specialist]{.role}
 
-Matthew studies how scientists create, describe and share data, with work
-published in *Social Studies of Science*, information science journals and
-Earth science venues. His study of how climate model intercomparison projects
-earn credibility ([Mayernik 2021](https://doi.org/10.17351/ests2021.769)) is a
-key starting point for this project. He has long experience with research
-interviews and workshop organizing. On this project he co-leads the interviews
-and document analysis, leads the workshop, and leads the publications on data
-practices, documentation and institutional credibility.
+<p class="org"><img src="logos/ncar.png" alt="" class="logo" width="32" height="32"> NSF National Center for Atmospheric Research</p>
+
+Studies how scientists create, describe and share data, including how climate
+model intercomparisons earn credibility. He co-leads the interviews and
+document analysis, and leads the workshop.
 
 <span class="email-obfuscate" data-user="mayernik" data-domain="ucar.edu">mayernik [at] ucar.edu</span>
 :::
@@ -60,40 +54,19 @@ practices, documentation and institutional credibility.
 retired from Stanford in January 2026; his profile lists him as emeritus at
 the University of Michigan. Ask each member to confirm their line. -->
 
-::: {.advisory-list}
-- [Steve Easterbrook](https://www.environment.utoronto.ca/people/directories/all-faculty/steve-easterbrook)
-  · [University of Toronto]{.affiliation}\
-  Computer scientist and Director of the School of the Environment, who
-  studies how climate models are built and tested as software; author of
-  *Computing the Climate*.
-- [Paul Edwards](https://profiles.stanford.edu/paul-edwards)
-  · [University of Michigan (emeritus)]{.affiliation}\
-  Historian of climate science and information infrastructure; author of
-  *A Vast Machine: Computer Models, Climate Data, and the Politics of Global
-  Warming*.
-- [Travis O'Brien](https://earth.indiana.edu/directory/faculty/obrien-travis.html)
-  · [Indiana University]{.affiliation}\
-  Climate scientist working on extreme weather, climate modeling and machine
-  learning; co-author of the project's background paper on AI and climate
-  modeling.
-- [Wendy Parker](https://sites.google.com/site/wendyparkerphilosophy/)
-  · [Virginia Tech]{.affiliation}\
-  Philosopher of science known for the "adequacy-for-purpose" view of how
-  climate and weather models should be evaluated.
-- [David Ribes](https://www.hcde.washington.edu/ribes)
-  · [University of Washington]{.affiliation}\
-  Sociologist of science and technology who studies research infrastructures
-  and data, and directs the Data Ecologies Lab.
-- [Gavin Schmidt](https://www.giss.nasa.gov/staff/gschmidt/)
-  · [NASA Goddard Institute for Space Studies]{.affiliation}\
-  Climate modeler and director of NASA's Goddard Institute for Space Studies.
-- [Daniele Visioni](https://cals.cornell.edu/people/daniele-visioni)
-  · [Cornell University]{.affiliation}\
-  Climate scientist who models stratospheric aerosols and solar geoengineering,
-  and co-chairs the Geoengineering Model Intercomparison Project (GeoMIP).
-:::
+<ul class="advisor-grid">
+<li class="advisor"><img src="logos/uoft.png" alt="" class="logo" width="40" height="40"><span><a href="https://www.environment.utoronto.ca/people/directories/all-faculty/steve-easterbrook">Steve Easterbrook</a><span class="affiliation">University of Toronto</span><span class="topic">Climate models as software</span></span></li>
+<li class="advisor"><img src="logos/umich.png" alt="" class="logo" width="40" height="40"><span><a href="https://profiles.stanford.edu/paul-edwards">Paul Edwards</a><span class="affiliation">University of Michigan (emeritus)</span><span class="topic">History of climate data and models</span></span></li>
+<li class="advisor"><img src="logos/iu.png" alt="" class="logo" width="40" height="40"><span><a href="https://earth.indiana.edu/directory/faculty/obrien-travis.html">Travis O'Brien</a><span class="affiliation">Indiana University</span><span class="topic">Climate extremes and machine learning</span></span></li>
+<li class="advisor"><img src="logos/vt.png" alt="" class="logo" width="40" height="40"><span><a href="https://sites.google.com/site/wendyparkerphilosophy/">Wendy Parker</a><span class="affiliation">Virginia Tech</span><span class="topic">Philosophy of climate model evaluation</span></span></li>
+<li class="advisor"><img src="logos/uw.png" alt="" class="logo" width="40" height="40"><span><a href="https://www.hcde.washington.edu/ribes">David Ribes</a><span class="affiliation">University of Washington</span><span class="topic">Research infrastructure and data</span></span></li>
+<li class="advisor"><span class="logo logo-text" aria-hidden="true">GISS</span><span><a href="https://www.giss.nasa.gov/staff/gschmidt/">Gavin Schmidt</a><span class="affiliation">NASA Goddard Institute for Space Studies</span><span class="topic">Climate modeling; directs NASA GISS</span></span></li>
+<li class="advisor"><img src="logos/cornell.png" alt="" class="logo" width="40" height="40"><span><a href="https://cals.cornell.edu/people/daniele-visioni">Daniele Visioni</a><span class="affiliation">Cornell University</span><span class="topic">Modeling solar geoengineering</span></span></li>
+</ul>
 
 ## Partner institutions
 
-- Queens College, City University of New York
-- NSF National Center for Atmospheric Research
+<ul class="partner-list">
+<li><img src="logos/qc.png" alt="" class="logo" width="40" height="40"> Queens College, City University of New York</li>
+<li><img src="logos/ncar.png" alt="" class="logo" width="40" height="40"> NSF National Center for Atmospheric Research</li>
+</ul>
