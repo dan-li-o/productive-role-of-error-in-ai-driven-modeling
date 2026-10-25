@@ -117,26 +117,32 @@
     const showWord = (text) => {
       wordTyped.textContent = text;
     };
+    // Like an editor's cursor: solid while keys are typed, blinking in pauses.
+    const idle = async (ms) => {
+      cursor.classList.add("is-idle");
+      await wait(ms);
+      cursor.classList.remove("is-idle");
+    };
 
     (async () => {
-      await wait(START);
+      await idle(START);
       await typeOut(lead, LEAD_KEY, (text) => {
         leadTyped.textContent = text;
         leadRest.textContent = lead.slice(text.length);
       });
       overlay.append(cursor);
       await typeOut(wrong, WRONG_KEY, showWord);
-      await wait(PAUSE);
+      await idle(PAUSE);
       for (let i = wrong.length - 1; i >= 0; i -= 1) {
         await wait(BACKSPACE);
         showWord(wrong.slice(0, i));
       }
-      await wait(BEFORE_FIX);
+      await idle(BEFORE_FIX);
       await typeOut(fix, FIX_KEY, showWord);
       try {
         sessionStorage.setItem("heroTyped", "1");
       } catch {}
-      await wait(CURSOR_HOLD);
+      await idle(CURSOR_HOLD);
       cursor.classList.add("is-done");
       await wait(CURSOR_FADE);
       heroType.classList.remove("is-typing");

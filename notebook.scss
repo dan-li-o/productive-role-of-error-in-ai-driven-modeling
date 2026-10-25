@@ -334,27 +334,39 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
 
 .hero-type-live { inset: 0; pointer-events: none; position: absolute; }
 .hero-type-ghost { visibility: hidden; }
-.hero-type-word { position: relative; }
-.hero-type-overlay { left: 0; position: absolute; top: 0; white-space: nowrap; }
 
-/* An empty inline, so it never changes where lines break. The bar stands on
-   the baseline (the font's descent, about 0.24em, above the inline's bottom)
-   and is as tall as a capital letter. */
-.hero-type-cursor {
-  animation: hero-type-blink 1s steps(1) infinite;
-  position: relative;
+/* The last word's slot: an invisible "fail." sets its width, and the typed
+   word shares its grid cell without adding width. As an inline grid it sits
+   on the line's baseline in any font. */
+.hero-type-word { display: inline-grid; }
+.hero-type-word > * { grid-area: 1 / 1; }
+.hero-type-overlay { white-space: nowrap; width: 0; }
+
+/* The headline's em, carried into the cursor below as a fixed length. */
+@property --hero-type-em {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
 }
+
+.hero-type { --hero-type-em: 1em; }
+
+/* An empty inline, so it never changes where lines break. At font size 0 its
+   box shrinks to the baseline, so the bar stands on the baseline in any font;
+   it is as tall as a capital letter. Solid while typing, blinking when idle. */
+.hero-type-cursor { font-size: 0; position: relative; }
 
 .hero-type-cursor::before {
   background: var(--nb-brand);
-  bottom: 0.24em;
+  bottom: 0;
   content: "";
-  height: 0.72em;
+  height: calc(0.72 * var(--hero-type-em));
   left: 2px;
   position: absolute;
   width: 3px;
 }
 
+.hero-type-cursor.is-idle { animation: hero-type-blink 1s steps(1) infinite; }
 .hero-type-cursor.is-done { animation: none; opacity: 0; transition: opacity 0.4s; }
 
 @keyframes hero-type-blink {
