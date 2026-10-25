@@ -4,8 +4,10 @@
   (() => {
     const nav = document.querySelector('script[src$="site_libs/quarto-nav/quarto-nav.js"]');
     const root = nav ? nav.getAttribute("src").replace("site_libs/quarto-nav/quarto-nav.js", "") : "";
+    // The page's deploy date versions the script, so a browser never pairs a new
+    // page with an older cached notebook.js (GitHub Pages caches files for 10 minutes).
     const script = document.createElement("script");
-    script.src = `${root}notebook.js`;
+    script.src = `${root}notebook.js?v=${Date.parse(document.lastModified)}`;
     document.body.append(script);
   })();
 </script>
