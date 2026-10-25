@@ -3,6 +3,18 @@ pagetitle: "Productive Error · The Productive Role of Error in AI-Driven Modeli
 description: "Sometimes the most useful thing an AI model does is fail. A Sloan Foundation project on how errors in AI-driven science lead to new knowledge, starting with climate and Earth system science."
 toc: false
 page-layout: full
+include-in-header:
+  text: |
+    <script>
+      // Homepage headline: decide before the first paint whether it types itself
+      // out (once per visit, never with reduced motion), so the finished sentence
+      // never flashes first. notebook.js does the typing.
+      try {
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches && sessionStorage.getItem("heroTyped") !== "1") {
+          document.documentElement.classList.add("hero-type-pending");
+        }
+      } catch (error) {}
+    </script>
 ---
 
 <!--
@@ -16,6 +28,9 @@ How this page works
 - Sources go in a `.cell-source` div at the end of an output.
 - The globes in cell 3 are an illustration drawn by notebook.js (made-up
   weather, not model output); its caption says so.
+- The headline types "work", backspaces it and types "fail." (notebook.js).
+  Edit the sentence inside .hero-type-final; data-type-wrong is the word
+  typed first.
 - The bar chart in cell 4 is drawn to scale: 10 days vs 365 days
   (.bar-before / .bar-after in notebook.scss).
 -->
@@ -31,7 +46,9 @@ How this page works
 ::: {.cell-content}
 <p class="project-name">The Productive Role of Error in AI-Driven Modeling</p>
 
-# Sometimes the most useful thing an AI model does is fail.
+```{=html}
+<h1 class="hero-type" data-type-wrong="work"><span class="hero-type-final">Sometimes the most useful thing an AI model does is fail.</span><span class="hero-type-live" aria-hidden="true"></span></h1>
+```
 
 [We study how errors in AI-driven science lead to new knowledge: deeper
 understanding, stronger models and earned trust. A two-year project funded by

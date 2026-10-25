@@ -67,6 +67,84 @@
     brand.append(checkpoint);
   }
 
+  // Homepage headline: types "…does is work", backspaces "work" and types
+  // "fail.". index.qmd's header script sets .hero-type-pending when it should
+  // play. The real sentence stays in the h1 for screen readers, search and link
+  // previews; the typed copy is aria-hidden and holds the same characters, the
+  // untyped ones invisible, so it wraps exactly like the real headline.
+  const heroType = document.querySelector(".hero-type");
+  const pageRoot = document.documentElement;
+  // Past 2.5s the CSS fallback is about to show the headline, so don't retype it;
+  // nor in a background tab, where timers slow to one tick a second.
+  if (heroType && pageRoot.classList.contains("hero-type-pending") && performance.now() < 2500 && !document.hidden) {
+    // Timings in ms. Each keystroke adds up to JITTER at random, so it feels typed.
+    const START = 200;
+    const LEAD_KEY = 32;
+    const WRONG_KEY = 70;
+    const PAUSE = 650;
+    const BACKSPACE = 70;
+    const BEFORE_FIX = 220;
+    const FIX_KEY = 95;
+    const JITTER = 20;
+    const CURSOR_HOLD = 3000;
+    const CURSOR_FADE = 400;
+
+    const finalText = heroType.querySelector(".hero-type-final").textContent.trim();
+    const fix = finalText.slice(finalText.lastIndexOf(" ") + 1); // "fail."
+    const lead = finalText.slice(0, -fix.length); // "Sometimes … does is "
+    const wrong = heroType.dataset.typeWrong;
+
+    const span = (className = "", text = "") => Object.assign(document.createElement("span"), { className, textContent: text });
+    const leadTyped = span();
+    const leadRest = span("hero-type-ghost", lead);
+    const wordTyped = span();
+    const overlay = span("hero-type-overlay");
+    const word = span("hero-type-word");
+    const cursor = span("hero-type-cursor");
+    overlay.append(wordTyped);
+    word.append(span("hero-type-ghost", fix), overlay);
+    const live = heroType.querySelector(".hero-type-live");
+    live.replaceChildren(leadTyped, cursor, leadRest, word);
+    heroType.classList.add("is-typing");
+
+    const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+    const typeOut = async (text, keyMs, show) => {
+      for (let i = 1; i <= text.length; i += 1) {
+        await wait(keyMs + Math.random() * JITTER);
+        show(text.slice(0, i));
+      }
+    };
+    const showWord = (text) => {
+      wordTyped.textContent = text;
+    };
+
+    (async () => {
+      await wait(START);
+      await typeOut(lead, LEAD_KEY, (text) => {
+        leadTyped.textContent = text;
+        leadRest.textContent = lead.slice(text.length);
+      });
+      overlay.append(cursor);
+      await typeOut(wrong, WRONG_KEY, showWord);
+      await wait(PAUSE);
+      for (let i = wrong.length - 1; i >= 0; i -= 1) {
+        await wait(BACKSPACE);
+        showWord(wrong.slice(0, i));
+      }
+      await wait(BEFORE_FIX);
+      await typeOut(fix, FIX_KEY, showWord);
+      try {
+        sessionStorage.setItem("heroTyped", "1");
+      } catch {}
+      await wait(CURSOR_HOLD);
+      cursor.classList.add("is-done");
+      await wait(CURSOR_FADE);
+      heroType.classList.remove("is-typing");
+      live.replaceChildren();
+    })();
+  }
+  pageRoot.classList.remove("hero-type-pending");
+
   // About page: the branch-and-merge timeline. The list works on its own as a
   // rail; this folds the literature branches, draws the branch lanes on wide
   // screens, and draws them downward as the visitor scrolls.

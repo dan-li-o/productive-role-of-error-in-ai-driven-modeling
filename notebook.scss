@@ -316,6 +316,51 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
 
 .prose-cell h2 { margin: 0 0 12px; }
 
+/* Homepage headline: notebook.js types "work", backspaces it and types "fail.".
+   The real sentence stays in the h1, transparent while the typed copy (hidden
+   from screen readers) sits on top. The copy holds the same characters, the
+   untyped ones invisible, so its lines break exactly like the real headline. */
+.hero-type { position: relative; }
+
+.hero-type.is-typing .hero-type-final { color: transparent; }
+
+/* Set by index.qmd's header script before the first paint. notebook.js takes
+   over within a moment; if it never does, the animation ends and the headline shows. */
+.hero-type-pending .hero-type-final { animation: hero-type-wait 3s; }
+
+@keyframes hero-type-wait {
+  from, to { color: transparent; }
+}
+
+.hero-type-live { inset: 0; pointer-events: none; position: absolute; }
+.hero-type-ghost { visibility: hidden; }
+.hero-type-word { position: relative; }
+.hero-type-overlay { left: 0; position: absolute; top: 0; white-space: nowrap; }
+
+/* An empty inline, so it never changes where lines break. The bar stands on
+   the baseline (the font's descent, about 0.24em, above the inline's bottom)
+   and is as tall as a capital letter. */
+.hero-type-cursor {
+  animation: hero-type-blink 1s steps(1) infinite;
+  position: relative;
+}
+
+.hero-type-cursor::before {
+  background: var(--nb-brand);
+  bottom: 0.24em;
+  content: "";
+  height: 0.72em;
+  left: 2px;
+  position: absolute;
+  width: 3px;
+}
+
+.hero-type-cursor.is-done { animation: none; opacity: 0; transition: opacity 0.4s; }
+
+@keyframes hero-type-blink {
+  50% { opacity: 0; }
+}
+
 .project-name {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
