@@ -100,55 +100,114 @@
     return { kx: k * r * Math.cos(angle), ky: k * r * Math.sin(angle), kz: k * z, phase: random() * 2 * Math.PI, speed: (random() - 0.5) * 1.2 };
   });
 
-  // Diverging colors like the paper's: dark violet, blue, near white, red, dark
-  // red. Entries 256-511 are the same colors darkened, for the grid lines. Each
-  // entry is one whole RGBA pixel, so painting is a single write.
-  const stops = [[29, 17, 69], [51, 102, 176], [242, 239, 233], [208, 96, 63], [103, 0, 13]];
-  const paletteBytes = new Uint8ClampedArray(512 * 4);
-  for (let i = 0; i < 256; i++) {
-    const x = (i / 255) * 4;
-    const j = Math.min(3, Math.floor(x));
-    for (let c = 0; c < 3; c++) {
-      const value = stops[j][c] + (stops[j + 1][c] - stops[j][c]) * (x - j);
-      paletteBytes[i * 4 + c] = value;
-      paletteBytes[(i + 256) * 4 + c] = value * 0.85;
-    }
-    paletteBytes[i * 4 + 3] = paletteBytes[(i + 256) * 4 + 3] = 255;
-  }
-  const palette = new Uint32Array(paletteBytes.buffer);
-
-  // The weather lives on a latitude/longitude grid fixed to the Earth. Each wave
-  // is split into sine and cosine parts once, so a frame only re-weights them
-  // as the weather drifts, with no trigonometry per frame.
   const TAU = 2 * Math.PI;
-  const COLS = 128;
+  const COLS = 128; // a power of two, so longitude wraps with a bit mask
   const ROWS = 64;
   const CELLS = COLS * ROWS;
-  const waveSin = new Float32Array(waves.length * CELLS);
-  const waveCos = new Float32Array(waves.length * CELLS);
-  const starPattern = new Float32Array(CELLS); // flat-math errors around the south pole
-  const gridPattern = new Float32Array(CELLS); // and, near the end, everywhere
-  for (let row = 0; row < ROWS; row++) {
-    const lat = -Math.PI / 2 + ((row + 0.5) / ROWS) * Math.PI;
-    for (let col = 0; col < COLS; col++) {
-      const lon = (col / COLS) * TAU;
-      const x = Math.cos(lat) * Math.cos(lon);
-      const y = Math.cos(lat) * Math.sin(lon);
-      const z = Math.sin(lat);
-      const cell = row * COLS + col;
-      waves.forEach((wave, j) => {
-        const d = wave.kx * x + wave.ky * y + wave.kz * z;
-        waveSin[j * CELLS + cell] = Math.sin(d);
-        waveCos[j * CELLS + cell] = Math.cos(d);
-      });
-      starPattern[cell] = Math.exp(-(1 + z) / 0.25) * (Math.cos(8 * lon) + 0.6 * Math.cos(24 * (lat + Math.PI / 2)));
-      gridPattern[cell] = 0.9 * Math.cos(16 * lon) * Math.cos(18 * lat);
-    }
-  }
+  const GRID_STEP = 12; // grid lines every 30° of longitude...
+  const LINE = 0.008; // ...and latitude, this wide (radians)
   const truthField = new Float32Array(CELLS);
   const flatField = new Float32Array(CELLS);
+  let shared = null;
+
+  // Built on first use, not at page load, since cell 3 starts off screen.
+  const prepareGlobes = () => {
+    // Diverging colors like the paper's: dark violet, blue, near white, red,
+    // dark red. Entries 256-511 are the same colors darkened, for the grid
+    // lines. Each entry is one whole RGBA pixel, so painting is a single write.
+    const stops = [[29, 17, 69], [51, 102, 176], [242, 239, 233], [208, 96, 63], [103, 0, 13]];
+    const paletteBytes = new Uint8ClampedArray(512 * 4);
+    for (let i = 0; i < 256; i++) {
+      const x = (i / 255) * 4;
+      const j = Math.min(3, Math.floor(x));
+      for (let c = 0; c < 3; c++) {
+        const value = stops[j][c] + (stops[j + 1][c] - stops[j][c]) * (x - j);
+        paletteBytes[i * 4 + c] = value;
+        paletteBytes[(i + 256) * 4 + c] = value * 0.85;
+      }
+      paletteBytes[i * 4 + 3] = paletteBytes[(i + 256) * 4 + 3] = 255;
+    }
+
+    // The weather lives on a latitude/longitude grid fixed to the Earth. Each
+    // wave is split into sine and cosine parts once, so a frame only re-weights
+    // them as the weather drifts, with no trigonometry per frame.
+    const waveSin = new Float32Array(waves.length * CELLS);
+    const waveCos = new Float32Array(waves.length * CELLS);
+    const starPattern = new Float32Array(CELLS); // flat-math errors around the south pole
+    const gridPattern = new Float32Array(CELLS); // and, near the end, everywhere
+    for (let row = 0; row < ROWS; row++) {
+      const lat = -Math.PI / 2 + ((row + 0.5) / ROWS) * Math.PI;
+      for (let col = 0; col < COLS; col++) {
+        const lon = (col / COLS) * TAU;
+        const x = Math.cos(lat) * Math.cos(lon);
+        const y = Math.cos(lat) * Math.sin(lon);
+        const z = Math.sin(lat);
+        const cell = row * COLS + col;
+        for (let j = 0; j < waves.length; j++) {
+          const d = waves[j].kx * x + waves[j].ky * y + waves[j].kz * z;
+          waveSin[j * CELLS + cell] = Math.sin(d);
+          waveCos[j * CELLS + cell] = Math.cos(d);
+        }
+        starPattern[cell] = Math.exp(-(1 + z) / 0.25) * (Math.cos(8 * lon) + 0.6 * Math.cos(24 * (lat + Math.PI / 2)));
+        gridPattern[cell] = 0.9 * Math.cos(16 * lon) * Math.cos(18 * lat);
+      }
+    }
+
+    // Each canvas pixel's place on the globe (orthographic view from 60°S,
+    // north up), as a position in the grid. Spinning only shifts the column, so
+    // the row and its blend weight are fixed. Edge shading is a CSS overlay.
+    const tilt = -Math.PI / 3;
+    const latStep = Math.PI / 6;
+    const max = GLOBE_SIZE * GLOBE_SIZE;
+    const index = new Int32Array(max);
+    const col = new Float32Array(max);
+    const row0 = new Int32Array(max);
+    const row1 = new Int32Array(max);
+    const rowWeight = new Float32Array(max);
+    const lonLine = new Float32Array(max);
+    const latLine = new Int32Array(max);
+    let count = 0;
+    for (let y = 0; y < GLOBE_SIZE; y++) {
+      for (let x = 0; x < GLOBE_SIZE; x++) {
+        const u = ((x + 0.5) / GLOBE_SIZE) * 2 - 1;
+        const v = 1 - ((y + 0.5) / GLOBE_SIZE) * 2;
+        const r2 = u * u + v * v;
+        if (r2 > 1) continue;
+        const w = Math.sqrt(1 - r2);
+        const lat = Math.asin(v * Math.cos(tilt) + w * Math.sin(tilt));
+        const lon = Math.atan2(u, -v * Math.sin(tilt) + w * Math.cos(tilt));
+        const row = Math.min(ROWS - 1, Math.max(0, ((lat + Math.PI / 2) / Math.PI) * ROWS - 0.5));
+        const r0 = Math.floor(row);
+        index[count] = y * GLOBE_SIZE + x;
+        col[count] = ((lon / TAU) * COLS + COLS) % COLS;
+        row0[count] = r0 * COLS;
+        row1[count] = Math.min(ROWS - 1, r0 + 1) * COLS;
+        rowWeight[count] = row - r0;
+        // Longitude lines stop short of the poles, where they would bunch up.
+        lonLine[count] = Math.abs(lat) < 1.4 ? ((TAU / GRID_STEP) * Math.cos(lat)) / LINE : 0;
+        latLine[count] = Math.abs(lat / latStep - Math.round(lat / latStep)) * latStep < LINE ? 256 : 0;
+        count++;
+      }
+    }
+    return {
+      palette: new Uint32Array(paletteBytes.buffer),
+      waveSin,
+      waveCos,
+      starPattern,
+      gridPattern,
+      count,
+      index,
+      col,
+      row0,
+      row1,
+      rowWeight,
+      lonLine,
+      latLine,
+    };
+  };
 
   const computeFields = (day) => {
+    const { waveSin, waveCos, starPattern, gridPattern } = shared;
     const progress = day / DAYS;
     const star = 1.8 * progress ** 3; // grows around the south pole
     const grid = Math.max(0, (progress - 0.8) / 0.2) ** 2; // then spreads everywhere
@@ -167,58 +226,46 @@
     }
   };
 
-  // Each canvas pixel's place on the globe (orthographic view from 60°S, north
-  // up). Spinning only shifts longitude, so latitude is fixed. Edge shading is
-  // a CSS overlay.
-  const tilt = -Math.PI / 3;
-  const step = Math.PI / 6; // grid lines every 30°
-  const line = 0.008;
-  const disc = { index: [], row: [], lon: [], cosLat: [], onLat: [] };
-  for (let y = 0; y < GLOBE_SIZE; y++) {
-    for (let x = 0; x < GLOBE_SIZE; x++) {
-      const u = ((x + 0.5) / GLOBE_SIZE) * 2 - 1;
-      const v = 1 - ((y + 0.5) / GLOBE_SIZE) * 2;
-      const r2 = u * u + v * v;
-      if (r2 > 1) continue;
-      const w = Math.sqrt(1 - r2);
-      const lat = Math.asin(v * Math.cos(tilt) + w * Math.sin(tilt));
-      const onLat = Math.abs(lat / step - Math.round(lat / step)) * step < line;
-      disc.index.push(y * GLOBE_SIZE + x);
-      disc.row.push(Math.min(ROWS - 1, Math.max(0, ((lat + Math.PI / 2) / Math.PI) * ROWS - 0.5)));
-      disc.lon.push(Math.atan2(u, -v * Math.sin(tilt) + w * Math.cos(tilt)));
-      disc.cosLat.push(Math.abs(lat) < 1.4 ? Math.cos(lat) : 0); // no longitude lines near the poles
-      disc.onLat.push(onLat ? 256 : 0);
-    }
-  }
+  const colorOf = (f, line) => shared.palette[(f >= 1 ? 255 : f <= -1 ? 0 : (f * 127.5 + 128) | 0) + line];
 
-  const paintGlobe = (pixels, field, spin) => {
-    for (let i = 0; i < disc.index.length; i++) {
-      const lon = (((disc.lon[i] + spin) % TAU) + TAU) % TAU;
-      // Bilinear lookup in the grid
-      const fx = (lon / TAU) * COLS;
-      const c0 = Math.floor(fx) % COLS;
-      const c1 = (c0 + 1) % COLS;
-      const tx = fx - Math.floor(fx);
-      const r0 = Math.floor(disc.row[i]);
-      const r1 = Math.min(ROWS - 1, r0 + 1);
-      const ty = disc.row[i] - r0;
-      const top = field[r0 * COLS + c0] * (1 - tx) + field[r0 * COLS + c1] * tx;
-      const bottom = field[r1 * COLS + c0] * (1 - tx) + field[r1 * COLS + c1] * tx;
-      const f = top * (1 - ty) + bottom * ty;
-
-      const level = Math.round(((Math.max(-1, Math.min(1, f)) + 1) / 2) * 255);
-      const onLon = disc.cosLat[i] && Math.abs(lon / step - Math.round(lon / step)) * step * disc.cosLat[i] < line;
-      pixels[disc.index[i]] = palette[level + (onLon ? 256 : disc.onLat[i])];
+  // Paints both globes in one pass: the grid lookup is the same for each.
+  const paintGlobes = (truthPixels, flatPixels, spin) => {
+    const { count, index, col, row0, row1, rowWeight, lonLine, latLine } = shared;
+    const spinCols = (spin % 1) * COLS;
+    for (let i = 0; i < count; i++) {
+      const x = col[i] + spinCols;
+      const c = x | 0;
+      const tx = x - c;
+      const c0 = c & (COLS - 1);
+      const c1 = (c + 1) & (COLS - 1);
+      const ty = rowWeight[i];
+      const w00 = (1 - tx) * (1 - ty);
+      const w01 = tx * (1 - ty);
+      const w10 = (1 - tx) * ty;
+      const w11 = tx * ty;
+      const a = row0[i];
+      const b = row1[i];
+      const truth = truthField[a + c0] * w00 + truthField[a + c1] * w01 + truthField[b + c0] * w10 + truthField[b + c1] * w11;
+      const flat = flatField[a + c0] * w00 + flatField[a + c1] * w01 + flatField[b + c0] * w10 + flatField[b + c1] * w11;
+      const steps = (x * GRID_STEP) / COLS;
+      const line = lonLine[i] > 0 && Math.abs(steps - Math.round(steps)) * lonLine[i] < 1 ? 256 : latLine[i];
+      truthPixels[index[i]] = colorOf(truth, line);
+      flatPixels[index[i]] = colorOf(flat, line);
     }
   };
 
   document.querySelectorAll(".globe-figure").forEach((figure) => {
-    const views = [...figure.querySelectorAll("canvas[data-model]")].map((canvas) => {
-      canvas.width = canvas.height = GLOBE_SIZE;
-      const context = canvas.getContext("2d");
-      const image = context.createImageData(GLOBE_SIZE, GLOBE_SIZE);
-      return { context, image, pixels: new Uint32Array(image.data.buffer), model: canvas.dataset.model };
-    });
+    // Canvases are set up on the first frame too.
+    let views = null;
+    const setUpViews = () => {
+      views = {};
+      figure.querySelectorAll("canvas[data-model]").forEach((canvas) => {
+        canvas.width = canvas.height = GLOBE_SIZE;
+        const context = canvas.getContext("2d");
+        const image = context.createImageData(GLOBE_SIZE, GLOBE_SIZE);
+        views[canvas.dataset.model] = { context, image, pixels: new Uint32Array(image.data.buffer) };
+      });
+    };
     const dayLabel = figure.querySelector(".globe-day");
     const toggle = figure.querySelector(".globe-toggle");
     let elapsed = 0;
@@ -232,12 +279,10 @@
     const render = () => {
       const t = elapsed % (RUN_MS + HOLD_MS);
       const day = Math.min(DAYS, (t / RUN_MS) * DAYS);
-      const spin = (elapsed / SPIN_MS) * 2 * Math.PI;
+      prepare();
       computeFields(day);
-      views.forEach((view) => {
-        paintGlobe(view.pixels, view.model === "flat" ? flatField : truthField, spin);
-        view.context.putImageData(view.image, 0, 0);
-      });
+      paintGlobes(views.truth.pixels, views.flat.pixels, elapsed / SPIN_MS);
+      Object.values(views).forEach((view) => view.context.putImageData(view.image, 0, 0));
       const unstable = t >= RUN_MS;
       const text = unstable ? `Day ${DAYS} · unstable` : `Day ${Math.floor(day)}`;
       if (dayLabel.textContent !== text) dayLabel.textContent = text;
@@ -281,7 +326,13 @@
       }).observe(figure);
     }
 
+    const prepare = () => {
+      shared ??= prepareGlobes();
+      if (!views) setUpViews();
+    };
+
     globes.set(figure, {
+      prepare,
       // Running the cell starts the forecast again from Day 0; with reduced
       // motion it shows the breakdown as a still frame.
       restart: () => {
@@ -292,7 +343,6 @@
       },
     });
     setPlaying(playing);
-    render();
   });
 
   const setPrompt = (cell, text) => {
@@ -336,6 +386,9 @@
     setPrompt(cell, "In [*]:");
     running += 1;
     kernel?.classList.add("is-busy");
+
+    // Build the globes' data during the pause, once "In [*]:" has painted.
+    cell.querySelectorAll(".globe-figure").forEach((figure) => window.setTimeout(() => globes.get(figure)?.prepare(), 50));
 
     // A short pause (400–600ms) as if the cell were computing; CSS fades the output in.
     window.setTimeout(() => {
