@@ -8,7 +8,12 @@ listing:
   type: default
   fields: [date, title, description]
   feed: true
+# Listings load MathJax by default; the posts have no math.
+html-math-method: plain
 ---
 
 <!-- To add a post: copy a file in news/, rename it YYYY-MM-DD-short-name.qmd,
 and edit its title, date, description and text. -->
+
+<!-- Post titles are h3s; this hidden h2 keeps the heading order. -->
+## All posts {.visually-hidden .unnumbered .unlisted}

@@ -1,5 +1,6 @@
 ---
 pagetitle: "Page not found · Productive Error"
+description: "The page you asked for doesn't exist, or it has moved."
 toc: false
 page-layout: full
 ---

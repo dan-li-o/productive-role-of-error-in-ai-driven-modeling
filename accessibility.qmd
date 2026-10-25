@@ -1,5 +1,6 @@
 ---
 title: "Accessibility"
+description: "How this site aims to meet WCAG 2.1 AA, and how to report a barrier."
 toc: false
 ---
 

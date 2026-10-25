@@ -68,10 +68,8 @@
   }
 
   // Homepage headline: types "…does is work", backspaces "work" and types
-  // "fail.". index.qmd's header script sets .hero-type-pending when it should
-  // play. The real sentence stays in the h1 for screen readers, search and link
-  // previews; the typed copy is aria-hidden and holds the same characters, the
-  // untyped ones invisible, so it wraps exactly like the real headline.
+  // "fail." over the real sentence (see notebook.scss for the layout).
+  // index.qmd's header script sets .hero-type-pending when it should play.
   const heroType = document.querySelector(".hero-type");
   const pageRoot = document.documentElement;
   // Past 2.5s the CSS fallback is about to show the headline, so don't retype it;
@@ -139,9 +137,6 @@
       }
       await idle(BEFORE_FIX);
       await typeOut(fix, FIX_KEY, showWord);
-      try {
-        sessionStorage.setItem("heroTyped", "1");
-      } catch {}
       await idle(CURSOR_HOLD);
       cursor.classList.add("is-done");
       await wait(CURSOR_FADE);

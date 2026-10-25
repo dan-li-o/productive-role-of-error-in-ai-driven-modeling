@@ -38,7 +38,6 @@ $footer-fg: #616161;
   --nb-out-prompt: #A8492F;
   --nb-error-bg: #FFDDDD;
   --nb-error-text: #B71C1C;
-  --nb-success: #1B5E20;
   --nb-focus-glow: #64B5F6;
   --nb-menu-hover: #EEEEEE;
   --nb-button-hover: #E3F2FD;
@@ -320,7 +319,14 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
    The real sentence stays in the h1, transparent while the typed copy (hidden
    from screen readers) sits on top. The copy holds the same characters, the
    untyped ones invisible, so its lines break exactly like the real headline. */
-.hero-type { position: relative; }
+/* The headline's em, carried into the cursor below as a fixed length. */
+@property --hero-type-em {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+.hero-type { --hero-type-em: 1em; position: relative; }
 
 .hero-type.is-typing .hero-type-final { color: transparent; }
 
@@ -342,15 +348,6 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
 .hero-type-word > * { grid-area: 1 / 1; }
 .hero-type-overlay { white-space: nowrap; width: 0; }
 
-/* The headline's em, carried into the cursor below as a fixed length. */
-@property --hero-type-em {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0px;
-}
-
-.hero-type { --hero-type-em: 1em; }
-
 /* An empty inline, so it never changes where lines break. At font size 0 its
    box shrinks to the baseline, so the bar stands on the baseline in any font;
    it is as tall as a capital letter. Solid while typing, blinking when idle. */
@@ -367,7 +364,7 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
 }
 
 .hero-type-cursor.is-idle { animation: hero-type-blink 1s steps(1) infinite; }
-.hero-type-cursor.is-done { animation: none; opacity: 0; transition: opacity 0.4s; }
+.hero-type-cursor.is-done { opacity: 0; transition: opacity 0.4s; }
 
 @keyframes hero-type-blink {
   50% { opacity: 0; }
@@ -622,8 +619,6 @@ html:not(.has-notebook-js) .globe-figure { display: none; }
   font-weight: 700;
 }
 
-.success-output { color: var(--nb-success); }
-
 /* Not yet run: hidden visually, still in the page for screen readers and search. */
 html.has-notebook-js .code-cell:not(.is-revealed) .cell-output,
 html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
@@ -661,16 +656,13 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   margin-block: 24px 32px;
 }
 
-.person img,
-.person-photo-placeholder {
+.person img {
   border: 1px solid var(--nb-border);
   border-radius: var(--nb-radius);
   height: 128px;
+  object-fit: cover;
   width: 128px;
 }
-
-.person img { object-fit: cover; }
-.person-photo-placeholder { background: var(--nb-editor-bg); }
 
 .person h3 { margin-top: 0; }
 .person .role { color: var(--nb-text-muted); }

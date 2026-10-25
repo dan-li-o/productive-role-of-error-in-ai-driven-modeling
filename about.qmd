@@ -263,6 +263,9 @@ each agrees. Sloan logo: ask Sloan's communications team before using it. -->
   Stouffer, R. J. (2000). The Coupled Model Intercomparison Project (CMIP).
   *Bulletin of the American Meteorological Society*, 81(2), 313–318.
   <https://doi.org/10.1175/1520-0477(2000)081%3C0313:TCMIPC%3E2.3.CO;2>
+  · [Free copy (PDF, NOAA GFDL)](https://www.gfdl.noaa.gov/bibliography/related_files/meehl0001.pdf)
+  <!-- October 2026: the DOI is registered, but AMS's site answers it with
+  "Page not found"; the GFDL copy is the published article. -->
 - []{#ref-oloughlin-2023}O'Loughlin, R. (2023). Diagnosing errors in climate
   model intercomparisons. *European Journal for Philosophy of Science*, 13(2).
   <https://doi.org/10.1007/s13194-023-00522-z>

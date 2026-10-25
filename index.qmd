@@ -7,13 +7,11 @@ include-in-header:
   text: |
     <script>
       // Homepage headline: decide before the first paint whether it types itself
-      // out (once per visit, never with reduced motion), so the finished sentence
+      // out (on every load, never with reduced motion), so the finished sentence
       // never flashes first. notebook.js does the typing.
-      try {
-        if (!matchMedia("(prefers-reduced-motion: reduce)").matches && sessionStorage.getItem("heroTyped") !== "1") {
-          document.documentElement.classList.add("hero-type-pending");
-        }
-      } catch (error) {}
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("hero-type-pending");
+      }
     </script>
 ---
 
