@@ -320,8 +320,9 @@
 
     toggle.addEventListener("click", () => setPlaying(!playing));
     if (!visible) {
-      new IntersectionObserver(([entry]) => {
-        visible = entry.isIntersecting;
+      // One callback can batch several changes; the last one is current.
+      new IntersectionObserver((entries) => {
+        visible = entries[entries.length - 1].isIntersecting;
         update();
       }).observe(figure);
     }
