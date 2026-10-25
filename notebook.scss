@@ -745,6 +745,30 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .commit-text .cite { color: var(--nb-text-muted); font-size: var(--nb-size-small); margin-left: 2px; }
 .commit-invite { font-size: var(--nb-size-small); margin-top: 4px !important; }
 
+.commit-talks {
+  color: var(--nb-text-muted);
+  column-gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--nb-size-small);
+  margin-top: 4px !important;
+}
+
+.talk { align-items: center; display: inline-flex; gap: 4px; white-space: nowrap; }
+
+.talk-icon {
+  fill: none;
+  flex: none;
+  height: 14px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  width: 14px;
+}
+
+.talk-icon-fill { fill: currentColor; stroke: none; }
+
 .invite {
   border: 1px solid var(--nb-brand);
   border-radius: var(--nb-radius);
