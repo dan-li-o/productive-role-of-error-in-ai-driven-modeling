@@ -618,7 +618,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .person h3 { margin-top: 0; }
 .person .role { color: var(--nb-text-muted); }
 
-.advisory-list li { margin-bottom: 8px; }
+.advisory-list li { margin-bottom: 16px; max-width: 70ch; }
 .advisory-list .affiliation { color: var(--nb-text-muted); }
 
 /* ---------- Breakpoints ---------- */

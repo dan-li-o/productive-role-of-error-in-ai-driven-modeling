@@ -44,8 +44,11 @@ To preview locally (optional): install [Quarto](https://quarto.org) and run
       the "Euclidean geometry" point in O'Loughlin et al. 2025, Sect. 4.2)
 - [ ] Ryan OKs the globe animation in homepage cell 3: an illustration
       inspired by Bonev et al. 2023, Fig. 4, not model output (its note says so)
-- [ ] Bios and photos for Ryan and Matthew; Matthew's public email
-- [ ] Confirm advisory board affiliations and links (`people.qmd`)
+- [ ] Ryan and Matthew approve their bios and photos (`people.qmd`, `people/`;
+      bios adapted from the proposal, photos from Ryan's press page and the
+      NCAR Library directory) and Matthew's listed email (mayernik [at] ucar.edu)
+- [ ] Each advisor confirms their one-line description and affiliation
+      (`people.qmd`; Paul Edwards retired from Stanford in January 2026)
 - [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`
 - [ ] Analytics (cookie-free: GoatCounter or Plausible)
 - [ ] Mailing list (e.g. Buttondown), with sign-up on the homepage and Get
