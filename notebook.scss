@@ -511,6 +511,40 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 .bar-before { background: var(--nb-error-text); min-width: 4px; width: calc(10 / 365 * 100%); }
 .bar-after { background: var(--nb-brand); width: 100%; }
 
+/* Homepage illustration (cell 3): two globes drawn by notebook.js. Hidden
+   without JS, where the canvases would stay blank. */
+.globe-figure { margin: 24px 0 8px; max-width: 70ch; }
+html:not(.has-notebook-js) .globe-figure { display: none; }
+
+.globes {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 220px));
+}
+
+.globe-disc { border-radius: 50%; display: block; overflow: hidden; position: relative; }
+.globe canvas { aspect-ratio: 1; display: block; width: 100%; }
+
+/* Darker edges give the globe a little depth. */
+.globe-disc::after {
+  background: radial-gradient(circle, transparent 55%, rgb(0 0 0 / 30%) 100%);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.globe-label {
+  display: block;
+  font-size: var(--nb-size-small);
+  margin-top: 4px;
+  text-align: center;
+}
+
+.globe-controls { align-items: center; display: flex; gap: 8px; margin-top: 8px; }
+.globe-day { font-size: var(--nb-size-small); font-variant-numeric: tabular-nums; }
+.globe-day.is-unstable { color: var(--nb-error-text); font-weight: 600; }
+.globe-figure figcaption { color: var(--nb-text); font-size: var(--nb-size-small); line-height: 1.5; margin-top: 4px; }
+
 /* Short source line at the end of an output */
 .cell-output .cell-source {
   color: var(--nb-text-muted);

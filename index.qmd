@@ -14,6 +14,8 @@ How this page works
   code-string, code-keyword, code-number, code-operator or code-comment.
 - The error cell uses `.error-output` and has no Out prompt.
 - Sources go in a `.cell-source` div at the end of an output.
+- The globes in cell 3 are an illustration drawn by notebook.js (made-up
+  weather, not model output); its caption says so.
 - The bar chart in cell 4 is drawn to scale: 10 days vs 365 days
   (.bar-before / .bar-after in notebook.scss).
 -->
@@ -75,6 +77,19 @@ through it.
 FourCastNet, an AI weather model built on Fourier neural operators, made fast,
 skillful short-range forecasts. But a numerical instability kept it to
 forecasts shorter than ten days.
+
+<figure class="globe-figure">
+<div class="globes" role="img" aria-label="Animation: two spinning globes. On the left, real weather patterns evolve smoothly. On the right, the AI model's forecast develops a star-shaped pattern of errors around the south pole that grows until the forecast breaks down around day 10.">
+<div class="globe"><span class="globe-disc"><canvas data-model="truth"></canvas></span><span class="globe-label">Real weather</span></div>
+<div class="globe"><span class="globe-disc"><canvas data-model="flat"></canvas></span><span class="globe-label">AI model</span></div>
+</div>
+<div class="globe-controls">
+<span class="globe-day" aria-hidden="true">Day 0</span>
+<button type="button" class="nb-tool globe-toggle">Pause</button>
+</div>
+<figcaption>Watch the south pole. The model's flat-map math fits a round planet worst at the poles, so its errors start there.</figcaption>
+<div class="cell-source">Illustration inspired by <a href="https://proceedings.mlr.press/v202/bonev23a.html">Bonev et al. 2023</a>, Fig. 4; not output from the models.</div>
+</figure>
 :::
 :::
 

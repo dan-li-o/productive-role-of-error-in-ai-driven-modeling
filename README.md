@@ -40,8 +40,10 @@ To preview locally (optional): install [Quarto](https://quarto.org) and run
 - [ ] Short site name, domain and wordmark (the site currently uses
       "Productive Error")
 - [ ] Ryan checks the plain-language wording of the FourCastNet → SFNO case
-      (homepage cells 2–4 and About; "It assumed the Earth was flat" glosses
+      (homepage cells 3–5 and About; "It assumed the Earth was flat" glosses
       the "Euclidean geometry" point in O'Loughlin et al. 2025, Sect. 4.2)
+- [ ] Ryan OKs the globe animation in homepage cell 3: an illustration
+      inspired by Bonev et al. 2023, Fig. 4, not model output (its note says so)
 - [ ] Bios and photos for Ryan and Matthew; Matthew's public email
 - [ ] Confirm advisory board affiliations and links (`people.qmd`)
 - [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`
