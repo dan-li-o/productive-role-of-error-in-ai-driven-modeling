@@ -662,10 +662,204 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 .partner-list li { align-items: center; display: flex; gap: 12px; }
 
+/* ---------- About: branch-and-merge timeline ----------
+   Without JS (and on narrow screens) the timeline is one rail with a colored
+   dot per entry. notebook.js adds .is-lanes on wide screens, moving each dot
+   into its branch's lane and drawing the lines in an SVG behind them.
+   Branch colors: the dataviz reference categorical slots 1–6, validated as a
+   set; the branch name is always shown as text, so color is never alone. */
+.git-timeline,
+.branch-legend {
+  --c-error-in-science: #2A78D6;
+  --c-opacity: #EB6834;
+  --c-credibility: #1BAF7A;
+  --c-ryan: #EDA100;
+  --c-matt: #E87BA4;
+  --c-ai-climate: #008300;
+  --c-main: var(--nb-text);
+}
+
+[data-branch="error-in-science"] { --branch: var(--c-error-in-science); --lane: 1; }
+[data-branch="opacity"] { --branch: var(--c-opacity); --lane: 2; }
+[data-branch="credibility"] { --branch: var(--c-credibility); --lane: 3; }
+[data-branch="ryan"] { --branch: var(--c-ryan); --lane: 4; }
+[data-branch="matt"] { --branch: var(--c-matt); --lane: 5; }
+[data-branch="ai-climate"] { --branch: var(--c-ai-climate); --lane: 6; }
+[data-branch="main"] { --branch: var(--c-main); --lane: 0; }
+
+.branch-legend {
+  display: grid;
+  font-size: var(--nb-size-small);
+  gap: 6px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  line-height: 1.4;
+  list-style: none;
+  margin: 24px 0 8px;
+  padding: 0;
+}
+
+.branch-legend li { padding-left: 20px; position: relative; }
+.branch-legend code { color: var(--nb-text); font-size: 14px; font-weight: 600; margin-right: 4px; }
+
+.branch-swatch {
+  background: var(--branch);
+  border-radius: 50%;
+  height: 10px;
+  left: 2px;
+  position: absolute;
+  top: 0.45em;
+  width: 10px;
+}
+
+.git-timeline {
+  --dot: 12px;
+  --lane-gap: 18px;
+  --x: 7px; /* center of the rail */
+  --gutter: 32px;
+  margin: 24px 0 48px;
+  position: relative;
+}
+
+.git-timeline.is-lanes { --gutter: calc(var(--lane-gap) * 6 + 40px); }
+
+.git-log { list-style: none; margin: 0; padding: 0; position: relative; }
+
+.commit {
+  max-width: calc(70ch + var(--gutter));
+  padding: 0 0 20px var(--gutter);
+  position: relative;
+}
+
+.commit p { margin: 0; }
+.commit-meta { color: var(--nb-text-muted); font-size: var(--nb-size-small); line-height: 1.6; }
+.commit-meta time { color: var(--nb-text); font-weight: 600; margin-right: 8px; }
+
+.branch-tag {
+  border-left: 3px solid var(--branch);
+  font-family: var(--nb-font-code);
+  font-size: 13px;
+  padding-left: 6px;
+}
+
+.commit-text { line-height: 1.5; }
+.commit-text .cite { color: var(--nb-text-muted); font-size: var(--nb-size-small); margin-left: 2px; }
+.commit-invite { font-size: var(--nb-size-small); margin-top: 4px !important; }
+
+.invite {
+  border: 1px solid var(--nb-brand);
+  border-radius: var(--nb-radius);
+  display: inline-block;
+  font-weight: 500;
+  margin-left: 4px;
+  padding: 2px 10px;
+  text-decoration: none;
+}
+
+.invite:hover { background: var(--nb-button-hover); }
+
+/* The rail: each entry draws its own segment; planned ones are dashed. */
+.commit::before {
+  border-left: 2px solid var(--nb-border);
+  bottom: 0;
+  content: "";
+  left: calc(var(--x) - 1px);
+  position: absolute;
+  top: 0;
+}
+
+.commit:first-child::before { top: 0.8em; }
+.commit:last-child::before { bottom: auto; height: 0.8em; }
+.commit.planned::before { border-left-style: dashed; border-color: var(--nb-text-muted); }
+.is-lanes .commit::before { display: none; }
+
+.commit-dot {
+  background: var(--branch);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--nb-page);
+  height: var(--dot);
+  left: calc(var(--x) - var(--dot) / 2);
+  position: absolute;
+  top: calc(0.8em - var(--dot) / 2);
+  width: var(--dot);
+  z-index: 1;
+}
+
+.is-lanes .commit-dot { --x: calc(7px + var(--lane) * var(--lane-gap)); }
+
+.commit.merge .commit-dot { --dot: 16px; }
+.commit.merge .commit-text { font-size: 18px; }
+.commit.merge { padding-bottom: 24px; }
+
+.commit.planned .commit-dot {
+  background: var(--nb-page);
+  border: 2px solid var(--nb-text-muted);
+  box-sizing: border-box;
+}
+
+.git-lanes {
+  height: 100%;
+  left: 0;
+  overflow: visible;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: var(--gutter);
+}
+
+.git-lanes path { fill: none; stroke-linecap: round; stroke-width: 2px; transition: opacity 150ms ease; }
+.git-lanes path.is-dim { opacity: 0.2; }
+
+.fold-toggle {
+  background: none;
+  border: 0;
+  color: var(--nb-link);
+  cursor: pointer;
+  font-size: var(--nb-size-small);
+  margin-top: 2px;
+  min-height: 32px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+/* Scroll motion (only with JS and without reduced motion): entries fade in
+   as they reach the middle of the screen. */
+.git-timeline.has-motion .commit { opacity: 0; transform: translateY(8px); transition: opacity 400ms ease, transform 400ms ease; }
+.git-timeline.has-motion .commit.is-visible { opacity: 1; transform: none; }
+
+/* About: card rows */
+.project-card h3 { font-size: 19px; margin: 0 0 8px; }
+.project-card .button { margin-top: 8px; }
+
+.method-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-block: 16px;
+}
+
+.take-part { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.ack-list {
+  display: grid;
+  gap: 8px 24px;
+  grid-template-columns: max-content minmax(0, 1fr);
+  margin: 16px 0 32px;
+}
+
+.ack-list dt { color: var(--nb-text-muted); font-size: var(--nb-size-small); font-weight: 500; padding-top: 2px; }
+.ack-list dd { margin: 0; }
+.ack-org { align-items: center; display: flex; gap: 10px; }
+.ack-org .logo { height: 32px; padding: 3px; width: 32px; }
+
+.reference-list ul { padding-left: 0; }
+.reference-list li { font-size: var(--nb-size-small); list-style: none; margin-bottom: 10px; padding-left: 24px; text-indent: -24px; }
+.reference-list li:target { background: var(--nb-button-hover); }
+
 /* ---------- Breakpoints ---------- */
 
 @media (max-width: 1024px) {
   .project-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 639.98px) {
@@ -706,7 +900,10 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   .prose-cell h1 { font-size: 36px; }
   .lede { font-size: 18px; }
 
-  .project-links { grid-template-columns: minmax(0, 1fr); }
+  .project-links,
+  .method-grid { grid-template-columns: minmax(0, 1fr); }
+  .ack-list { grid-template-columns: minmax(0, 1fr); }
+  .ack-list dd { margin-bottom: 8px; }
   /* Photo beside the name, role and institution; bio and email full width. */
   .person { gap: 0 16px; grid-template-columns: 80px minmax(0, 1fr); }
   .person > p:first-child { grid-row: 1 / span 3; }

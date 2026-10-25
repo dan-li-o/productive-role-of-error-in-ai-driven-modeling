@@ -1,50 +1,108 @@
 ---
 title: "About the project"
-description: "Why errors in AI-driven scientific modeling can be productive, and how this Sloan Foundation project studies them: research questions, approach and milestones."
+description: "A Sloan Foundation project on what errors in AI-driven modeling can teach science: where it came from, what we ask, and how to take part."
+toc: false
 ---
 
-## Why study error?
+<!--
+How this page works
+- The timeline is an ordered list, oldest first. Each entry has a branch
+  (data-branch), a date, one sentence of 25 words at most, and a citation that
+  links to the References list (#ref-...).
+- Without JavaScript, or on narrow screens, it shows as one rail with a colored
+  dot per entry. notebook.js draws the six branch lines on wider screens, folds
+  the three literature branches (data-fold), and fades entries in on scroll.
+- Entries after the merge are milestones. Mark one as reached by removing
+  class "planned" and giving it its real date; the line turns solid up to it.
+- Every summary simplifies a published argument; Ryan checks each one (README).
+-->
 
-AI is changing science, and AI models often get things wrong: they produce
-biased results, fail on data unlike what they were trained on, break known
-physical laws, and crash in ways their developers didn't expect. The usual
-response is to remove the error as fast as possible.
+This project grew out of several lines of work that were each moving toward
+the same question. Here's how they came together, and where we're going next.
 
-But when scientists take an error seriously, they often learn something they
-would not have learned otherwise. One AI weather model, FourCastNet, made
-fast, skillful short-range forecasts, but a numerical instability kept it to
-forecasts shorter than ten days. Researchers traced the problem to one
-component: a Fourier transform that treats the globe as a flat sheet that wraps
-around at the edges. Rebuilt with spherical harmonics, the model stayed stable
-for a full simulated year ([Pathak et al. 2022; Bonev et al. 2023;
-O'Loughlin et al. 2025](#references)). The error showed what the model needed
-to respect. By diagnosing it, the team also showed they understood a system
-that is otherwise hard to see inside.
+<ul class="branch-legend" aria-label="Branches in the timeline">
+<li data-branch="error-in-science"><span class="branch-swatch"></span><code>error-in-science</code> Philosophy and history of science on error, mostly in experiments</li>
+<li data-branch="opacity"><span class="branch-swatch"></span><code>opacity</code> Whether complex models and AI can be understood, and explainable AI</li>
+<li data-branch="credibility"><span class="branch-swatch"></span><code>credibility</code> Science and technology studies of how modeling communities build trust</li>
+<li data-branch="ryan"><span class="branch-swatch"></span><code>ryan</code> Ryan O'Loughlin's research and fieldwork</li>
+<li data-branch="matt"><span class="branch-swatch"></span><code>matt</code> Matthew Mayernik's research on data, documentation and credibility</li>
+<li data-branch="ai-climate"><span class="branch-swatch"></span><code>ai-climate</code> Climate science: model comparison, then AI weather and climate models</li>
+</ul>
 
-Our question: **how can errors, and the ways scientists deal with them, make
-AI-driven science better?**
+<div class="git-timeline" data-fold="error-in-science opacity credibility">
+<ol class="git-log">
+<li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1989</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">A philosopher sorts the errors that can creep into an experiment by the stage at which they arise. <a class="cite" href="#ref-hon-1989">Hon 1989</a></p></li>
+<li class="commit" data-branch="ai-climate"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1995</time> <span class="branch-tag">ai-climate</span></p><p class="commit-text">Climate scientists start running their models through the same experiments so they can be compared: CMIP, the Coupled Model Intercomparison Project, still going three decades later. <a class="cite" href="#ref-meehl-2000">Meehl et al. 2000</a></p></li>
+<li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1996</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">A hypothesis is well supported only if it has passed tests likely to catch errors: the idea of severe testing. <a class="cite" href="#ref-mayo-1996">Mayo 1996</a></p></li>
+<li class="commit" data-branch="opacity"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2004</time> <span class="branch-tag">opacity</span></p><p class="commit-text">Computer simulations are called "epistemically opaque": no person can trace every step from input to output. <a class="cite" href="#ref-humphreys-2004">Humphreys 2004</a></p></li>
+<li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2005</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">Nineteenth-century microscopists turned a mistake, nerve fibers damaged by handling, into a test for identifying nerve tissue. An error became a tool. <a class="cite" href="#ref-schickore-2005">Schickore 2005</a></p></li>
+<li class="commit" data-branch="credibility"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2007</time> <span class="branch-tag">credibility</span></p><p class="commit-text">Parts of climate models become meeting points between field scientists and modelers, binding the two groups together. <a class="cite" href="#ref-sundberg-2007">Sundberg 2007</a></p></li>
+<li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2008</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">Errors in computer models come from many sources: code bugs, approximations, data, and the choices built into the model itself. <a class="cite" href="#ref-parker-2008">Parker 2008</a></p></li>
+<li class="commit" data-branch="opacity"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2010</time> <span class="branch-tag">opacity</span></p><p class="commit-text">Skeptics argue climate models are so tangled that no success or failure can be pinned on any one part. <a class="cite" href="#ref-lenhard-2010">Lenhard and Winsberg 2010</a></p></li>
+<li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2012</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">Some systems don't just survive shocks and mistakes; they gain from them. Taleb calls this antifragility. <a class="cite" href="#ref-taleb-2012">Taleb 2012</a></p></li>
+<li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2015</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">Failure is central to how science succeeds. <a class="cite" href="#ref-firestein-2015">Firestein 2015</a></p></li>
+<li class="commit" data-branch="credibility"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2018</time> <span class="branch-tag">credibility</span></p><p class="commit-text">Climate modeling is a social enterprise: its knowledge is built by teams and communities, not lone modelers. <a class="cite" href="#ref-winsberg-2018">Winsberg 2018</a></p></li>
+<li class="commit" data-branch="ryan"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2019 onward</time> <span class="branch-tag">ryan</span></p><p class="commit-text">Ryan begins interviews and site visits with climate scientists at NSF NCAR and NASA GISS.</p></li>
+<li class="commit" data-branch="matt"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2019</time> <span class="branch-tag">matt</span></p><p class="commit-text">Matt shows that metadata and documentation are how scientists record what they know about their data and models, including known limits and errors. <a class="cite" href="#ref-mayernik-2019">Mayernik 2019</a></p></li>
+<li class="commit" data-branch="opacity"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2019</time> <span class="branch-tag">opacity</span></p><p class="commit-text">Explanations bolted onto AI models after training can mislead; build understandable models instead. <a class="cite" href="#ref-rudin-2019">Rudin 2019</a></p></li>
+<li class="commit" data-branch="credibility"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2020</time> <span class="branch-tag">credibility</span></p><p class="commit-text">CMIP shapes climate research, but what each team learns about its own model tends to stay with that team. <a class="cite" href="#ref-touze-2020">Touzé-Peiffer et al. 2020</a></p></li>
+<li class="commit" data-branch="matt"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2021</time> <span class="branch-tag">matt</span></p><p class="commit-text">Model comparisons earn trust by coupling institutions (rules, governance) with data infrastructure. Credibility belongs to the community, not any single model. <a class="cite" href="#ref-mayernik-2021">Mayernik 2021</a></p></li>
+<li class="commit" data-branch="opacity"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2022</time> <span class="branch-tag">opacity</span></p><p class="commit-text">Explainable AI arrives in climate science, but different explanation methods can disagree about the same model. Others ask what would make such explanations genuine. <a class="cite" href="#ref-mamalakis-2022">Mamalakis et al. 2022</a>; <a class="cite" href="#ref-buijsman-2022">Buijsman 2022</a></p></li>
+<li class="commit" data-branch="ai-climate"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2022</time> <span class="branch-tag">ai-climate</span></p><p class="commit-text">FourCastNet, an AI weather model, makes fast global forecasts. <a class="cite" href="#ref-pathak-2022">Pathak et al. 2022</a></p></li>
+<li class="commit" data-branch="ryan"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2023</time> <span class="branch-tag">ryan</span></p><p class="commit-text">Ryan shows that climate scientists can and do trace model errors to their sources, using physical reasoning, simplification and carefully varied reruns, answering the skeptics. <a class="cite" href="#ref-oloughlin-2023">O'Loughlin 2023</a></p></li>
+<li class="commit" data-branch="ai-climate"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2023</time> <span class="branch-tag">ai-climate</span></p><p class="commit-text">FourCastNet's instability, which kept it to forecasts under ten days, is traced to math built for a flat map. Rebuilt for a sphere, it runs a year. <a class="cite" href="#ref-bonev-2023">Bonev et al. 2023</a></p></li>
+<li class="commit" data-branch="credibility"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2023</time> <span class="branch-tag">credibility</span></p><p class="commit-text">In applied data science work, errors become "a site of collaboration" that reveals and reshapes how people work together. <a class="cite" href="#ref-lin-2023">Lin and Jackson 2023</a></p></li>
+<li class="commit" data-branch="opacity"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2024</time> <span class="branch-tag">opacity</span></p><p class="commit-text">Climate scientists publish guides for choosing among explainable-AI methods, a sign of how widely they're now used. <a class="cite" href="#ref-bommer-2024">Bommer et al. 2024</a></p></li>
+<li class="commit" data-branch="ryan"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2025</time> <span class="branch-tag">ryan</span></p><p class="commit-text">Ryan and coauthors urge AI climate research to look beyond after-the-fact explanations, toward knowing which part of a model does what. <a class="cite" href="#ref-oloughlin-2025">O'Loughlin et al. 2025</a></p></li>
+<li class="commit" data-branch="ai-climate"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>February 2025</time> <span class="branch-tag">ai-climate</span></p><p class="commit-text">An AI forecast model goes into operational use at ECMWF, Europe's weather center, alongside its physics-based one. <a class="cite" href="#ref-ecmwf-2025">ECMWF 2025</a></p></li>
+<li class="commit" data-branch="credibility"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2025</time> <span class="branch-tag">credibility</span></p><p class="commit-text">Climate model developers describe debugging that resists standard procedures, aiming for models that are "good enough". <a class="cite" href="#ref-proske-2025">Proske and Melsen 2025</a></p></li>
+<li class="commit" data-branch="ryan"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>August 2025</time> <span class="branch-tag">ryan</span></p><p class="commit-text">Pilot interviews at NSF NCAR. A first finding: scientists often avoid the word "error", preferring "bias", "limitation" or "statistical distinguishability". <a class="cite" href="#ref-parker-2008">Parker 2008</a> as the starting typology</p></li>
+<li class="commit" data-branch="ryan"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>In progress</time> <span class="branch-tag">ryan</span></p><p class="commit-text">Ryan identifies four kinds of antifragility in modeling: flexibility, new hypotheses, learning from error signals, and credibility won by overcoming failure. <a class="cite" href="#ref-oloughlin-ms">O'Loughlin, manuscript</a></p></li>
+<li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">Allchin argues for "negative knowledge": knowing about errors, and how they were corrected, is knowledge too. <a class="cite" href="#ref-allchin-2026">Allchin 2026</a></p></li>
+<li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">merge into main</span></p><p class="commit-text"><strong>These lines of work were all moving toward one question none had asked directly: how can errors, and the ways scientists handle them, make AI-driven science better?</strong></p></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The team forms: Ryan O'Loughlin (philosophy of climate modeling, Queens College, CUNY) and Matthew Mayernik (data and credibility, NSF NCAR), with an <a href="people.qmd">advisory board</a> of philosophers, STS scholars and scientists.</p></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1 October 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The Alfred P. Sloan Foundation funds the project: two years, through 30 September 2028.</p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Late 2026</time> <span class="branch-tag">next</span></p><p class="commit-text">Interview plan finished and ethics approval (IRB) obtained.</p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">next</span></p><p class="commit-text">The advisory board meets twice a year.</p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">next</span></p><p class="commit-text">Interviews begin at NSF NCAR, the LEAP Center and NASA GISS, with document analysis alongside.</p><p class="commit-invite">Work with AI models? <a class="invite" href="contact.qmd#share-an-error-story">Share an error story</a></p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>February 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">Call for extended abstracts and invited speakers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd#call-for-extended-abstracts-and-speakers">Submit an abstract</a></p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Mid 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">First round of interviews complete.</p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About July–September 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">Two-day workshop for philosophers, STS scholars and scientists, with funding for PhD students and early-career researchers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd">Come to the workshop</a></p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About September 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">First findings presented at a conference.</p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2027–28</time> <span class="branch-tag">next</span></p><p class="commit-text">Follow-up conversations with interviewees; the framework takes shape.</p><p class="commit-invite"><a class="invite" href="contact.qmd#express-interest">Give feedback on the framework</a></p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">next</span></p><p class="commit-text">Papers submitted: two in philosophy of science, one in STS, one for climate scientists and one for the public, plus a workshop report.</p><p class="commit-invite"><a class="invite" href="news.qmd">Get updates</a></p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>30 September 2028</time> <span class="branch-tag">next</span></p><p class="commit-text">Project ends.</p></li>
+<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Beyond</time> <span class="branch-tag">next</span></p><p class="commit-text">A longer-term research program on error, AI and scientific modeling, reaching beyond climate science.</p><p class="commit-invite">Using AI in another science? <a class="invite" href="contact.qmd#express-interest">Collaborate with us</a></p></li>
+</ol>
+</div>
 
-## Goal
+## The questions
 
-To develop a conceptual framework for understanding error as a productive and
-generative feature of AI-driven scientific modeling, with a focus on climate
-and Earth system science.
+::: {.project-links}
+::: {.project-card}
+### Understanding
 
-## Research questions
+When scientists diagnose why an AI model failed, what do they come to
+understand about the model, and what does that mean for explainable AI?
+:::
 
-In plain terms, we are asking three things:
+::: {.project-card}
+### Antifragility
 
-1. **Understanding.** What do scientists learn when an AI-driven model goes
-   wrong, and does tracking down the error help explain how the model works?
-2. **Antifragility.** Some systems gain from shocks rather than just surviving
-   them ([Taleb 2012](#references)). When do models and modeling teams come
-   out of a failure stronger, not just repaired?
-3. **Credibility.** How do errors, and the way teams record, share and fix
-   them, affect how far a model is trusted and how the teams themselves are
-   organized?
+When do errors leave models and research communities stronger, not just
+repaired, and better off than immediate success would have?
+:::
+
+::: {.project-card}
+### Credibility
+
+How do the ways teams diagnose, document and share errors build or erode trust
+in the science and data they produce?
+:::
+:::
 
 ::: {.callout-note collapse="true" appearance="simple"}
-## The research questions as worded in the proposal
+## Proposal wording
 
 1. How do errors in AI-driven models contribute to or constrain scientific
    understanding, and what do practices of error diagnosis reveal about model
@@ -55,72 +113,196 @@ In plain terms, we are asking three things:
    and the social organization of modeling teams?
 :::
 
-## Approach
+## How we work
 
-- **Interviews** with scientists, software engineers and data specialists who
-  work with AI-driven models at NSF NCAR, the LEAP Center (Learning the Earth
-  with Artificial Intelligence and Physics) and NASA GISS.
-- **Document analysis** of how errors are recorded: technical reports, code
-  repositories, issue trackers and dataset documentation.
-- **Philosophical analysis** that brings these findings together with work in
-  philosophy of science and science and technology studies (STS).
-- **An interdisciplinary [workshop](workshop.qmd)** where the developing
-  framework is presented for feedback.
-- **Talks** at the Philosophy of Science Association (PSA), the Society for
-  Social Studies of Science (4S) and the American Geophysical Union (AGU).
+::: {.method-grid}
+::: {.project-card}
+### Interviews
 
-## Why climate and Earth system science?
+20 or more people at each of NSF NCAR, the LEAP Center and NASA GISS:
+scientists, software engineers and data specialists.
+:::
 
-Climate scientists are adopting AI quickly while insisting that models respect
-physical laws. Future climates lie outside the data any model was trained on,
-so the reliability of AI models has direct stakes for society. The field also
-has decades of shared model evaluation and data sharing to build on. We aim
-for a framework that carries over to other sciences where AI is raising the
-same questions.
+::: {.project-card}
+### Documents
 
-## Milestones
+Reports, papers, code repositories, issue trackers and dataset records, to see
+how errors get written down, or don't.
+:::
 
-- **October 1, 2026:** Project begins.
-- **February 2027:** Call for extended abstracts and invitations to workshop
-  speakers.
-- **End of the first project year (date to be announced):**
-  Interdisciplinary workshop.
-- **September 30, 2028:** Project ends.
+::: {.project-card}
+### Analysis
 
-## Expected outcomes
+Bringing what we hear into conversation with philosophy of science and STS, to
+say when errors help science.
+:::
 
-- A recognized conceptual framework for error as a productive feature of
-  AI-driven scientific modeling.
-- A network connecting philosophers, STS scholars and scientists around this
-  theme.
-- Demonstrated relevance to scientific practice.
+::: {.project-card}
+### Workshop
 
-## Funder
+Two days for philosophers, STS scholars and scientists to test the framework.
+:::
+:::
 
-This project is supported by the Alfred P. Sloan Foundation
-(October 1, 2026 – September 30, 2028).
+## Take part
+
+::: {.project-links .take-part}
+::: {.project-card}
+### Share an error story
+
+Work with AI-augmented models? Tell us about a time one went wrong, and what
+happened next.
+
+[Share a story](contact.qmd#share-an-error-story){.button .button-secondary}
+:::
+
+::: {.project-card}
+### Come to the workshop
+
+For philosophers, STS scholars and scientists, with funding for PhD students
+and early-career researchers. The call opens in February 2027.
+
+[Workshop details](workshop.qmd){.button .button-secondary}
+:::
+
+::: {.project-card}
+### Give feedback
+
+Read our framework as it develops and tell us where it's wrong.
+
+[Get updates](news.qmd){.button .button-secondary}
+:::
+
+::: {.project-card}
+### Bring another science
+
+Similar questions are arising in genomics, astronomy and beyond. If you work
+there, we'd like to compare notes.
+
+[Get in touch](contact.qmd#express-interest){.button .button-secondary}
+:::
+:::
+
+Interviews are voluntary and confidential, and no one is named without their
+consent.
+
+<!-- Add the IRB approval note once approval is granted. -->
+
+## Acknowledgments
+
+<dl class="ack-list">
+<dt>Funding</dt>
+<dd>This project is supported by the Alfred P. Sloan Foundation (2026–2028).</dd>
+<dt>Institutional home</dt>
+<dd class="ack-org"><img src="logos/qc.png" alt="" class="logo" width="32" height="32" loading="lazy"> Research Foundation of CUNY – Queens College, City University of New York</dd>
+<dt>Partner institution</dt>
+<dd class="ack-org"><img src="logos/ncar.png" alt="" class="logo" width="32" height="32" loading="lazy"> NSF National Center for Atmospheric Research, home of co-PI Matthew Mayernik</dd>
+<dt>Research sites</dt>
+<dd>The scientists and institutions who make our fieldwork possible.</dd>
+<dt>Advisory board</dt>
+<dd>Thanks to our <a href="people.qmd">advisory board</a> for their guidance.</dd>
+<dt>Interviewees</dt>
+<dd>Thanks to everyone who shares their experience with us. Interviewees are not named.</dd>
+</dl>
+
+<!-- Research sites: name letter writers and in-kind supporters only after
+each agrees. Sloan logo: ask Sloan's communications team before using it. -->
 
 ## References
 
-- Bonev, B., Kurth, T., Hundt, C., Pathak, J., Baust, M., Kashinath, K., &
-  Anandkumar, A. (2023). Spherical Fourier neural operators: Learning stable
-  dynamics on the sphere. *Proceedings of the 40th International Conference on
-  Machine Learning*, PMLR 202, 2806–2823.
+::: {.reference-list}
+- []{#ref-allchin-2026}Allchin, D. (2026). *Toward a philosophy of error in
+  science*. Oxford University Press.
+- []{#ref-bommer-2024}Bommer, P. L., Kretschmer, M., Hedström, A., Bareeva,
+  D., & Höhne, M. M.-C. (2024). Finding the right XAI method: A guide for the
+  evaluation and ranking of explainable AI methods in climate science.
+  *Artificial Intelligence for the Earth Systems*, 3(3).
+  <https://doi.org/10.1175/AIES-D-23-0074.1>
+- []{#ref-bonev-2023}Bonev, B., Kurth, T., Hundt, C., Pathak, J., Baust, M.,
+  Kashinath, K., & Anandkumar, A. (2023). Spherical Fourier neural operators:
+  Learning stable dynamics on the sphere. *Proceedings of the 40th
+  International Conference on Machine Learning*, PMLR 202, 2806–2823.
   <https://proceedings.mlr.press/v202/bonev23a.html>
-- Mayernik, M. S. (2021). Credibility via coupling: Institutions and
-  infrastructures in climate model intercomparisons. *Engaging Science,
-  Technology, and Society*, 7(2), 10–32. <https://doi.org/10.17351/ests2021.769>
-- O'Loughlin, R. (2023). Diagnosing errors in climate model intercomparisons.
-  *European Journal for Philosophy of Science*, 13(2).
+- []{#ref-buijsman-2022}Buijsman, S. (2022). Defining explanation and
+  explanatory depth in XAI. *Minds and Machines*, 32(3), 563–584.
+  <https://doi.org/10.1007/s11023-022-09607-9>
+- []{#ref-ecmwf-2025}ECMWF. (2025, February 25). ECMWF's AI forecasts become
+  operational.
+  <https://www.ecmwf.int/en/about/media-centre/news/2025/ecmwfs-ai-forecasts-become-operational>
+- []{#ref-firestein-2015}Firestein, S. (2015). *Failure: Why science is so
+  successful*. Oxford University Press.
+- []{#ref-hon-1989}Hon, G. (1989). Towards a typology of experimental errors:
+  An epistemological view. *Studies in History and Philosophy of Science Part
+  A*, 20(4), 469–504. <https://doi.org/10.1016/0039-3681(89)90020-4>
+- []{#ref-humphreys-2004}Humphreys, P. (2004). *Extending ourselves:
+  Computational science, empiricism, and scientific method*. Oxford University
+  Press.
+- []{#ref-lenhard-2010}Lenhard, J., & Winsberg, E. (2010). Holism,
+  entrenchment, and the future of climate model pluralism. *Studies in History
+  and Philosophy of Modern Physics*, 41(3), 253–262.
+  <https://doi.org/10.1016/j.shpsb.2010.07.001>
+- []{#ref-lin-2023}Lin, C. K., & Jackson, S. J. (2023). From bias to repair:
+  Error as a site of collaboration and negotiation in applied data science
+  work. *Proceedings of the ACM on Human-Computer Interaction*, 7(CSCW1),
+  1–32. <https://doi.org/10.1145/3579607>
+- []{#ref-mamalakis-2022}Mamalakis, A., Barnes, E. A., & Ebert-Uphoff, I.
+  (2022). Investigating the fidelity of explainable artificial intelligence
+  methods for applications of convolutional neural networks in geoscience.
+  *Artificial Intelligence for the Earth Systems*, 1(4).
+  <https://doi.org/10.1175/AIES-D-22-0012.1>
+- []{#ref-mayernik-2019}Mayernik, M. S. (2019). Metadata accounts: Achieving
+  data and evidence in scientific research. *Social Studies of Science*,
+  49(5), 732–757. <https://doi.org/10.1177/0306312719863494>
+- []{#ref-mayernik-2021}Mayernik, M. S. (2021). Credibility via coupling:
+  Institutions and infrastructures in climate model intercomparisons.
+  *Engaging Science, Technology, and Society*, 7(2), 10–32.
+  <https://doi.org/10.17351/ests2021.769>
+- []{#ref-mayo-1996}Mayo, D. G. (1996). *Error and the growth of experimental
+  knowledge*. University of Chicago Press.
+- []{#ref-meehl-2000}Meehl, G. A., Boer, G. J., Covey, C., Latif, M., &
+  Stouffer, R. J. (2000). The Coupled Model Intercomparison Project (CMIP).
+  *Bulletin of the American Meteorological Society*, 81(2), 313–318.
+  <https://doi.org/10.1175/1520-0477(2000)081%3C0313:TCMIPC%3E2.3.CO;2>
+- []{#ref-oloughlin-2023}O'Loughlin, R. (2023). Diagnosing errors in climate
+  model intercomparisons. *European Journal for Philosophy of Science*, 13(2).
   <https://doi.org/10.1007/s13194-023-00522-z>
-- O'Loughlin, R. J., Li, D., Neale, R., & O'Brien, T. A. (2025). Moving beyond
-  post hoc explainable artificial intelligence: A perspective paper on lessons
-  learned from dynamical climate modeling. *Geoscientific Model Development*,
-  18(3), 787–802. <https://doi.org/10.5194/gmd-18-787-2025>
-- Pathak, J., Subramanian, S., Harrington, P., Raja, S., Chattopadhyay, A.,
-  Mardani, M., Kurth, T., Hall, D., Li, Z., Azizzadenesheli, K., Hassanzadeh,
-  P., Kashinath, K., & Anandkumar, A. (2022). FourCastNet: A global data-driven
-  high-resolution weather model using adaptive Fourier neural operators.
-  arXiv:2202.11214. <https://arxiv.org/abs/2202.11214>
-- Taleb, N. N. (2012). *Antifragile: Things that gain from disorder*. Random
-  House.
+- []{#ref-oloughlin-ms}O'Loughlin, R. (in preparation). Manuscript on
+  antifragility in scientific modeling.
+- []{#ref-oloughlin-2025}O'Loughlin, R. J., Li, D., Neale, R., & O'Brien,
+  T. A. (2025). Moving beyond post hoc explainable artificial intelligence: A
+  perspective paper on lessons learned from dynamical climate modeling.
+  *Geoscientific Model Development*, 18(3), 787–802.
+  <https://doi.org/10.5194/gmd-18-787-2025>
+- []{#ref-parker-2008}Parker, W. S. (2008). Computer simulation through an
+  error-statistical lens. *Synthese*, 163(3), 371–384.
+  <https://doi.org/10.1007/s11229-007-9296-0>
+- []{#ref-pathak-2022}Pathak, J., Subramanian, S., Harrington, P., Raja, S.,
+  Chattopadhyay, A., Mardani, M., Kurth, T., Hall, D., Li, Z.,
+  Azizzadenesheli, K., Hassanzadeh, P., Kashinath, K., & Anandkumar, A.
+  (2022). FourCastNet: A global data-driven high-resolution weather model using
+  adaptive Fourier neural operators. arXiv:2202.11214.
+  <https://arxiv.org/abs/2202.11214>
+- []{#ref-proske-2025}Proske, U., & Melsen, L. A. (2025). How climate model
+  developers deal with bugs. *Earth's Future*, 13(8), e2025EF006318.
+  <https://doi.org/10.1029/2025EF006318>
+- []{#ref-rudin-2019}Rudin, C. (2019). Stop explaining black box machine
+  learning models for high stakes decisions and use interpretable models
+  instead. *Nature Machine Intelligence*, 1(5), 206–215.
+  <https://doi.org/10.1038/s42256-019-0048-x>
+- []{#ref-schickore-2005}Schickore, J. (2005). 'Through thousands of errors
+  we reach the truth'—but how? On the epistemic roles of error in scientific
+  practice. *Studies in History and Philosophy of Science Part A*, 36(3),
+  539–556. <https://doi.org/10.1016/j.shpsa.2005.06.011>
+- []{#ref-sundberg-2007}Sundberg, M. (2007). Parameterizations as boundary
+  objects on the climate arena. *Social Studies of Science*, 37(3), 473–488.
+  <https://doi.org/10.1177/0306312706075330>
+- []{#ref-taleb-2012}Taleb, N. N. (2012). *Antifragile: Things that gain from
+  disorder*. Random House.
+- []{#ref-touze-2020}Touzé-Peiffer, L., Barberousse, A., & Le Treut, H.
+  (2020). The Coupled Model Intercomparison Project: History, uses, and
+  structural effects on climate research. *WIREs Climate Change*, 11(4),
+  e648. <https://doi.org/10.1002/wcc.648>
+- []{#ref-winsberg-2018}Winsberg, E. (2018). *Philosophy and climate
+  science*. Cambridge University Press.
+  <https://doi.org/10.1017/9781108164290>
+:::

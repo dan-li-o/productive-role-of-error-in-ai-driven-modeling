@@ -25,6 +25,8 @@
   document.querySelectorAll(".callout-header[data-bs-toggle='collapse']").forEach((toggle) => {
     toggle.setAttribute("role", "button");
     toggle.tabIndex = 0;
+    // Quarto labels every one "Toggle callout"; let the visible title name it.
+    toggle.removeAttribute("aria-label");
     toggle.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
@@ -64,6 +66,154 @@
     }
     brand.append(checkpoint);
   }
+
+  // About page: the branch-and-merge timeline. The list works on its own as a
+  // rail; this folds the literature branches, draws the branch lanes on wide
+  // screens, and draws them downward as the visitor scrolls.
+  document.querySelectorAll(".git-timeline").forEach((timeline) => {
+    const log = timeline.querySelector(".git-log");
+    const commits = [...log.querySelectorAll(".commit")];
+    const merge = log.querySelector(".commit.merge");
+    const motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window;
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.classList.add("git-lanes");
+    svg.setAttribute("aria-hidden", "true");
+    timeline.prepend(svg);
+    let reveal = null; // clip rectangle that uncovers the lanes on scroll
+
+    // Fold each literature branch to its first entry, with a toggle for the rest.
+    (timeline.dataset.fold || "").split(" ").filter(Boolean).forEach((branch) => {
+      const [first, ...rest] = commits.filter((commit) => commit.dataset.branch === branch);
+      if (!rest.length) return;
+      rest.forEach((commit) => (commit.hidden = true));
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "fold-toggle";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.textContent = `+${rest.length} more from ${branch}`;
+      toggle.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") !== "true";
+        rest.forEach((commit) => {
+          commit.hidden = !open;
+          commit.classList.add("is-visible");
+        });
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.textContent = open ? `Show fewer from ${branch}` : `+${rest.length} more from ${branch}`;
+      });
+      first.append(toggle);
+    });
+
+    const center = (commit) => {
+      const dot = commit.querySelector(".commit-dot").getBoundingClientRect();
+      const box = log.getBoundingClientRect();
+      return [dot.left + dot.width / 2 - box.left, dot.top + dot.height / 2 - box.top];
+    };
+
+    const path = (d, branch, dashed = false) => {
+      const line = document.createElementNS(svgNS, "path");
+      line.setAttribute("d", d);
+      line.dataset.branch = branch;
+      line.style.stroke = getComputedStyle(log.querySelector(`.commit[data-branch="${branch}"]`)).getPropertyValue("--branch");
+      if (dashed) line.setAttribute("stroke-dasharray", "4 6");
+      return line;
+    };
+
+    const updateReveal = () => {
+      if (!reveal) return;
+      const top = log.getBoundingClientRect().top;
+      const height = motion ? window.innerHeight * 0.6 - top : log.offsetHeight + 40;
+      reveal.setAttribute("height", Math.max(0, height));
+    };
+
+    // Lanes: each branch runs from its first entry down to the merge, then
+    // curves into main; main continues, solid to the last reached milestone
+    // and dashed after it.
+    const drawLanes = () => {
+      svg.replaceChildren();
+      reveal = null;
+      if (!timeline.classList.contains("is-lanes") || !merge) return;
+      const [mx, my] = center(merge);
+      const group = document.createElementNS(svgNS, "g");
+      const clip = document.createElementNS(svgNS, "clipPath");
+      clip.id = "git-reveal";
+      reveal = document.createElementNS(svgNS, "rect");
+      reveal.setAttribute("x", "-20");
+      reveal.setAttribute("y", "0");
+      reveal.setAttribute("width", "400");
+      clip.append(reveal);
+      group.setAttribute("clip-path", "url(#git-reveal)");
+      svg.append(clip, group);
+
+      const branches = [...new Set(commits.map((commit) => commit.dataset.branch))].filter((b) => b !== "main");
+      branches.forEach((branch) => {
+        const first = commits.find((commit) => commit.dataset.branch === branch && !commit.hidden && commit.compareDocumentPosition(merge) & Node.DOCUMENT_POSITION_FOLLOWING);
+        if (!first) return;
+        const [x, y] = center(first);
+        const bend = Math.min(40, (my - y) / 2);
+        group.append(path(`M${x} ${y} V${my - bend} Q${x} ${my} ${mx} ${my}`, branch));
+      });
+
+      const after = commits.slice(commits.indexOf(merge));
+      const reached = after.filter((commit) => !commit.classList.contains("planned")).pop();
+      const [, ry] = center(reached);
+      const [, ey] = center(after[after.length - 1]);
+      if (ry > my) group.append(path(`M${mx} ${my} V${ry}`, "main"));
+      group.append(path(`M${mx} ${ry} V${ey}`, "main", true));
+      updateReveal();
+    };
+
+    // Lanes need room; below that width the plain rail stays.
+    const layout = () => {
+      timeline.classList.toggle("is-lanes", log.clientWidth >= 560);
+      drawLanes();
+    };
+    if ("ResizeObserver" in window) new ResizeObserver(layout).observe(log);
+    else layout();
+    document.fonts?.ready.then(drawLanes);
+
+    // Hovering an entry or a legend item brings its branch forward.
+    const highlight = (branch) =>
+      svg.querySelectorAll("path").forEach((line) => line.classList.toggle("is-dim", Boolean(branch) && line.dataset.branch !== branch));
+    log.addEventListener("pointerover", (event) => highlight(event.target.closest(".commit")?.dataset.branch));
+    log.addEventListener("pointerleave", () => highlight(null));
+    document.querySelectorAll(".branch-legend li").forEach((item) => {
+      item.addEventListener("pointerenter", () => highlight(item.dataset.branch));
+      item.addEventListener("pointerleave", () => highlight(null));
+    });
+
+    if (!motion) return;
+
+    // Entries fade in as they reach the middle of the screen; the lanes are
+    // uncovered down to the same point.
+    timeline.classList.add("has-motion");
+    const fadeIn = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          fadeIn.unobserve(entry.target);
+        }),
+      { rootMargin: "0px 0px -40% 0px" }
+    );
+    commits.forEach((commit) => fadeIn.observe(commit));
+    // Keyboard focus never lands on an entry that hasn't faded in yet.
+    log.addEventListener("focusin", (event) => event.target.closest(".commit")?.classList.add("is-visible"));
+
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          updateReveal();
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
+  });
 
   const cells = [...document.querySelectorAll(".notebook-cell")];
   const codeCells = cells.filter((cell) => cell.classList.contains("code-cell"));

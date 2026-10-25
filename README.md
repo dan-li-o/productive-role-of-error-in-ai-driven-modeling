@@ -53,6 +53,30 @@ To preview locally (optional): install [Quarto](https://quarto.org) and run
       guidelines, or ask, before launch. Marks came from each institution's
       website or Wikimedia Commons; the NASA insignia is left out (it needs
       NASA's approval), so GISS has a text tile
+- [ ] About timeline (`about.qmd`): Ryan reads every entry; each one-line
+      summary simplifies a published argument. Check especially Schickore 2005
+      (the nerve-fiber example comes from the proposal, not the abstract),
+      Parker 2008 (the list of error sources), Winsberg 2018 (paraphrased; the
+      phrase "a socially organized kind of science" couldn't be confirmed, so it
+      isn't quoted), Rudin 2019, Buijsman 2022 (reworded: the paper defines
+      what makes an XAI explanation genuine) and Lin and Jackson 2023 (applied
+      data science work, not ML organizations in general)
+- [ ] About timeline: Ryan approves publishing the August 2025 pilot-interview
+      finding and the in-progress antifragility manuscript entry; add the year
+      and venue if the manuscript is accepted. Add a January 2024 NSF NCAR
+      fieldwork entry only if Ryan confirms it
+- [ ] About timeline: dates checked against sources (CMIP began in 1995, per
+      Meehl et al. 2000; Bommer et al. is the 2024 journal version of a 2023
+      preprint). Optional: a "proposal submitted" entry before the merge
+- [ ] Workshop date: About says "about July–September 2027" (proposal months
+      10–12), Workshop says "end of the first year"; earlier notes say fall 2027
+      at Queens College. Use one date everywhere
+- [ ] About acknowledgments: confirm "Research Foundation of CUNY – Queens
+      College" with the QC grants office; name research sites and letter
+      writers only after each agrees; add the IRB approval note under "Take
+      part" once approval is granted, and check the consent sentence with the IRB
+- [ ] Gavin Schmidt isn't named in the proposal: confirm he's on the advisory
+      board (People page) before launch
 - [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`
 - [ ] Analytics (cookie-free: GoatCounter or Plausible)
 - [ ] Mailing list (e.g. Buttondown), with sign-up on the homepage and Get
