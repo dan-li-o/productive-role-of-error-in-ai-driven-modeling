@@ -1,6 +1,6 @@
 ---
 pagetitle: "Productive Error · The Productive Role of Error in AI-Driven Modeling"
-description: "Sometimes the most useful thing an AI model does is fail. A Sloan Foundation project on how errors in AI-driven science lead to new knowledge, starting with climate and Earth system science."
+description: "Sometimes the most useful thing an AI model does is fail. A Sloan Foundation project on how mistakes made by AI models in science can lead to new knowledge, starting with weather and climate."
 toc: false
 page-layout: full
 include-in-header:
@@ -29,6 +29,10 @@ How this page works
 - The headline types "work", backspaces it and types "fail." (notebook.js).
   Edit the sentence inside .hero-type-final; data-type-wrong is the word
   typed first.
+- Under the headline, .hero-facts is a definition list: the term (what, why,
+  join) shows as a code-style label beside its one-sentence answer.
+- The header's "Last checkpoint" date comes from checkpoint.lua (render date);
+  the funder line beside it is FUNDER in notebook.js.
 - The bar chart in cell 4 is drawn to scale: 10 days vs 365 days
   (.bar-before / .bar-after in notebook.scss).
 -->
@@ -48,18 +52,25 @@ How this page works
 <h1 class="hero-type" data-type-wrong="work"><span class="hero-type-final">Sometimes the most useful thing an AI model does is fail.</span><span class="hero-type-live" aria-hidden="true"></span></h1>
 ```
 
-[We study how errors in AI-driven science lead to new knowledge: deeper
-understanding, stronger models and earned trust. A two-year project funded by
-the Alfred P. Sloan Foundation, starting with climate and Earth system
-science.]{.lede}
+::: {.hero-facts}
+what
+: We study how mistakes made by AI models in science can lead to new
+  knowledge, starting with weather and climate.
+
+why
+: AI is entering weather and climate science faster than anyone can explain
+  how it works. Its failures show what a model has missed, and when it can be
+  trusted.
+
+join
+: Tell us about an AI model that went wrong, talk with us about your work, or
+  come to our 2027 workshop.
+:::
 
 ::: {.cell-actions}
 [About the project](about.qmd){.button .button-primary}
 [Share an error story](contact.qmd){.button .button-secondary}
-:::
-
-::: {.latest-note}
-**Latest:** [Call for extended abstracts and speakers, February 2027](workshop.qmd)
+[**Latest:** [Call for extended abstracts and speakers, February 2027](workshop.qmd)]{.latest-note}
 :::
 :::
 :::
@@ -89,9 +100,9 @@ through it.
 ::: {.cell-output .error-output}
 [InstabilityError]{.error-name}: forecast unstable beyond 10 days
 
-FourCastNet, an AI weather model built on Fourier neural operators, made fast,
-skillful short-range forecasts. But a numerical instability kept it to
-forecasts shorter than ten days.
+FourCastNet, an AI weather model built on Fourier neural operators, a common
+design for AI weather models, made fast, accurate short-range forecasts. But
+beyond ten days, its forecasts fell apart.
 
 <figure class="globe-figure">
 <div class="globes" role="img" aria-label="Animation: two spinning globes. On the left, real weather patterns evolve smoothly. On the right, the AI model's forecast develops a star-shaped pattern of errors around the south pole that grows until the forecast breaks down around day 10.">
@@ -123,20 +134,19 @@ forecasts shorter than ten days.
 ::: {.cell-output}
 **It assumed the Earth was flat.**
 
-Researchers traced the problem to one component, the Fourier transform. Its
-math describes a flat sheet that wraps around at the edges, and it handles the
-poles badly. Replacing it with spherical harmonics, the sphere's version of the
-same math, gave a model that stayed stable for a full year of simulated
-weather.
+Researchers traced the problem to one component: a piece of math that treats
+the Earth like a flat map, which breaks down near the poles. Rebuilding that
+piece with math designed for a sphere gave a model that stayed stable for a
+full year of simulated weather.
 
 <figure class="forecast-chart">
-<figcaption>How far ahead each model could forecast before becoming unstable (to scale)</figcaption>
+<figcaption>How far ahead each model could forecast before its forecasts fell apart (to scale)</figcaption>
 <div class="bar-row">
-<span class="bar-label"><strong>Under 10 days</strong> · FourCastNet, flat Fourier transforms</span>
+<span class="bar-label"><strong>Under 10 days</strong> · FourCastNet, flat-map math</span>
 <span class="bar-track" aria-hidden="true"><span class="bar bar-before"></span></span>
 </div>
 <div class="bar-row">
-<span class="bar-label"><strong>1 year</strong> · rebuilt with spherical harmonics</span>
+<span class="bar-label"><strong>1 year</strong> · rebuilt with math for a sphere</span>
 <span class="bar-track" aria-hidden="true"><span class="bar bar-after"></span></span>
 </div>
 </figure>
@@ -168,9 +178,8 @@ The error didn't just get fixed. It left science better off:
 
 - **Understanding.** Tracing the failure to one component showed how the
   model works, insight that explainability tools rarely provide.
-- **Antifragility.** The model came back stronger than before, stable for a
-  year instead of ten days. Some systems gain from failure instead of merely
-  surviving it.
+- **Antifragility: coming back stronger after a failure.** The model went from
+  ten stable days to a full year.
 - **Credibility.** By diagnosing the failure in the open, researchers showed
   they understood a system that is hard to see inside.
 
@@ -200,8 +209,8 @@ understanding; Taleb 2012, *Antifragile*, on antifragility;
 
 ::: {.cell-output}
 AI models are moving into everyday science. Since February 2025, the European
-Centre for Medium-Range Weather Forecasts has run an AI forecast model
-operationally, alongside its physics-based one.
+Centre for Medium-Range Weather Forecasts (ECMWF) has used an AI model in daily
+forecasting, alongside its traditional model.
 
 Climate is harder still. The future climate lies outside any data a model was
 trained on, so it can't simply be checked against observations.
@@ -230,16 +239,18 @@ Source: [ECMWF 2025](https://www.ecmwf.int/en/about/media-centre/news/2025/ecmwf
 
 ::: {.cell-output}
 We're talking with the people who build and use these models: scientists,
-software engineers and data specialists at NSF NCAR, NASA GISS and Columbia
-University's LEAP Center. We also read the reports, code and data records
+software engineers and data specialists at the U.S. National Science
+Foundation's National Center for Atmospheric Research (NSF NCAR), NASA's
+Goddard Institute for Space Studies (NASA GISS) and Columbia University's LEAP
+Center (Learning the Earth with Artificial Intelligence and Physics). We also read the reports, code and data records
 where errors get written down.
 
 ::: {.project-links}
 ::: {.project-card}
 ## The questions
 
-Error and understanding, antifragility and credibility in AI-driven
-modeling.
+Error and understanding, antifragility (coming back stronger after a failure)
+and credibility in AI-driven modeling.
 
 [About the project](about.qmd)
 :::
@@ -247,8 +258,8 @@ modeling.
 ::: {.project-card}
 ## The workshop
 
-Scientists, philosophers and STS scholars working through real cases of error,
-side by side.
+Scientists, philosophers and scholars who study how science works (STS),
+working through real cases of error side by side.
 
 [Workshop details](workshop.qmd)
 :::

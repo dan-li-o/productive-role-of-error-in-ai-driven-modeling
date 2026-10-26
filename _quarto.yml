@@ -41,6 +41,10 @@ website:
       <span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
       · [Accessibility](/accessibility.qmd) · Text [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
+# Adds the render date for the header's "Last checkpoint".
+filters:
+  - checkpoint.lua
+
 format:
   html:
     theme:

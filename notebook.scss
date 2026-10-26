@@ -54,6 +54,7 @@ $footer-fg: #616161;
 
   /* Layout */
   --nb-max-width: 1040px;
+  --nb-measure: 64ch; /* reading width: about 70 characters a line */
   --nb-prompt-width: 96px;
   --nb-active-bar: 6px;
   --nb-radius: 2px;
@@ -64,6 +65,8 @@ $footer-fg: #616161;
 }
 
 @media (max-width: 1024px) { :root { --nb-prompt-width: 80px; } }
+/* Touch tablets: room for the run button beside "In [n]:". */
+@media (hover: none) and (min-width: 640px) { :root { --nb-prompt-width: 128px; } }
 @media (max-width: 639.98px) { :root { --nb-size-code: 15px; --nb-size-prompt: 14px; --nb-gutter: 16px; } }
 
 /* ---------- Base ---------- */
@@ -137,26 +140,38 @@ a:hover { text-decoration-thickness: 2px; }
   text-underline-offset: 0.3em;
 }
 
-/* "Last updated" and the kernel circle, added by notebook.js */
-.nb-checkpoint {
+/* Title row, placed by notebook.js: "Last checkpoint" beside the title, and
+   the funder with the kernel circle on the right. */
+.nb-checkpoint,
+.nb-kernel {
   align-items: center;
   color: var(--nb-text-muted);
   display: inline-flex;
   font-size: 13px;
-  gap: 8px;
-  margin-left: 16px;
   white-space: nowrap;
 }
 
+.nb-checkpoint { margin-left: 16px; }
+
 .nb-kernel {
+  display: inline;
+  margin-left: auto;
+  padding-left: 16px;
+}
+
+.nb-kernel-years { white-space: nowrap; }
+
+.nb-kernel-dot {
   border: 1.5px solid var(--nb-text-muted);
   border-radius: 50%;
   display: inline-block;
   height: 12px;
+  margin-left: 8px;
+  vertical-align: -1px;
   width: 12px;
 }
 
-.nb-kernel.is-busy { background: var(--nb-text-muted); }
+.nb-kernel-dot.is-busy { background: var(--nb-text-muted); }
 
 @media (min-width: 992px) {
   /* Desktop: title row above the menu bar. */
@@ -169,6 +184,23 @@ a:hover { text-decoration-thickness: 2px; }
   }
 
   .navbar-nav .nav-link { padding: 4px 12px; }
+
+  /* Header and footer content share the notebook's frame, so the logo, menu,
+     toolbar and prompt column start on one line. Borders stay full width. */
+  .navbar > .navbar-container,
+  .nav-footer {
+    margin-inline: auto;
+    max-width: var(--nb-max-width);
+    padding-inline: var(--nb-gutter);
+  }
+
+  .footer { border-top: 1px solid var(--nb-border); }
+
+  /* Menu text and the first toolbar icon line up with the logo; their hover
+     boxes overhang to the left. */
+  .navbar-nav,
+  .nb-toolbar > :first-child { margin-left: -12px; }
+  .footer .nav-footer { border-top: 0; }
 }
 
 @media (min-width: 992px) and (pointer: coarse) {
@@ -176,8 +208,21 @@ a:hover { text-decoration-thickness: 2px; }
   .navbar-nav .nav-link { padding-block: 10px; }
 }
 
-@media (max-width: 639.98px) {
+@media (max-width: 991.98px) {
   .nb-checkpoint { display: none; }
+}
+
+@media (max-width: 639.98px) {
+  /* Phones: the funder moves to a second line, under the title. */
+  .navbar-brand-container { flex: 1 1 0; flex-wrap: wrap; max-width: calc(100% - 64px); }
+
+  .nb-kernel {
+    flex-basis: 100%;
+    font-size: 12px;
+    margin: -4px 0 4px;
+    padding-left: 0;
+    white-space: normal;
+  }
 }
 
 /* ---------- Footer ---------- */
@@ -296,13 +341,14 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
 .prose-cell > .cell-content {
   grid-column: 2;
   min-width: 0;
+  padding-inline: 16px; /* text lines up with code and output text */
 }
 
 .prose-cell p,
 .prose-cell li,
 .cell-output p,
 .cell-output li {
-  max-width: 70ch;
+  max-width: var(--nb-measure);
 }
 
 .prose-cell h1 {
@@ -376,25 +422,49 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
   margin-bottom: 12px;
 }
 
-.lede { font-size: 20px; line-height: 1.5; }
+/* Homepage what / why / join: code-style labels beside one sentence each. */
+.hero-facts dl {
+  display: grid;
+  font-size: 18px;
+  gap: 8px 20px;
+  grid-template-columns: max-content minmax(0, 1fr);
+  line-height: 1.5;
+  margin: 24px 0 0;
+}
+
+.hero-facts dt {
+  color: var(--nb-in-prompt);
+  font-family: var(--nb-font-code);
+  font-size: var(--nb-size-code);
+  font-weight: 400;
+  line-height: 1.7; /* sits on the first line of the sentence beside it */
+}
+
+.hero-facts dd { margin: 0; max-width: var(--nb-measure); }
 
 .cell-actions {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-block: 24px;
 }
 
+.cell-actions > p { display: contents; } /* Pandoc wraps inline content in <p> */
+
+/* Beside the buttons, wrapping within its own box when the row is narrow. */
 .latest-note {
   color: var(--nb-text-muted);
+  flex: 1 1 16rem;
   font-size: var(--nb-size-small);
   line-height: 1.5;
 }
 
 .latest-note strong { color: var(--nb-text); font-weight: 500; }
 
+/* Section breaks read larger than the gaps between cells. */
 .bridge-cell,
-.closing-cell { margin-top: 32px; }
+.closing-cell { margin-top: 48px; }
 
 /* Prompt column. Without JS a CSS counter numbers the cells (In [1]: ...);
    with JS the prompts come from data-prompt and follow run order. */
@@ -407,6 +477,11 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
   padding: 12px 8px 0 0;
   text-align: right;
 }
+
+/* Same line box as the code beside it (12px padding + 1px border, 24px line),
+   and as the output text, so the prompts share their baselines. */
+.cell-prompt { line-height: 24px; padding-top: 13px; }
+.output-prompt { line-height: calc(var(--nb-size-text) * var(--nb-line-text)); }
 
 .cell-prompt {
   align-items: flex-start;
@@ -454,7 +529,7 @@ html.has-notebook-js .run-cell { display: inline-flex; }
     opacity: 0;
     position: absolute;
     right: 4px;
-    top: 1px; /* centres the 44px button on the first prompt line */
+    top: 3px; /* centres the 44px button on the first prompt line */
   }
 
   html.has-notebook-js .code-cell:not(.is-running):hover .run-cell,
@@ -469,11 +544,10 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 }
 
 @media (hover: none) and (min-width: 640px) {
-  .cell-prompt {
-    align-items: flex-end;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
+  /* Beside the label, overhanging its line so the prompt stays no taller than
+     the code box and the output sits close under it. */
+  .cell-prompt { flex-direction: row-reverse; gap: 4px; justify-content: flex-start; }
+  .run-cell { margin-block: -10px; }
 }
 
 /* Code input box */
@@ -532,7 +606,7 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 
 /* Homepage bar chart: forecast length before and after the fix, to scale
    (10 of 365 days). Labels carry the values, so the bars are decorative. */
-.forecast-chart { margin: 24px 0 8px; max-width: 70ch; }
+.forecast-chart { margin: 24px 0 8px; max-width: var(--nb-measure); }
 
 .forecast-chart figcaption {
   color: var(--nb-text-muted);
@@ -567,7 +641,7 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 
 /* Homepage illustration (cell 3): two globes drawn by notebook.js. Hidden
    without JS, where the canvases would stay blank. */
-.globe-figure { margin: 24px 0 8px; max-width: 70ch; }
+.globe-figure { margin: 24px 0 8px; max-width: var(--nb-measure); }
 html:not(.has-notebook-js) .globe-figure { display: none; }
 
 .globes {
@@ -594,10 +668,25 @@ html:not(.has-notebook-js) .globe-figure { display: none; }
   text-align: center;
 }
 
-.globe-controls { align-items: center; display: flex; gap: 8px; margin-top: 8px; }
+.globe-controls { align-items: center; display: flex; gap: 12px; margin-top: 12px; }
+.globe-controls > p { display: contents; } /* Pandoc wraps inline content in <p> */
 .globe-day { font-size: var(--nb-size-small); font-variant-numeric: tabular-nums; }
 .globe-day.is-unstable { color: var(--nb-error-text); font-weight: 600; }
-.globe-figure figcaption { color: var(--nb-text); font-size: var(--nb-size-small); line-height: 1.5; margin-top: 4px; }
+.globe-figure figcaption { color: var(--nb-text); font-size: var(--nb-size-small); line-height: 1.5; margin-top: 12px; }
+
+/* Pause / Play: a quiet chip, so it reads as a button on the pink output. */
+.globe-toggle {
+  background: var(--nb-page);
+  border: 1px solid rgb(0 0 0 / 22%);
+  font-size: var(--nb-size-small);
+  min-height: 32px;
+}
+
+.globe-toggle svg { height: 12px; width: 12px; }
+
+@media (pointer: coarse) {
+  .globe-toggle { min-height: 44px; }
+}
 
 /* Short source line at the end of an output */
 .cell-output .cell-source {
@@ -605,6 +694,7 @@ html:not(.has-notebook-js) .globe-figure { display: none; }
   font-size: var(--nb-size-small);
   line-height: 1.5;
   margin-top: 16px;
+  max-width: var(--nb-measure);
 }
 
 .error-output {
@@ -641,8 +731,13 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .project-card {
   border: 1px solid var(--nb-border);
   border-radius: var(--nb-radius);
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
+
+/* The links line up along the bottom of the cards. */
+.project-card > p:last-child { margin: auto 0 0; }
 
 .project-card h2 { font-size: 21px; margin: 0 0 8px; }
 .project-card p { font-size: 16px; line-height: 1.5; }
@@ -967,11 +1062,12 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
     text-align: left;
   }
 
+  .prose-cell > .cell-content,
   .cell-output { padding-inline: 0; }
-  .error-output { padding-inline: 12px; }
+  .error-output { padding-inline: 16px; }
 
   .prose-cell h1 { font-size: 36px; }
-  .lede { font-size: 18px; }
+  .hero-facts dl { font-size: 17px; gap: 8px 14px; }
 
   .project-links,
   .method-grid { grid-template-columns: minmax(0, 1fr); }

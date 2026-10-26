@@ -10,7 +10,9 @@ other pages are plain reading pages in the same style.
   editor; every push to `main` re-renders and publishes the site
   (`.github/workflows/publish.yml`).
 - `notebook.scss` holds the Jupyter-style look; `notebook.js` runs the
-  homepage cells, assembles email links and adds the "Last updated" line.
+  homepage cells, assembles email links and fills the header's title row:
+  the "Last checkpoint" date (the render date, from `checkpoint.lua`) and the
+  funder line.
 - The homepage cells are hand-written divs in `index.qmd`; a comment at the
   top of that file explains how to edit them.
 - **News:** add a file to `news/` named `YYYY-MM-DD-short-name.qmd` with a

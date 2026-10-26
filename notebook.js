@@ -45,26 +45,29 @@
     if ("ResizeObserver" in window) new ResizeObserver(syncHeaderHeight).observe(header);
   }
 
-  // Title row: "Last updated" where Jupyter shows "Last checkpoint".
-  // GitHub Pages sends Last-Modified, so this is the date of the last deploy.
+  // Title row, as in Jupyter: "Last checkpoint" beside the title, and on the
+  // right, where Jupyter names the kernel, the funder and the project's years.
+  // checkpoint.lua writes the render date into each page.
+  const FUNDER = "Alfred P. Sloan Foundation";
+  const YEARS = "2026–2028";
   const brand = document.querySelector(".navbar-brand-container");
   let kernel = null;
   if (brand) {
-    const checkpoint = document.createElement("span");
-    checkpoint.className = "nb-checkpoint";
-    checkpoint.textContent = `Last updated ${new Date(document.lastModified).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })}`;
-    if (document.querySelector(".notebook")) {
-      // Decorative kernel circle: filled while a cell runs.
-      kernel = document.createElement("span");
-      kernel.className = "nb-kernel";
-      kernel.setAttribute("aria-hidden", "true");
-      checkpoint.append(kernel);
+    const checkpoint = document.querySelector(".nb-checkpoint[hidden]");
+    if (checkpoint) {
+      checkpoint.hidden = false;
+      brand.append(checkpoint);
     }
-    brand.append(checkpoint);
+    const label = Object.assign(document.createElement("span"), { className: "visually-hidden", textContent: "Funded by " });
+    // Decorative kernel circle: filled while a cell runs. It stays on the
+    // years' line when a phone wraps the funder line.
+    kernel = Object.assign(document.createElement("span"), { className: "nb-kernel-dot" });
+    kernel.setAttribute("aria-hidden", "true");
+    const years = Object.assign(document.createElement("span"), { className: "nb-kernel-years", textContent: YEARS });
+    years.append(kernel);
+    const funder = Object.assign(document.createElement("span"), { className: "nb-kernel" });
+    funder.append(label, `${FUNDER} · `, years);
+    brand.append(funder);
   }
 
   // Homepage headline: types "…does is work", backspaces "work" and types
@@ -542,7 +545,9 @@
 
     const setPlaying = (value) => {
       playing = value;
-      toggle.textContent = playing ? "Pause" : "Play";
+      // The icon shows what the button does, like the toolbar's Run icons.
+      const icon = playing ? "M4 2.5h3v11H4zM9 2.5h3v11H9z" : "M4 2.5v11l9-5.5z";
+      toggle.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="${icon}"/></svg>${playing ? "Pause" : "Play"}`;
       toggle.setAttribute("aria-label", playing ? "Pause animation" : "Play animation");
       update();
     };
