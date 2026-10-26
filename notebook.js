@@ -35,20 +35,42 @@
     });
   });
 
-  // The homepage toolbar sticks just below the header; track the header's
-  // height, which changes when the phone menu opens.
+  // Track the header's height, which changes when the phone menu opens, so
+  // cells scrolled into view clear the sticky header.
   const header = document.querySelector("#quarto-header");
   if (header) {
     const syncHeaderHeight = () =>
       document.documentElement.style.setProperty("--nb-header-h", `${header.offsetHeight}px`);
     syncHeaderHeight();
     if ("ResizeObserver" in window) new ResizeObserver(syncHeaderHeight).observe(header);
+
+    // Reading progress: a thin line along the header's bottom edge.
+    const progress = Object.assign(document.createElement("div"), { className: "nb-progress" });
+    progress.setAttribute("aria-hidden", "true");
+    header.append(progress);
+    let progressQueued = false;
+    const updateProgress = () => {
+      progressQueued = false;
+      const range = document.documentElement.scrollHeight - window.innerHeight;
+      progress.hidden = range < 1;
+      progress.style.transform = `scaleX(${range < 1 ? 0 : Math.min(1, window.scrollY / range)})`;
+    };
+    const queueProgress = () => {
+      if (progressQueued) return;
+      progressQueued = true;
+      requestAnimationFrame(updateProgress);
+    };
+    window.addEventListener("scroll", queueProgress, { passive: true });
+    window.addEventListener("resize", queueProgress);
+    if ("ResizeObserver" in window) new ResizeObserver(queueProgress).observe(document.body);
+    updateProgress();
   }
 
   // Title row, as in Jupyter: "Last checkpoint" beside the title, and on the
   // right, where Jupyter names the kernel, the funder and the project's years.
   // checkpoint.lua writes the render date into each page.
   const FUNDER = "Alfred P. Sloan Foundation";
+  const FUNDER_URL = "https://sloan.org/";
   const YEARS = "2026–2028";
   const brand = document.querySelector(".navbar-brand-container");
   let kernel = null;
@@ -66,7 +88,9 @@
     const years = Object.assign(document.createElement("span"), { className: "nb-kernel-years", textContent: YEARS });
     years.append(kernel);
     const funder = Object.assign(document.createElement("span"), { className: "nb-kernel" });
-    funder.append(label, `${FUNDER} · `, years);
+    // The funder's name links to its site, styled as plain text until hovered.
+    const sloan = Object.assign(document.createElement("a"), { className: "nb-kernel-link", href: FUNDER_URL, textContent: FUNDER });
+    funder.append(label, sloan, " · ", years);
     brand.append(funder);
   }
 
@@ -545,7 +569,7 @@
 
     const setPlaying = (value) => {
       playing = value;
-      // The icon shows what the button does, like the toolbar's Run icons.
+      // The icon shows what the button does, like the cells' run buttons.
       const icon = playing ? "M4 2.5h3v11H4zM9 2.5h3v11H9z" : "M4 2.5v11l9-5.5z";
       toggle.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="${icon}"/></svg>${playing ? "Pause" : "Play"}`;
       toggle.setAttribute("aria-label", playing ? "Pause animation" : "Play animation");
@@ -684,26 +708,6 @@
       event.preventDefault();
       if (isCode) runCell(selectedCell, { replay: true });
     }
-  });
-
-  document.querySelector("[data-nb-run]")?.addEventListener("click", () => {
-    const target = selectedCell?.classList.contains("code-cell")
-      ? selectedCell
-      : codeCells.find((cell) => !cell.classList.contains("is-revealed")) ?? codeCells[0];
-    runCell(target, { replay: true });
-    focusCell(target);
-  });
-
-  document.querySelector("[data-nb-run-all]")?.addEventListener("click", () => {
-    const gap = reducedMotion ? 0 : 150;
-    codeCells.forEach((cell, index) => {
-      window.setTimeout(() => runCell(cell, { replay: true, silent: true }), index * gap);
-    });
-    // One announcement once the last cell has finished.
-    window.setTimeout(
-      () => announce("All cells run. Every output is now shown."),
-      reducedMotion ? 0 : codeCells.length * gap + 650
-    );
   });
 
   if (reducedMotion || !("IntersectionObserver" in window)) {

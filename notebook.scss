@@ -11,39 +11,41 @@ $headings-font-weight: 500;
 $headings-line-height: 1.2;
 $body-bg: #FFFFFF;
 $body-color: #212121;
-$link-color: #0D47A1;
-$primary: #1976D2;
+$link-color: #1565C0;
+$primary: #1565C0;
 $border-radius: 2px;
 $border-radius-sm: 2px;
 $border-radius-lg: 2px;
 $code-color: #212121;
 $navbar-bg: #FFFFFF;
 $navbar-fg: #212121;
-$navbar-hl: #0D47A1;
+$navbar-hl: #1565C0;
 $footer-bg: #FFFFFF;
 $footer-fg: #616161;
 
 /*-- scss:rules --*/
 :root {
-  /* Color */
+  /* Color: ink, grey, one blue and one red, used sparingly. The globes on the
+     homepage are the only loud thing on the page. */
   --nb-page: #FFFFFF;
   --nb-text: #212121;
   --nb-text-muted: #616161;
   --nb-border: #E0E0E0;
   --nb-editor-bg: #F5F5F5;
-  --nb-brand: #1976D2;
-  --nb-link: #0D47A1;
-  --nb-link-visited: #7B1FA2;
-  --nb-in-prompt: #2A6AA8;
-  --nb-out-prompt: #A8492F;
+  --nb-blue: #1565C0;
+  --nb-blue-strong: #0D47A1; /* hover on solid blue */
+  --nb-red: #B3261E;
+  --nb-brand: var(--nb-blue);
+  --nb-link: var(--nb-blue);
+  --nb-in-prompt: var(--nb-blue);
+  --nb-out-prompt: var(--nb-red);
   --nb-error-bg: #FFDDDD;
-  --nb-error-text: #B71C1C;
+  --nb-error-text: var(--nb-red);
   --nb-focus-glow: #64B5F6;
   --nb-menu-hover: #EEEEEE;
   --nb-button-hover: #E3F2FD;
 
   /* Type */
-  --nb-font-text: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --nb-font-code: Menlo, Consolas, "DejaVu Sans Mono", monospace;
   --nb-size-text: 17px;
   --nb-size-code: 16px;
@@ -62,6 +64,16 @@ $footer-fg: #616161;
   --nb-gutter: 24px;
   --nb-header-h: 0px; /* set by notebook.js */
   --nb-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+
+  /* Spacing scale */
+  --nb-space-1: 4px;
+  --nb-space-2: 8px;
+  --nb-space-3: 12px;
+  --nb-space-4: 16px;
+  --nb-space-5: 24px;
+  --nb-space-6: 32px;
+  --nb-space-7: 48px;
+  --nb-space-8: 64px;
 }
 
 @media (max-width: 1024px) { :root { --nb-prompt-width: 80px; } }
@@ -73,14 +85,25 @@ $footer-fg: #616161;
 
 /* Set here rather than through Bootstrap variables: Quarto's rules make h1/h2
    600 and underline h2, and Bootstrap's responsive sizing assumes a 16px root. */
-h1, h2, h3, h4, .h1, .h2, .h3, .h4, .title { font-weight: 500; }
+h1, h2, h3, h4, .h1, .h2, .h3, .h4, .title { font-weight: 500; letter-spacing: -0.01em; }
 h1, .h1, .title { font-size: 35px; }
 h2, .h2 { border-bottom: 0; font-size: 29px; padding-bottom: 0; }
 h3, .h3 { font-size: 24px; line-height: 1.25; }
 
-a { text-underline-offset: 0.18em; }
-a:visited { color: var(--nb-link-visited); }
-a:hover { text-decoration-thickness: 2px; }
+/* Quiet underlines that firm up on hover. Visited links keep the one blue. */
+a {
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:visited { color: var(--nb-link); }
+a:hover { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
+
+/* No single word left alone on a paragraph's last line. */
+p, li { text-wrap: pretty; }
+
+/* Quarto's 60px page-bottom row is the only space above the footer. */
+main.content { margin-bottom: 0; }
 
 /* Long URLs (e.g. in reference lists) wrap instead of widening phone pages. */
 #quarto-document-content { overflow-wrap: break-word; }
@@ -161,6 +184,11 @@ a:hover { text-decoration-thickness: 2px; }
 
 .nb-kernel-years { white-space: nowrap; }
 
+.nb-kernel-link,
+.nb-kernel-link:visited { color: inherit; text-decoration: none; }
+.nb-kernel-link:hover,
+.nb-kernel-link:focus-visible { color: var(--nb-text); text-decoration: underline; }
+
 .nb-kernel-dot {
   border: 1.5px solid var(--nb-text-muted);
   border-radius: 50%;
@@ -176,7 +204,9 @@ a:hover { text-decoration-thickness: 2px; }
 @media (min-width: 992px) {
   /* Desktop: title row above the menu bar. */
   .navbar > .navbar-container { flex-wrap: wrap; }
-  .navbar .navbar-brand-container { flex: 1 0 100%; }
+  /* Full width (Quarto leaves room for the phone menu button), so the funder
+     and kernel circle end on the frame's right edge, like the menu border. */
+  .navbar .navbar-brand-container { flex: 1 0 100%; max-width: none; }
 
   .navbar #navbarCollapse {
     border-top: 1px solid var(--nb-border);
@@ -185,10 +215,10 @@ a:hover { text-decoration-thickness: 2px; }
 
   .navbar-nav .nav-link { padding: 4px 12px; }
 
-  /* Header and footer content share the notebook's frame, so the logo, menu,
-     toolbar and prompt column start on one line. Borders stay full width. */
+  /* Header and footer content share the notebook's frame, so the logo, menu
+     and prompt column start on one line. Borders stay full width. */
   .navbar > .navbar-container,
-  .nav-footer {
+  footer.footer .nav-footer {
     margin-inline: auto;
     max-width: var(--nb-max-width);
     padding-inline: var(--nb-gutter);
@@ -196,12 +226,25 @@ a:hover { text-decoration-thickness: 2px; }
 
   .footer { border-top: 1px solid var(--nb-border); }
 
-  /* Menu text and the first toolbar icon line up with the logo; their hover
-     boxes overhang to the left. */
-  .navbar-nav,
-  .nb-toolbar > :first-child { margin-left: -12px; }
+  /* Menu text lines up with the logo; the hover boxes overhang to the left. */
+  .navbar-nav { margin-left: -12px; }
   .footer .nav-footer { border-top: 0; }
 }
+
+/* Reading progress along the header's bottom edge, set by notebook.js. */
+.nb-progress {
+  background: var(--nb-brand);
+  bottom: -1px;
+  height: 2px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.nb-progress[hidden] { display: none; }
 
 @media (min-width: 992px) and (pointer: coarse) {
   /* Touch screens keep 44px menu targets. */
@@ -210,11 +253,15 @@ a:hover { text-decoration-thickness: 2px; }
 
 @media (max-width: 991.98px) {
   .nb-checkpoint { display: none; }
+
+  /* Tablets and phones: the title block fills the row beside the menu button
+     (Quarto centres it), so the funder ends on the right gutter. */
+  .navbar-brand-container { flex: 1 1 0; max-width: none; }
 }
 
 @media (max-width: 639.98px) {
   /* Phones: the funder moves to a second line, under the title. */
-  .navbar-brand-container { flex: 1 1 0; flex-wrap: wrap; max-width: calc(100% - 64px); }
+  .navbar-brand-container { flex-wrap: wrap; max-width: calc(100% - 64px); }
 
   .nb-kernel {
     flex-basis: 100%;
@@ -227,13 +274,40 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ---------- Footer ---------- */
 
+/* Two blocks: who we are and who supports us on the left, contact and
+   policies on the right. Left-aligned at every width. */
 .nav-footer {
+  align-items: flex-start;
   border-top: 1px solid var(--nb-border);
-  font-size: var(--nb-size-small);
-  line-height: 1.5;
+  color: var(--nb-text-muted);
+  column-gap: var(--nb-space-6);
+  font-size: 14px;
+  line-height: 1.6;
+  padding-block: var(--nb-space-6);
+  row-gap: var(--nb-space-4);
+  text-align: left;
 }
 
-.nav-footer a { color: var(--nb-link); }
+.nav-footer p { margin: 0; }
+.nav-footer-center { display: none; }
+.nav-footer-left,
+.nav-footer-right { text-align: left; }
+.nav-footer-left { flex: 1 1 auto; min-width: 0; }
+.nav-footer-right { flex: none; }
+.footer-name { color: var(--nb-text); font-weight: 500; }
+
+.nav-footer a,
+.nav-footer a:visited { color: var(--nb-text-muted); }
+.nav-footer a:hover { color: var(--nb-text); }
+
+@media (min-width: 992px) {
+  .nav-footer { flex-wrap: nowrap; }
+  .nav-footer-right { text-align: right; }
+}
+
+@media (max-width: 991.98px) {
+  footer.footer .nav-footer { flex-direction: column; padding-inline: var(--nb-gutter); }
+}
 
 /* ---------- Buttons ---------- */
 
@@ -257,8 +331,8 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 .button-primary:hover {
-  background: var(--nb-link);
-  border-color: var(--nb-link);
+  background: var(--nb-blue-strong);
+  border-color: var(--nb-blue-strong);
   color: #FFFFFF;
 }
 
@@ -273,26 +347,12 @@ a:hover { text-decoration-thickness: 2px; }
   color: var(--nb-link);
 }
 
-/* ---------- Homepage toolbar ---------- */
+/* ---------- Homepage ---------- */
 
-#quarto-document-content:has(.nb-toolbar) { margin-top: 0; padding-top: 0; }
-#quarto-document-content:has(.nb-toolbar) > .quarto-title-block { display: none; }
+#quarto-document-content:has(.notebook) { margin-top: 0; padding-top: 0; }
+#quarto-document-content:has(.notebook) > .quarto-title-block { display: none; }
 
-.nb-toolbar {
-  background: var(--nb-page);
-  border-bottom: 1px solid var(--nb-border);
-  display: flex;
-  gap: 4px;
-  margin-inline: auto;
-  max-width: var(--nb-max-width);
-  padding: 4px var(--nb-gutter);
-  position: sticky;
-  top: var(--nb-header-h);
-  z-index: 10;
-}
-
-html:not(.has-notebook-js) .nb-toolbar { display: none; }
-
+/* Small tool button (the globe animation's Pause / Play). */
 .nb-tool {
   align-items: center;
   background: transparent;
@@ -317,7 +377,7 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
   counter-reset: nb-cell;
   margin-inline: auto;
   max-width: var(--nb-max-width);
-  padding: 32px var(--nb-gutter) 64px;
+  padding: var(--nb-space-6) var(--nb-gutter) 0;
 }
 
 .notebook-cell {
@@ -351,11 +411,13 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
   max-width: var(--nb-measure);
 }
 
+/* Two lines on desktop, set a touch tight as large type should be. */
 .prose-cell h1 {
   font-size: 52px;
-  line-height: 1.15;
-  margin: 0 0 16px;
-  max-width: 20ch;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 var(--nb-space-4);
+  max-width: 30ch;
   text-wrap: balance;
 }
 
@@ -452,19 +514,29 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
 
 .cell-actions > p { display: contents; } /* Pandoc wraps inline content in <p> */
 
-/* Beside the buttons, wrapping within its own box when the row is narrow. */
+/* Under the hero buttons, on its own line. */
+.cell-actions:has(+ .latest-note) { margin-bottom: var(--nb-space-4); }
+
 .latest-note {
   color: var(--nb-text-muted);
-  flex: 1 1 16rem;
   font-size: var(--nb-size-small);
   line-height: 1.5;
 }
 
+.latest-note > p { margin: 0; }
+
 .latest-note strong { color: var(--nb-text); font-weight: 500; }
 
-/* Section breaks read larger than the gaps between cells. */
+/* Cells end without trailing margin; section breaks (64px from the content
+   above) read larger than the gaps between cells (32px). */
+.cell-content > :last-child,
+.cell-output > :last-child { margin-bottom: 0; }
+
 .bridge-cell,
-.closing-cell { margin-top: 48px; }
+.closing-cell { margin-top: var(--nb-space-6); }
+
+/* Buttons in a row share a width, so the row reads as one even set. */
+.cell-actions .button { min-width: 12rem; }
 
 /* Prompt column. Without JS a CSS counter numbers the cells (In [1]: ...);
    with JS the prompts come from data-prompt and follow run order. */
@@ -473,27 +545,28 @@ html:not(.has-notebook-js) .nb-toolbar { display: none; }
   font-family: var(--nb-font-code);
   font-size: var(--nb-size-prompt);
   grid-column: 1;
-  line-height: var(--nb-line-code);
   padding: 12px 8px 0 0;
   text-align: right;
 }
 
-/* Same line box as the code beside it (12px padding + 1px border, 24px line),
-   and as the output text, so the prompts share their baselines. */
-.cell-prompt { line-height: 24px; padding-top: 13px; }
-.output-prompt { line-height: calc(var(--nb-size-text) * var(--nb-line-text)); }
-
+/* Each prompt shares the line box of its neighbour, so their baselines match:
+   the code line (12px padding + 1px border, 24px line) or the output text. */
 .cell-prompt {
   align-items: flex-start;
   color: var(--nb-in-prompt);
   display: flex;
   justify-content: flex-end;
+  line-height: 24px;
+  padding-top: 13px;
   position: relative;
 }
 
 .cell-prompt > p { display: contents; } /* Pandoc wraps inline content in <p> */
 
-.output-prompt { color: var(--nb-out-prompt); }
+.output-prompt {
+  color: var(--nb-out-prompt);
+  line-height: calc(var(--nb-size-text) * var(--nb-line-text));
+}
 
 .code-cell { counter-increment: nb-cell; }
 .prompt-label { white-space: nowrap; }
@@ -578,14 +651,14 @@ html.has-notebook-js .run-cell { display: inline-flex; }
   box-shadow: inset 0 0 0 1px var(--nb-focus-glow);
 }
 
-/* Syntax colors (Jupyter's editor theme, contrast-adjusted) */
-.code-keyword { color: #008000; }
-.code-function { color: #0000FF; }
-.code-string { color: #BA2121; }
-.code-comment { color: #336B6B; font-style: italic; }
-.code-number { color: #006F00; }
-.code-operator { color: #7800C2; }
-.code-variable { color: #212121; }
+/* Syntax: function names in the one blue, everything else ink or grey. */
+.code-function { color: var(--nb-blue); }
+.code-keyword,
+.code-string,
+.code-number,
+.code-operator,
+.code-variable { color: var(--nb-text); }
+.code-comment { color: var(--nb-text-muted); font-style: italic; }
 
 /* Outputs */
 .cell-output {
@@ -593,8 +666,6 @@ html.has-notebook-js .run-cell { display: inline-flex; }
   min-width: 0;
   padding: 12px 16px 4px;
 }
-
-.cell-output > :last-child { margin-bottom: 0; }
 
 .cell-output blockquote {
   border-left: 3px solid var(--nb-border);
@@ -697,11 +768,17 @@ html:not(.has-notebook-js) .globe-figure { display: none; }
   max-width: var(--nb-measure);
 }
 
-.error-output {
+/* Pink only behind the error line, full output width as in Jupyter; the rest
+   of the output sits on white. */
+.error-output { margin-top: var(--nb-space-2); padding-top: 0; }
+
+.error-line {
   background: var(--nb-error-bg);
-  margin-top: 8px;
-  padding-bottom: 12px;
+  margin: 0 -16px var(--nb-space-4);
+  padding: var(--nb-space-2) 16px;
 }
+
+.error-line > p { margin: 0; }
 
 .error-name {
   color: var(--nb-error-text);
@@ -739,72 +816,106 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 /* The links line up along the bottom of the cards. */
 .project-card > p:last-child { margin: auto 0 0; }
 
-.project-card h2 { font-size: 21px; margin: 0 0 8px; }
+/* Specific enough to beat Quarto's narrow-screen margin on a page's first h2. */
+#quarto-content section.project-card > h2:first-of-type { font-size: 21px; margin: 0 0 8px; }
 .project-card p { font-size: 16px; line-height: 1.5; }
 
 /* ---------- Reading pages ---------- */
 
 .person {
   display: grid;
-  gap: 16px 24px;
-  grid-template-columns: 128px minmax(0, 1fr);
-  margin-block: 24px 32px;
+  gap: 0 var(--nb-space-5);
+  grid-template-columns: 112px minmax(0, 1fr);
+  margin-block: var(--nb-space-5) var(--nb-space-7);
 }
 
-.person img {
-  border: 1px solid var(--nb-border);
+/* Both portraits toned down to the same soft, muted colour, so they read as
+   a pair despite different backgrounds. */
+.person > p:first-child { margin: 0; }
+.person > p:first-child img {
   border-radius: var(--nb-radius);
-  height: 128px;
+  filter: saturate(0.6) contrast(0.95) brightness(1.03);
+  height: 112px;
   object-fit: cover;
-  width: 128px;
+  width: 112px;
 }
 
-.person h3 { margin-top: 0; }
-.person .role { color: var(--nb-text-muted); }
-
-/* Institution logos sit on white tiles so every mark reads the same way. */
-.logo {
-  background: #FFFFFF;
-  border: 1px solid var(--nb-border);
-  border-radius: var(--nb-radius);
-  box-sizing: border-box;
-  flex: none;
-  height: 40px;
-  object-fit: contain;
-  padding: 3px;
-  width: 40px;
+/* Name, role and institution sit close together; the bio follows. */
+.person h3 { font-size: 22px; margin: 0 0 var(--nb-space-1); }
+.person-text > p { margin: 0 0 var(--nb-space-3); max-width: var(--nb-measure); }
+/* Styled on the paragraph, so a wrapped role keeps the small line height.
+   A label, not prose, so no reading-width cap. */
+.person-text > p:has(.role) {
+  color: var(--nb-text-muted);
+  font-size: var(--nb-size-small);
+  line-height: 1.45;
+  margin-bottom: 2px;
+  max-width: none;
 }
+.person-text > p:last-child { margin-bottom: 0; }
 
-/* NASA's insignia needs NASA's approval, so GISS gets a text tile. */
-.logo-text {
+.person-text > p.org {
   align-items: center;
   color: var(--nb-text-muted);
-  display: inline-flex;
-  font-size: 11px;
-  font-weight: 600;
-  justify-content: center;
-  letter-spacing: 0.02em;
+  display: flex;
+  font-size: 14px;
+  gap: 6px;
+  line-height: 1.45;
 }
 
-.org { align-items: center; display: flex; gap: 8px; margin: 8px 0 12px; }
-.org .logo { height: 32px; padding: 3px; width: 32px; }
+/* Institution logos: the mark alone, no tile or border. Sizes are set where
+   each list uses them, matching the width/height in the markup. */
+.logo {
+  flex: none;
+  height: 32px;
+  object-fit: contain;
+  width: 32px;
+}
 
+.org .logo { height: 20px; width: 20px; }
+
+/* Advisory board and partners: tight two-column rows that are quick to scan. */
 .advisor-grid,
 .partner-list {
   display: grid;
-  gap: 20px 24px;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--nb-space-4) var(--nb-space-6);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   list-style: none;
-  margin: 16px 0 32px;
+  margin: var(--nb-space-4) 0 var(--nb-space-7);
   padding: 0;
 }
 
-.advisor { align-items: flex-start; display: flex; gap: 12px; line-height: 1.4; }
+/* Name first, with a small soft-grey logo after it, then institution and topic. */
+.advisor { line-height: 1.35; }
+.advisor > a { color: var(--nb-text); font-weight: 500; }
+.advisor > a:hover { color: var(--nb-link); }
+
+.advisor .logo,
+.advisor .logo-text {
+  margin-left: 6px;
+  opacity: 0.55;
+  vertical-align: -3px;
+}
+
+.advisor .logo { filter: grayscale(1); height: 18px; width: 18px; }
+
+/* NASA's insignia needs NASA's approval, so GISS gets a text mark. It is
+   drawn in CSS so that, like the image logos, it is decorative: not read
+   aloud and not held to text contrast. */
+.logo-text::before {
+  color: var(--nb-text);
+  content: attr(data-mark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  vertical-align: 1px;
+}
+
 .advisor .affiliation,
-.advisor .topic { display: block; font-size: var(--nb-size-small); }
+.advisor .topic { display: block; font-size: 14px; }
 .advisor .affiliation { color: var(--nb-text-muted); }
 
-.partner-list li { align-items: center; display: flex; gap: 12px; }
+.partner-list li { align-items: center; display: flex; gap: var(--nb-space-3); line-height: 1.35; }
 
 /* ---------- About: branch-and-merge timeline ----------
    Without JS (and on narrow screens) the timeline is one rail with a colored
@@ -1017,7 +1128,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .ack-list dt { color: var(--nb-text-muted); font-size: var(--nb-size-small); font-weight: 500; padding-top: 2px; }
 .ack-list dd { margin: 0; }
 .ack-org { align-items: center; display: flex; gap: 10px; }
-.ack-org .logo { height: 32px; padding: 3px; width: 32px; }
+.ack-org .logo { height: 28px; width: 28px; }
 
 .reference-list ul { padding-left: 0; }
 .reference-list li { font-size: var(--nb-size-small); list-style: none; margin-bottom: 10px; padding-left: 24px; text-indent: -24px; }
@@ -1064,8 +1175,10 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
   .prose-cell > .cell-content,
   .cell-output { padding-inline: 0; }
-  .error-output { padding-inline: 16px; }
+  .error-line { margin-inline: 0; }
+  .cell-actions .button { flex: 1 1 100%; }
 
+  main.content { margin-top: var(--nb-space-5); }
   .prose-cell h1 { font-size: 36px; }
   .hero-facts dl { font-size: 17px; gap: 8px 14px; }
 
@@ -1074,13 +1187,15 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   .ack-list { grid-template-columns: minmax(0, 1fr); }
   .ack-list dd { margin-bottom: 8px; }
   /* Photo beside the name, role and institution; bio and email full width. */
-  .person { gap: 0 16px; grid-template-columns: 80px minmax(0, 1fr); }
+  .person { gap: 0 var(--nb-space-4); grid-template-columns: 80px minmax(0, 1fr); }
   .person > p:first-child { grid-row: 1 / span 3; }
-  .person > p img { height: 80px; width: 80px; }
+  .person > p:first-child img { height: 80px; width: 80px; }
+  .advisor-grid,
+  .partner-list { gap: var(--nb-space-3); }
   .person-text { display: contents; }
   .person-text > * { grid-column: 2; }
   .person-text > :nth-child(n + 4) { grid-column: 1 / -1; }
-  .org { margin-bottom: 16px; }
+  .person-text > p.org { margin-bottom: var(--nb-space-4); }
 }
 
 @media (prefers-reduced-motion: reduce) {

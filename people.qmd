@@ -4,33 +4,37 @@ description: "The project team, advisory board and partner institutions."
 ---
 
 <!-- Photos: square, 384×384px, in people/. Ryan's is his press headshot
-(ryanoloughlin.org/media.html); Matthew's is his NCAR Library staff photo.
+(ryanoloughlin.org/media.html); Matthew's is his NCAR Library staff photo,
+cropped to head and shoulders to match. The site softens both to the same
+muted colour (notebook.scss), so a new photo needs only a similar crop.
 Logos: 80×80px marks in logos/, from each institution's website or Wikimedia
 Commons. The NASA insignia needs NASA's approval (14 CFR 1221), so GISS gets
-a text tile. Logos are decorative (alt=""); the name sits beside each one. -->
+a text mark. Logos are decorative (alt=""); the institution is always named
+in text. Advisors' logos follow their names, small and in soft grey. -->
 
 ## Project team
 
 ::: {.person}
-![](people/ryan.jpg){fig-alt="Portrait of Ryan O'Loughlin" width="128" height="128"}
+![](people/ryan.jpg){fig-alt="Portrait of Ryan O'Loughlin" width="112" height="112"}
 
 ::: {.person-text}
 ### [Ryan O'Loughlin](https://ryanoloughlin.org/)
 
 [Principal investigator · Assistant Professor of Philosophy]{.role}
 
-<p class="org"><img src="logos/qc.png" alt="" class="logo" width="32" height="32"> Queens College, City University of New York</p>
+<p class="org"><img src="logos/qc.png" alt="" class="logo" width="20" height="20"> Queens College, City University of New York</p>
 
 A philosopher of science who studies how climate scientists gain trustworthy
 knowledge from imperfect models. He has worked with scientists at NSF NCAR and
 NASA GISS since 2019, and leads the project's philosophical analysis.
 
 <span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
+· [ryanoloughlin.org](https://ryanoloughlin.org/)
 :::
 :::
 
 ::: {.person}
-![](people/matthew.jpg){fig-alt="Portrait of Matthew Mayernik" width="128" height="128"}
+![](people/matthew.jpg){fig-alt="Portrait of Matthew Mayernik" width="112" height="112"}
 
 ::: {.person-text}
 ### [Matthew Mayernik](https://library.ucar.edu/directory/matt-mayernik)
@@ -38,7 +42,7 @@ NASA GISS since 2019, and leads the project's philosophical analysis.
 [Co-principal investigator · Project Scientist and Research Data Services
 Specialist]{.role}
 
-<p class="org"><img src="logos/ncar.png" alt="" class="logo" width="32" height="32"> NSF National Center for Atmospheric Research</p>
+<p class="org"><img src="logos/ncar.png" alt="" class="logo" width="20" height="20"> NSF National Center for Atmospheric Research</p>
 
 Studies how scientists create, describe and share data, including how climate
 model intercomparisons earn credibility. He co-leads the interviews and
@@ -55,18 +59,18 @@ retired from Stanford in January 2026; his profile lists him as emeritus at
 the University of Michigan. Ask each member to confirm their line. -->
 
 <ul class="advisor-grid">
-<li class="advisor"><img src="logos/uoft.png" alt="" class="logo" width="40" height="40"><span><a href="https://www.environment.utoronto.ca/people/directories/all-faculty/steve-easterbrook">Steve Easterbrook</a><span class="affiliation">University of Toronto</span><span class="topic">Climate models as software</span></span></li>
-<li class="advisor"><img src="logos/umich.png" alt="" class="logo" width="40" height="40"><span><a href="https://profiles.stanford.edu/paul-edwards">Paul Edwards</a><span class="affiliation">University of Michigan (emeritus)</span><span class="topic">History of climate data and models</span></span></li>
-<li class="advisor"><img src="logos/iu.png" alt="" class="logo" width="40" height="40"><span><a href="https://earth.indiana.edu/directory/faculty/obrien-travis.html">Travis O'Brien</a><span class="affiliation">Indiana University</span><span class="topic">Climate extremes and machine learning</span></span></li>
-<li class="advisor"><img src="logos/vt.png" alt="" class="logo" width="40" height="40"><span><a href="https://sites.google.com/site/wendyparkerphilosophy/">Wendy Parker</a><span class="affiliation">Virginia Tech</span><span class="topic">Philosophy of climate model evaluation</span></span></li>
-<li class="advisor"><img src="logos/uw.png" alt="" class="logo" width="40" height="40"><span><a href="https://www.hcde.washington.edu/ribes">David Ribes</a><span class="affiliation">University of Washington</span><span class="topic">Research infrastructure and data</span></span></li>
-<li class="advisor"><span class="logo logo-text" aria-hidden="true">GISS</span><span><a href="https://www.giss.nasa.gov/staff/gschmidt/">Gavin Schmidt</a><span class="affiliation">NASA Goddard Institute for Space Studies</span><span class="topic">Climate modeling; directs NASA GISS</span></span></li>
-<li class="advisor"><img src="logos/cornell.png" alt="" class="logo" width="40" height="40"><span><a href="https://cals.cornell.edu/people/daniele-visioni">Daniele Visioni</a><span class="affiliation">Cornell University</span><span class="topic">Modeling solar geoengineering</span></span></li>
+<li class="advisor"><a href="https://www.environment.utoronto.ca/people/directories/all-faculty/steve-easterbrook">Steve Easterbrook</a><img src="logos/uoft.png" alt="" class="logo" width="18" height="18"><span class="affiliation">University of Toronto</span><span class="topic">Climate models as software</span></li>
+<li class="advisor"><a href="https://profiles.stanford.edu/paul-edwards">Paul Edwards</a><img src="logos/umich.png" alt="" class="logo" width="18" height="18"><span class="affiliation">University of Michigan (emeritus)</span><span class="topic">History of climate data and models</span></li>
+<li class="advisor"><a href="https://earth.indiana.edu/directory/faculty/obrien-travis.html">Travis O'Brien</a><img src="logos/iu.png" alt="" class="logo" width="18" height="18"><span class="affiliation">Indiana University</span><span class="topic">Climate extremes and machine learning</span></li>
+<li class="advisor"><a href="https://sites.google.com/site/wendyparkerphilosophy/">Wendy Parker</a><img src="logos/vt.png" alt="" class="logo" width="18" height="18"><span class="affiliation">Virginia Tech</span><span class="topic">Philosophy of climate model evaluation</span></li>
+<li class="advisor"><a href="https://www.hcde.washington.edu/ribes">David Ribes</a><img src="logos/uw.png" alt="" class="logo" width="18" height="18"><span class="affiliation">University of Washington</span><span class="topic">Research infrastructure and data</span></li>
+<li class="advisor"><a href="https://www.giss.nasa.gov/staff/gschmidt/">Gavin Schmidt</a><span class="logo-text" data-mark="GISS"></span><span class="affiliation">NASA Goddard Institute for Space Studies</span><span class="topic">Climate modeling; directs NASA GISS</span></li>
+<li class="advisor"><a href="https://cals.cornell.edu/people/daniele-visioni">Daniele Visioni</a><img src="logos/cornell.png" alt="" class="logo" width="18" height="18"><span class="affiliation">Cornell University</span><span class="topic">Modeling solar geoengineering</span></li>
 </ul>
 
 ## Partner institutions
 
 <ul class="partner-list">
-<li><img src="logos/qc.png" alt="" class="logo" width="40" height="40"> Queens College, City University of New York</li>
-<li><img src="logos/ncar.png" alt="" class="logo" width="40" height="40"> NSF National Center for Atmospheric Research</li>
+<li><img src="logos/qc.png" alt="" class="logo" width="32" height="32"> Queens College, City University of New York</li>
+<li><img src="logos/ncar.png" alt="" class="logo" width="32" height="32"> NSF National Center for Atmospheric Research</li>
 </ul>

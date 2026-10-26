@@ -22,7 +22,8 @@ How this page works
   (notebook.scss and notebook.js fill in "In [ ]:" and "Out[n]:").
 - Code colors: wrap words in <span class="code-function">, code-variable,
   code-string, code-keyword, code-number, code-operator or code-comment.
-- The error cell uses `.error-output` and has no Out prompt.
+- The error cell uses `.error-output` and has no Out prompt; only its first
+  line, in `.error-line`, is pink.
 - Sources go in a `.cell-source` div at the end of an output.
 - The globes in cell 3 are an illustration drawn by notebook.js (made-up
   weather, not model output); its caption says so.
@@ -36,11 +37,6 @@ How this page works
 - The bar chart in cell 4 is drawn to scale: 10 days vs 365 days
   (.bar-before / .bar-after in notebook.scss).
 -->
-
-::: {.nb-toolbar role="toolbar" aria-label="Notebook"}
-<button type="button" class="nb-tool" data-nb-run title="Run this cell and advance (Shift+Enter)"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 2.5v11l9-5.5z"/></svg>Run</button>
-<button type="button" class="nb-tool" data-nb-run-all title="Show every output at once"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1 3v10l7-5zM8 3v10l7-5z"/></svg>Run all</button>
-:::
 
 :::: {.notebook aria-label="Project introduction notebook"}
 
@@ -70,7 +66,10 @@ join
 ::: {.cell-actions}
 [About the project](about.qmd){.button .button-primary}
 [Share an error story](contact.qmd){.button .button-secondary}
-[**Latest:** [Call for extended abstracts and speakers, February 2027](workshop.qmd)]{.latest-note}
+:::
+
+::: {.latest-note}
+**Latest:** [Call for extended abstracts and speakers, February 2027](workshop.qmd)
 :::
 :::
 :::
@@ -80,8 +79,8 @@ join
 ## What does a productive error look like?
 
 Here's a real one, from AI weather forecasting: how the model failed, what the
-failure revealed, and what science gained. Scroll, or press Run, to step
-through it.
+failure revealed, and what science gained. Scroll to step through
+it.
 :::
 :::
 
@@ -98,7 +97,9 @@ through it.
 :::
 
 ::: {.cell-output .error-output}
+::: {.error-line}
 [InstabilityError]{.error-name}: forecast unstable beyond 10 days
+:::
 
 FourCastNet, an AI weather model built on Fourier neural operators, a common
 design for AI weather models, made fast, accurate short-range forecasts. But
@@ -274,8 +275,7 @@ philosophers, STS scholars, scientists and the public.
 :::
 :::
 
-**The people:** [our team and advisory board](people.qmd), including Steve
-Easterbrook, Paul Edwards, Wendy Parker and Gavin Schmidt.
+**The people:** [our team and advisory board](people.qmd).
 :::
 :::
 

@@ -35,8 +35,9 @@ website:
         text: Get involved
   page-footer:
     left: |
-      Supported by the Alfred P. Sloan Foundation · Queens College, CUNY ·
-      NSF National Center for Atmospheric Research
+      <p><span class="footer-name">Productive Error</span> · The Productive Role of Error in AI-Driven Modeling</p>
+      <p>Supported by the Alfred P. Sloan Foundation</p>
+      <p>Queens College, CUNY · NSF National Center for Atmospheric Research</p>
     right: |
       <span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
       · [Accessibility](/accessibility.qmd) · Text [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)

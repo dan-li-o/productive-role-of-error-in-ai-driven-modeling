@@ -194,9 +194,9 @@ consent.
 <dt>Funding</dt>
 <dd>This project is supported by the Alfred P. Sloan Foundation (2026–2028).</dd>
 <dt>Institutional home</dt>
-<dd class="ack-org"><img src="logos/qc.png" alt="" class="logo" width="32" height="32" loading="lazy"> Research Foundation of CUNY – Queens College, City University of New York</dd>
+<dd class="ack-org"><img src="logos/qc.png" alt="" class="logo" width="28" height="28" loading="lazy"> Research Foundation of CUNY – Queens College, City University of New York</dd>
 <dt>Partner institution</dt>
-<dd class="ack-org"><img src="logos/ncar.png" alt="" class="logo" width="32" height="32" loading="lazy"> NSF National Center for Atmospheric Research, home of co-PI Matthew Mayernik</dd>
+<dd class="ack-org"><img src="logos/ncar.png" alt="" class="logo" width="28" height="28" loading="lazy"> NSF National Center for Atmospheric Research, home of co-PI Matthew Mayernik</dd>
 <dt>Research sites</dt>
 <dd>The scientists and institutions who make our fieldwork possible.</dd>
 <dt>Advisory board</dt>
