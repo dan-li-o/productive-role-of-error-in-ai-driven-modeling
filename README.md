@@ -24,16 +24,19 @@ other pages are plain reading pages in the same style.
 To preview locally (optional): install [Quarto](https://quarto.org) and run
 `quarto preview`.
 
-## Custom domain
+## Domain
 
-1. Buy the domain; add a `CNAME` file containing it and list `CNAME` under
-   `project.resources` in `_quarto.yml`.
-2. Change `site-url` in `_quarto.yml` to `https://<domain>/`.
-3. In the repo's **Settings → Pages**, set the custom domain and tick
-   **Enforce HTTPS**. Point the domain's DNS at GitHub Pages.
-4. Set up `contact@<domain>` forwarding (registrar or Cloudflare Email Routing)
-   and replace the addresses in the footer, Get involved and Accessibility
-   pages.
+The site is live at <https://productive-error.org/>. The domain is set in the
+repo's **Settings → Pages** (with **Enforce HTTPS**), and its DNS points at
+GitHub Pages. Because the site deploys from a workflow, it needs no `CNAME`
+file. `site-url` in `_quarto.yml` must match the domain: link previews, the
+sitemap and full page addresses are built from it. The old
+`dan-li-o.github.io/productive-role-of-error-in-ai-driven-modeling/` address
+redirects to the domain.
+
+Still to do: set up `contact@productive-error.org` forwarding (registrar or
+Cloudflare Email Routing) and replace the addresses in the footer, Get
+involved and Accessibility pages.
 
 ## Before launch
 

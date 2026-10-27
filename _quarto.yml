@@ -3,13 +3,11 @@ project:
   output-dir: _site
   resources:
     - notebook.js
-    # - CNAME   # add when the custom domain is set up (see README)
 
 website:
   title: "Productive Error"
   description: "The Productive Role of Error in AI-Driven Modeling, an Alfred P. Sloan Foundation project."
-  # Switch to the custom domain once it exists (see README).
-  site-url: "https://dan-li-o.github.io/productive-role-of-error-in-ai-driven-modeling/"
+  site-url: "https://productive-error.org/"
   repo-url: "https://github.com/dan-li-o/productive-role-of-error-in-ai-driven-modeling"
   favicon: favicon.svg
   search: false

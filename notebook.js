@@ -9,8 +9,9 @@
     element.replaceChildren(link);
   });
 
-  // 404 page: show the requested path, relative to the site root (which is a
-  // subfolder on github.io), in the error message.
+  // 404 page: show the requested path, relative to the site root (read from a
+  // script's address, so it works at a domain root or in a subfolder), in the
+  // error message.
   document.querySelectorAll("[data-missing-path]").forEach((element) => {
     const nav = document.querySelector('script[src$="site_libs/quarto-nav/quarto-nav.js"]');
     const root = nav ? new URL(nav.src).pathname.replace("site_libs/quarto-nav/quarto-nav.js", "") : "/";
