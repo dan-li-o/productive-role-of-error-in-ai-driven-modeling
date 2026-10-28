@@ -235,6 +235,24 @@
       reveal.setAttribute("height", Math.max(0, height));
     };
 
+    // One branch at a time is brought forward, the others fading back: by
+    // default the one being read, at the same line where entries fade in and
+    // the lanes are uncovered; while the pointer is on a line, a dot or a
+    // branch name, that branch instead.
+    let hovered = null;
+    let reading = null;
+    const highlight = () => {
+      const branch = hovered || reading;
+      svg.querySelectorAll("path").forEach((line) => line.classList.toggle("is-dim", Boolean(branch) && line.dataset.branch !== branch));
+    };
+    const updateReading = () => {
+      const y = window.innerHeight * 0.6;
+      const box = log.getBoundingClientRect();
+      const entry = box.top <= y && box.bottom >= y && commits.filter((commit) => !commit.hidden && commit.getBoundingClientRect().top <= y).pop();
+      reading = entry ? entry.dataset.branch : null;
+      highlight();
+    };
+
     // HEAD: the line between done (above) and planned (below). The pointer
     // above the timeline names the latest entry and links down to HEAD.
     const head = log.querySelector(".head");
@@ -357,6 +375,7 @@
       });
       hits.append(hitGroup);
       updateReveal();
+      updateReading();
     };
 
     // Lanes need room; below that width the plain rail stays.
@@ -368,11 +387,9 @@
     else layout();
     document.fonts?.ready.then(drawLanes);
 
-    // Hovering an entry brings its branch forward. A line, a dot or a branch
-    // name also shows a bubble saying what the branch is; the text comes from
-    // the visually hidden legend, which screen readers read instead.
-    const highlight = (branch) =>
-      svg.querySelectorAll("path").forEach((line) => line.classList.toggle("is-dim", Boolean(branch) && line.dataset.branch !== branch));
+    // A line, a dot or a branch name shows a bubble saying what the branch is;
+    // the text comes from the visually hidden legend, which screen readers
+    // read instead.
     const descriptions = new Map(
       [...document.querySelectorAll(".branch-legend li")].map((item) => {
         const text = item.cloneNode(true);
@@ -405,11 +422,13 @@
       const branch = branchAt(event.target);
       if (branch) showTip(branch, event.clientX, event.clientY);
       else hideTip();
-      highlight(branch || event.target.closest(".commit")?.dataset.branch);
+      hovered = branch || null;
+      highlight();
     });
     timeline.addEventListener("pointerleave", () => {
       hideTip();
-      highlight(null);
+      hovered = null;
+      highlight();
     });
     // On touch screens a tap on a branch name or dot shows the bubble; the
     // next tap anywhere else, or scrolling, puts it away.
@@ -419,7 +438,25 @@
       if (branch) showTip(branch, event.clientX, event.clientY);
       else hideTip();
     });
-    window.addEventListener("scroll", hideTip, { passive: true });
+
+    // Scrolling moves the page out from under a resting pointer, so the
+    // highlight goes back to following the reading line until it moves again.
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        hideTip();
+        hovered = null;
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          updateReveal();
+          updateReading();
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
 
     if (!motion) return;
 
@@ -439,20 +476,6 @@
     if (head) fadeIn.observe(head);
     // Keyboard focus never lands on an entry that hasn't faded in yet.
     log.addEventListener("focusin", (event) => event.target.closest(".commit, .head")?.classList.add("is-visible"));
-
-    let ticking = false;
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          updateReveal();
-          ticking = false;
-        });
-      },
-      { passive: true }
-    );
   });
 
   const cells = [...document.querySelectorAll(".notebook-cell")];
