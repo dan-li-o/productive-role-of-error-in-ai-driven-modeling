@@ -12,24 +12,45 @@ How this page works
 - Without JavaScript, or on narrow screens, it shows as one rail with a colored
   dot per entry. notebook.js draws the six branch lines on wider screens, folds
   the three literature branches (data-fold), and fades entries in on scroll.
-- Entries after the merge are milestones. Mark one as reached by removing
-  class "planned" and giving it its real date; the line turns solid up to it.
+- Entries after the grant are milestones on main, interviews or workshop.
+  The HEAD line (<li class="head" id="now">) marks where the project is now:
+  everything above it is done, everything below it is planned. When a
+  milestone is reached, give it its real date and move the HEAD line to just
+  below it. That is the only edit; lines, dots and the "Latest" summary at the
+  top follow from it.
+- A branch that starts after the grant forks from the nearest main entry
+  above its first entry (data-from="id" picks another), and every open
+  branch merges at the next entry with class "merge".
+- The legend is visually hidden: screen readers read it, and notebook.js
+  shows each branch's description in a bubble when the pointer rests on its
+  line, a dot or a branch name. Describe a new branch there.
 - Every summary simplifies a published argument; Ryan checks each one (README).
 -->
 
 This project grew out of several lines of work that were each moving toward
 the same question. Here's how they came together, and where we're going next.
 
-<ul class="branch-legend" aria-label="Branches in the timeline">
-<li data-branch="error-in-science"><span class="branch-swatch"></span><code>error-in-science</code> Philosophy and history of science on error, mostly in experiments</li>
-<li data-branch="opacity"><span class="branch-swatch"></span><code>opacity</code> Whether complex models and AI can be understood, and explainable AI</li>
-<li data-branch="credibility"><span class="branch-swatch"></span><code>credibility</code> Science and technology studies of how modeling communities build trust</li>
-<li data-branch="ryan"><span class="branch-swatch"></span><code>ryan</code> Ryan O'Loughlin's research and fieldwork</li>
-<li data-branch="matt"><span class="branch-swatch"></span><code>matt</code> Matthew Mayernik's research on data, documentation and credibility</li>
-<li data-branch="ai-climate"><span class="branch-swatch"></span><code>ai-climate</code> Climate science: model comparison, then AI weather and climate models</li>
-</ul>
+<p class="head-pointer"><a href="#now">Jump to where we are now <span aria-hidden="true">↓</span></a></p>
 
-<div class="git-timeline" data-fold="error-in-science opacity credibility">
+<div class="branch-legend visually-hidden">
+<p>Before the project</p>
+<ul aria-label="Branches before the project">
+<li data-branch="error-in-science"><code>error-in-science</code> Philosophy and history of science on error, mostly in experiments</li>
+<li data-branch="opacity"><code>opacity</code> Whether complex models and AI can be understood, and explainable AI</li>
+<li data-branch="credibility"><code>credibility</code> Science and technology studies of how modeling communities build trust</li>
+<li data-branch="ryan"><code>ryan</code> Ryan O'Loughlin's research and fieldwork</li>
+<li data-branch="matt"><code>matt</code> Matthew Mayernik's research on data, documentation and credibility</li>
+<li data-branch="ai-climate"><code>ai-climate</code> Climate science: model comparison, then AI weather and climate models</li>
+</ul>
+<p>The project</p>
+<ul aria-label="Branches in the project">
+<li data-branch="main"><code>main</code> The project as a whole: funding, approvals, the framework and papers</li>
+<li data-branch="interviews"><code>interviews</code> Interviews and document analysis at NSF NCAR, the LEAP Center and NASA GISS</li>
+<li data-branch="workshop"><code>workshop</code> The call, the two-day workshop and the people it brings together</li>
+</ul>
+</div>
+
+<div class="git-timeline" id="how-it-started" data-fold="error-in-science opacity credibility">
 <ol class="git-log">
 <li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1989</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">A philosopher sorts the errors that can creep into an experiment by the stage at which they arise. <a class="cite" href="#ref-hon-1989">Hon 1989</a></p></li>
 <li class="commit" data-branch="ai-climate"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1995</time> <span class="branch-tag">ai-climate</span></p><p class="commit-text">Climate scientists start running their models through the same experiments so they can be compared: CMIP, the Coupled Model Intercomparison Project, still going three decades later. <a class="cite" href="#ref-meehl-2000">Meehl et al. 2000</a></p></li>
@@ -62,17 +83,19 @@ the same question. Here's how they came together, and where we're going next.
 <li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">merge into main</span></p><p class="commit-text"><strong>These lines of work were all moving toward one question none had asked directly: how can errors, and the ways scientists handle them, make AI-driven science better?</strong></p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The team forms: Ryan O'Loughlin (philosophy of climate modeling, Queens College, CUNY) and Matthew Mayernik (data and credibility, NSF NCAR), with an <a href="people.qmd">advisory board</a> of philosophers, STS scholars and scientists.</p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1 October 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The Alfred P. Sloan Foundation funds the project: two years, through 30 September 2028.</p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Late 2026</time> <span class="branch-tag">next</span></p><p class="commit-text">Interview plan finished and ethics approval (IRB) obtained.</p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">next</span></p><p class="commit-text">The advisory board meets twice a year.</p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">next</span></p><p class="commit-text">Interviews begin at NSF NCAR, the LEAP Center and NASA GISS, with document analysis alongside.</p><p class="commit-invite">Work with AI models? <a class="invite" href="contact.qmd#share-an-error-story">Share an error story</a></p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>February 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">Call for extended abstracts and invited speakers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd#call-for-extended-abstracts-and-speakers">Submit an abstract</a></p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Mid 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">First round of interviews complete.</p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About July–September 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">Two-day workshop for philosophers, STS scholars and scientists, with funding for PhD students and early-career researchers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd">Come to the workshop</a></p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About September 2027</time> <span class="branch-tag">next</span></p><p class="commit-text">First findings presented at a conference.</p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2027–28</time> <span class="branch-tag">next</span></p><p class="commit-text">Follow-up conversations with interviewees; the framework takes shape.</p><p class="commit-invite"><a class="invite" href="contact.qmd#express-interest">Give feedback on the framework</a></p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">next</span></p><p class="commit-text">Papers submitted: two in philosophy of science, one in STS, one for climate scientists and one for the public, plus a workshop report.</p><p class="commit-invite"><a class="invite" href="news.qmd">Get updates</a></p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>30 September 2028</time> <span class="branch-tag">next</span></p><p class="commit-text">Project ends.</p></li>
-<li class="commit planned" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Beyond</time> <span class="branch-tag">next</span></p><p class="commit-text">A longer-term research program on error, AI and scientific modeling, reaching beyond climate science.</p><p class="commit-invite">Using AI in another science? <a class="invite" href="contact.qmd#express-interest">Collaborate with us</a></p></li>
+<li class="head" id="now" tabindex="-1"><span class="head-ref">HEAD</span> <span class="head-label">Where we are now<span class="visually-hidden">. Entries below are planned.</span></span> <a class="head-back" href="#how-it-started">↑ Back to the beginning</a></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Late 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">Interview plan finished and ethics approval (IRB) obtained.</p></li>
+<li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">interviews</span></p><p class="commit-text">Interviews begin at NSF NCAR, the LEAP Center and NASA GISS, with document analysis alongside.</p><p class="commit-invite">Work with AI models? <a class="invite" href="contact.qmd#share-an-error-story">Share an error story</a></p></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The advisory board meets twice a year.</p></li>
+<li class="commit" data-branch="workshop"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>February 2027</time> <span class="branch-tag">workshop</span></p><p class="commit-text">Call for extended abstracts and invited speakers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd#call-for-extended-abstracts-and-speakers">Submit an abstract</a></p></li>
+<li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Mid 2027</time> <span class="branch-tag">interviews</span></p><p class="commit-text">First round of interviews complete.</p></li>
+<li class="commit" data-branch="workshop"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About July–September 2027</time> <span class="branch-tag">workshop</span></p><p class="commit-text">Two-day workshop for philosophers, STS scholars and scientists, with funding for PhD students and early-career researchers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd">Come to the workshop</a></p></li>
+<li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About September 2027</time> <span class="branch-tag">interviews</span></p><p class="commit-text">First findings presented at a conference.</p></li>
+<li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2027–28</time> <span class="branch-tag">interviews</span></p><p class="commit-text">Follow-up conversations with interviewees.</p></li>
+<li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">merge into main</span></p><p class="commit-text">What we heard in the interviews and tested at the workshop comes together: the framework takes shape.</p><p class="commit-invite"><a class="invite" href="contact.qmd#express-interest">Give feedback on the framework</a></p></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">main</span></p><p class="commit-text">Papers submitted: two in philosophy of science, one in STS, one for climate scientists and one for the public, plus a workshop report.</p><p class="commit-invite"><a class="invite" href="news.qmd">Get updates</a></p></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>30 September 2028</time> <span class="branch-tag">main</span></p><p class="commit-text">Project ends.</p></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Beyond</time> <span class="branch-tag">main</span></p><p class="commit-text">A longer-term research program on error, AI and scientific modeling, reaching beyond climate science.</p><p class="commit-invite">Using AI in another science? <a class="invite" href="contact.qmd#express-interest">Collaborate with us</a></p></li>
 </ol>
 </div>
 

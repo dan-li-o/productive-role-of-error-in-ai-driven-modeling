@@ -924,7 +924,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
    Branch colors: the dataviz reference categorical slots 1–6, validated as a
    set; the branch name is always shown as text, so color is never alone. */
 .git-timeline,
-.branch-legend {
+.branch-tip {
   --c-error-in-science: #2A78D6;
   --c-opacity: #EB6834;
   --c-credibility: #1BAF7A;
@@ -932,6 +932,9 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   --c-matt: #E87BA4;
   --c-ai-climate: #008300;
   --c-main: var(--nb-text);
+  /* The project's own branches, after the grant: categorical slots 7 and 8. */
+  --c-interviews: #6250D6;
+  --c-workshop: #E34948;
 }
 
 [data-branch="error-in-science"] { --branch: var(--c-error-in-science); --lane: 1; }
@@ -941,30 +944,47 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 [data-branch="matt"] { --branch: var(--c-matt); --lane: 5; }
 [data-branch="ai-climate"] { --branch: var(--c-ai-climate); --lane: 6; }
 [data-branch="main"] { --branch: var(--c-main); --lane: 0; }
+/* Branches after the grant reuse lanes 1 and 2, which are free by then. The
+   branch that forks first takes the outer lane, so no lines cross. */
+[data-branch="interviews"] { --branch: var(--c-interviews); --lane: 2; }
+[data-branch="workshop"] { --branch: var(--c-workshop); --lane: 1; }
 
-.branch-legend {
-  display: grid;
+/* The one-line "where are we" pointer above the timeline. */
+.head-pointer {
+  border-left: 3px solid var(--nb-text);
   font-size: var(--nb-size-small);
-  gap: 6px 24px;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  margin: 16px 0 0;
+  padding: 2px 0 2px 10px;
+}
+
+.head-pointer .head-latest { color: var(--nb-text-muted); display: block; }
+.head-pointer .head-latest b { color: var(--nb-text); font-weight: 600; }
+
+/* The branch bubble: the legend is visually hidden, so hovering a line, a dot
+   or a branch name shows a quiet reminder of what that branch is. */
+.branch-tip {
+  backdrop-filter: blur(6px);
+  background: color-mix(in srgb, var(--nb-page) 80%, transparent);
+  border: 1px solid var(--nb-border);
+  border-left: 3px solid var(--branch);
+  border-radius: var(--nb-radius);
+  box-shadow: var(--nb-shadow-1);
+  color: var(--nb-text);
+  font-size: 14px;
+  left: 0;
   line-height: 1.4;
-  list-style: none;
-  margin: 24px 0 8px;
-  padding: 0;
+  max-width: min(300px, calc(100vw - 16px));
+  opacity: 0;
+  padding: 6px 10px;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: opacity 120ms ease;
+  z-index: 1100;
 }
 
-.branch-legend li { padding-left: 20px; position: relative; }
-.branch-legend code { color: var(--nb-text); font-size: 14px; font-weight: 600; margin-right: 4px; }
-
-.branch-swatch {
-  background: var(--branch);
-  border-radius: 50%;
-  height: 10px;
-  left: 2px;
-  position: absolute;
-  top: 0.45em;
-  width: 10px;
-}
+.branch-tip.is-shown { opacity: 1; }
+.branch-tip code { background: none; color: var(--nb-text); font-size: 13px; font-weight: 600; margin-right: 4px; padding: 0; }
 
 .git-timeline {
   --dot: 12px;
@@ -973,6 +993,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   --gutter: 32px;
   margin: 24px 0 48px;
   position: relative;
+  scroll-margin-top: calc(var(--nb-header-h) + 24px);
 }
 
 .git-timeline.is-lanes { --gutter: calc(var(--lane-gap) * 6 + 40px); }
@@ -1048,7 +1069,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 .commit:first-child::before { top: 0.8em; }
 .commit:last-child::before { bottom: auto; height: 0.8em; }
-.commit.planned::before { border-left-style: dashed; border-color: var(--nb-text-muted); }
+/* Everything after the HEAD line is planned: dashed rail, hollow dots. */
+.head ~ .commit::before { border-left-style: dashed; border-color: var(--nb-text-muted); }
 .is-lanes .commit::before { display: none; }
 
 .commit-dot {
@@ -1069,10 +1091,59 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .commit.merge .commit-text { font-size: 18px; }
 .commit.merge { padding-bottom: 24px; }
 
-.commit.planned .commit-dot {
+.head ~ .commit .commit-dot {
   background: var(--nb-page);
-  border: 2px solid var(--nb-text-muted);
+  border: 2px solid var(--branch);
   box-sizing: border-box;
+}
+
+/* HEAD: a hairline across the timeline between done and planned. */
+.head {
+  align-items: baseline;
+  border-top: 1px solid var(--nb-text);
+  column-gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--nb-size-small);
+  margin: 4px 0 24px;
+  padding: 16px 0 0 var(--gutter);
+  position: relative;
+  scroll-margin-top: calc(var(--nb-header-h) + 30vh);
+}
+
+.head:focus { outline: none; }
+
+/* On the plain rail the HEAD line carries a dashed rail segment of its own. */
+.head::before {
+  border-left: 2px dashed var(--nb-text-muted);
+  bottom: -24px;
+  content: "";
+  left: calc(var(--x) - 1px);
+  position: absolute;
+  top: 0;
+}
+
+.is-lanes .head::before { display: none; }
+
+.head-ref {
+  background: var(--nb-text);
+  border-radius: var(--nb-radius);
+  color: var(--nb-page);
+  font-family: var(--nb-font-code);
+  font-size: 12px;
+  font-weight: 600;
+  left: 0;
+  letter-spacing: 0.02em;
+  padding: 1px 6px;
+  position: absolute;
+  top: -10px;
+}
+
+.head-label { font-weight: 600; }
+.head-back { margin-left: auto; }
+
+@media (max-width: 599px) {
+  .head-back { margin-left: 0; width: 100%; }
 }
 
 .git-lanes {
@@ -1088,6 +1159,11 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .git-lanes path { fill: none; stroke-linecap: round; stroke-width: 2px; transition: opacity 150ms ease; }
 .git-lanes path.is-dim { opacity: 0.2; }
 
+/* Wide transparent copies of the lines, above the entries, so the pointer
+   can find a 2px line. */
+.git-lane-hits { z-index: 1; }
+.git-lane-hits path { pointer-events: stroke; stroke: transparent; stroke-width: 14px; }
+
 .fold-toggle {
   background: none;
   border: 0;
@@ -1102,8 +1178,10 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 /* Scroll motion (only with JS and without reduced motion): entries fade in
    as they reach the middle of the screen. */
-.git-timeline.has-motion .commit { opacity: 0; transform: translateY(8px); transition: opacity 400ms ease, transform 400ms ease; }
-.git-timeline.has-motion .commit.is-visible { opacity: 1; transform: none; }
+.git-timeline.has-motion .commit,
+.git-timeline.has-motion .head { opacity: 0; transform: translateY(8px); transition: opacity 400ms ease, transform 400ms ease; }
+.git-timeline.has-motion .commit.is-visible,
+.git-timeline.has-motion .head.is-visible { opacity: 1; transform: none; }
 
 /* About: card rows */
 .project-card h3 { font-size: 19px; margin: 0 0 8px; }

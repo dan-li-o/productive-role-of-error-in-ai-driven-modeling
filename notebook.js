@@ -186,7 +186,9 @@
     const svg = document.createElementNS(svgNS, "svg");
     svg.classList.add("git-lanes");
     svg.setAttribute("aria-hidden", "true");
-    timeline.prepend(svg);
+    const hits = svg.cloneNode(); // wide invisible copies of the lines, for hovering
+    hits.classList.add("git-lane-hits");
+    timeline.prepend(svg, hits);
     let reveal = null; // clip rectangle that uncovers the lanes on scroll
 
     // Fold each literature branch to its first entry, with a toggle for the rest.
@@ -229,44 +231,131 @@
     const updateReveal = () => {
       if (!reveal) return;
       const top = log.getBoundingClientRect().top;
-      const height = motion ? window.innerHeight * 0.6 - top : log.offsetHeight + 40;
+      const height = motion && !revealAll ? window.innerHeight * 0.6 - top : log.offsetHeight + 40;
       reveal.setAttribute("height", Math.max(0, height));
     };
 
-    // Lanes: each branch runs from its first entry down to the merge, then
-    // curves into main; main continues, solid to the last reached milestone
-    // and dashed after it.
+    // HEAD: the line between done (above) and planned (below). The pointer
+    // above the timeline names the latest entry and links down to HEAD.
+    const head = log.querySelector(".head");
+    let revealAll = false;
+    if (head) {
+      const latest = [...commits].reverse().find((commit) => commit.compareDocumentPosition(head) & Node.DOCUMENT_POSITION_FOLLOWING);
+      const pointer = document.querySelector(".head-pointer");
+      if (latest) {
+        head.querySelector(".head-ref").textContent = `HEAD → ${latest.dataset.branch}`;
+        const text = latest.querySelector(".commit-text").cloneNode(true);
+        text.querySelectorAll(".cite").forEach((cite) => cite.remove());
+        if (pointer) {
+          const line = document.createElement("span");
+          line.className = "head-latest";
+          const date = document.createElement("b");
+          date.textContent = latest.querySelector("time").textContent;
+          line.append("Latest: ", date, ` · ${text.textContent.trim()}`);
+          pointer.prepend(line);
+        }
+      }
+      // Jumping to HEAD (or back to the start) shows everything at once: the
+      // visitor asked to skip the story, so nothing waits to fade in.
+      const showAll = () => {
+        revealAll = true;
+        commits.forEach((commit) => commit.classList.add("is-visible"));
+        head.classList.add("is-visible");
+        updateReveal();
+      };
+      // Links can be rewritten to full URLs, so match on the hash, not the href.
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest("a");
+        if (!link || link.pathname !== location.pathname || !["#now", "#how-it-started"].includes(link.hash)) return;
+        showAll();
+        if (link.hash === "#now") setTimeout(() => head.focus({ preventScroll: true }), 0);
+      });
+      if (["#now", "#how-it-started"].includes(location.hash)) showAll();
+    }
+
+    // Lanes. Branches that start before main exists run from their first entry
+    // down to the next merge and curve into it. Branches that start later fork
+    // out of main (from the nearest main entry above, or the entry named by
+    // data-from) and merge at the next merge. Everything above HEAD is solid,
+    // everything below it dashed.
     const drawLanes = () => {
       svg.replaceChildren();
+      hits.replaceChildren();
       reveal = null;
       if (!timeline.classList.contains("is-lanes") || !merge) return;
-      const [mx, my] = center(merge);
+      const clip = (id, y, height) => {
+        const path = document.createElementNS(svgNS, "clipPath");
+        path.id = id;
+        const rect = document.createElementNS(svgNS, "rect");
+        rect.setAttribute("x", "-20");
+        rect.setAttribute("y", String(y));
+        rect.setAttribute("width", "400");
+        rect.setAttribute("height", String(Math.max(0, height)));
+        path.append(rect);
+        svg.append(path);
+        return rect;
+      };
+      const box = log.getBoundingClientRect();
+      const headY = head ? head.getBoundingClientRect().top - box.top : Infinity;
+      reveal = clip("git-reveal", 0, 0);
+      clip("git-done", -20, Math.min(headY, 1e6) + 20);
+      clip("git-planned", Math.min(headY, 1e6), 1e6);
       const group = document.createElementNS(svgNS, "g");
-      const clip = document.createElementNS(svgNS, "clipPath");
-      clip.id = "git-reveal";
-      reveal = document.createElementNS(svgNS, "rect");
-      reveal.setAttribute("x", "-20");
-      reveal.setAttribute("y", "0");
-      reveal.setAttribute("width", "400");
-      clip.append(reveal);
       group.setAttribute("clip-path", "url(#git-reveal)");
-      svg.append(clip, group);
+      svg.append(group);
 
-      const branches = [...new Set(commits.map((commit) => commit.dataset.branch))].filter((b) => b !== "main");
-      branches.forEach((branch) => {
-        const first = commits.find((commit) => commit.dataset.branch === branch && !commit.hidden && commit.compareDocumentPosition(merge) & Node.DOCUMENT_POSITION_FOLLOWING);
-        if (!first) return;
-        const [x, y] = center(first);
-        const bend = Math.min(40, (my - y) / 2);
-        group.append(path(`M${x} ${y} V${my - bend} Q${x} ${my} ${mx} ${my}`, branch));
+      const lines = []; // [d, branch]
+      const open = new Map(); // branch -> { d, x, startY }
+      let mainX = null, mainStart = null, mainEnd = null, lastMain = null;
+      commits.forEach((commit) => {
+        if (commit.hidden) return;
+        const branch = commit.dataset.branch;
+        const [x, y] = center(commit);
+        if (branch === "main") {
+          if (commit.classList.contains("merge")) {
+            open.forEach((lane, name) => {
+              const bend = Math.min(40, (y - lane.startY) / 2);
+              lines.push([`${lane.d} V${y - bend} Q${lane.x} ${y} ${x} ${y}`, name]);
+            });
+            open.clear();
+          }
+          if (mainStart === null) [mainX, mainStart] = [x, y];
+          mainEnd = y;
+          lastMain = commit;
+          return;
+        }
+        if (open.has(branch)) {
+          open.get(branch).lastY = y;
+          return;
+        }
+        const from = commit.dataset.from ? log.querySelector(`#${commit.dataset.from}`) : lastMain;
+        if (from) {
+          const [px, py] = center(from);
+          const bend = Math.min(40, (y - py) / 2);
+          open.set(branch, { d: `M${px} ${py} Q${x} ${py} ${x} ${py + bend}`, x, startY: py + bend, lastY: y });
+        } else {
+          open.set(branch, { d: `M${x} ${y}`, x, startY: y, lastY: y });
+        }
       });
+      open.forEach((lane, name) => lines.push([`${lane.d} V${lane.lastY}`, name])); // never merged
+      if (mainStart !== null) lines.push([`M${mainX} ${mainStart} V${mainEnd}`, "main"]);
 
-      const after = commits.slice(commits.indexOf(merge));
-      const reached = after.filter((commit) => !commit.classList.contains("planned")).pop();
-      const [, ry] = center(reached);
-      const [, ey] = center(after[after.length - 1]);
-      if (ry > my) group.append(path(`M${mx} ${my} V${ry}`, "main"));
-      group.append(path(`M${mx} ${ry} V${ey}`, "main", true));
+      [["git-done", false], ["git-planned", true]].forEach(([id, dashed]) => {
+        const part = document.createElementNS(svgNS, "g");
+        part.setAttribute("clip-path", `url(#${id})`);
+        lines.forEach(([d, branch]) => part.append(path(d, branch, dashed)));
+        group.append(part);
+      });
+      // Main goes last, so where lines meet at a main entry, main wins.
+      const hitGroup = document.createElementNS(svgNS, "g");
+      hitGroup.setAttribute("clip-path", "url(#git-reveal)");
+      lines.forEach(([d, branch]) => {
+        const hit = document.createElementNS(svgNS, "path");
+        hit.setAttribute("d", d);
+        hit.dataset.branch = branch;
+        hitGroup.append(hit);
+      });
+      hits.append(hitGroup);
       updateReveal();
     };
 
@@ -279,15 +368,58 @@
     else layout();
     document.fonts?.ready.then(drawLanes);
 
-    // Hovering an entry or a legend item brings its branch forward.
+    // Hovering an entry brings its branch forward. A line, a dot or a branch
+    // name also shows a bubble saying what the branch is; the text comes from
+    // the visually hidden legend, which screen readers read instead.
     const highlight = (branch) =>
       svg.querySelectorAll("path").forEach((line) => line.classList.toggle("is-dim", Boolean(branch) && line.dataset.branch !== branch));
-    log.addEventListener("pointerover", (event) => highlight(event.target.closest(".commit")?.dataset.branch));
-    log.addEventListener("pointerleave", () => highlight(null));
-    document.querySelectorAll(".branch-legend li").forEach((item) => {
-      item.addEventListener("pointerenter", () => highlight(item.dataset.branch));
-      item.addEventListener("pointerleave", () => highlight(null));
+    const descriptions = new Map(
+      [...document.querySelectorAll(".branch-legend li")].map((item) => {
+        const text = item.cloneNode(true);
+        text.querySelector("code")?.remove();
+        return [item.dataset.branch, text.textContent.trim()];
+      })
+    );
+    const tip = document.createElement("div");
+    tip.className = "branch-tip";
+    tip.setAttribute("aria-hidden", "true");
+    document.body.append(tip);
+    const hideTip = () => tip.classList.remove("is-shown");
+    const showTip = (branch, x, y) => {
+      if (!descriptions.has(branch)) return hideTip();
+      if (tip.dataset.branch !== branch) {
+        const name = document.createElement("code");
+        name.textContent = branch;
+        tip.replaceChildren(name, descriptions.get(branch));
+        tip.dataset.branch = branch;
+      }
+      const { width, height } = tip.getBoundingClientRect();
+      tip.style.left = `${Math.max(8, Math.min(x + 14, window.innerWidth - width - 8))}px`;
+      tip.style.top = `${y + 18 + height > window.innerHeight ? y - height - 10 : y + 18}px`;
+      tip.classList.add("is-shown");
+    };
+    const branchAt = (target) => target.closest(".branch-tag, .commit-dot, .git-lane-hits path")?.closest("[data-branch]")?.dataset.branch;
+
+    timeline.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "touch") return;
+      const branch = branchAt(event.target);
+      if (branch) showTip(branch, event.clientX, event.clientY);
+      else hideTip();
+      highlight(branch || event.target.closest(".commit")?.dataset.branch);
     });
+    timeline.addEventListener("pointerleave", () => {
+      hideTip();
+      highlight(null);
+    });
+    // On touch screens a tap on a branch name or dot shows the bubble; the
+    // next tap anywhere else, or scrolling, puts it away.
+    document.addEventListener("pointerdown", (event) => {
+      if (event.pointerType !== "touch") return;
+      const branch = timeline.contains(event.target) && branchAt(event.target);
+      if (branch) showTip(branch, event.clientX, event.clientY);
+      else hideTip();
+    });
+    window.addEventListener("scroll", hideTip, { passive: true });
 
     if (!motion) return;
 
@@ -304,8 +436,9 @@
       { rootMargin: "0px 0px -40% 0px" }
     );
     commits.forEach((commit) => fadeIn.observe(commit));
+    if (head) fadeIn.observe(head);
     // Keyboard focus never lands on an entry that hasn't faded in yet.
-    log.addEventListener("focusin", (event) => event.target.closest(".commit")?.classList.add("is-visible"));
+    log.addEventListener("focusin", (event) => event.target.closest(".commit, .head")?.classList.add("is-visible"));
 
     let ticking = false;
     window.addEventListener(
