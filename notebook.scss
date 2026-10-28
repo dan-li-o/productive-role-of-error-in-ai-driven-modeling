@@ -62,7 +62,7 @@ $footer-fg: #616161;
   --nb-radius: 2px;
   --nb-cell-gap: 16px;
   --nb-gutter: 24px;
-  --nb-header-h: 0px; /* set by notebook.js */
+  --nb-header-h: 91px; /* measured by notebook.js; this default keeps jumps clear of the header without JS */
   --nb-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
 
   /* Spacing scale */
@@ -1111,7 +1111,9 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   scroll-margin-top: calc(var(--nb-header-h) + 30vh);
 }
 
-.head:focus { outline: none; }
+/* Jump targets take focus so the next Tab continues from there; no ring. */
+.head:focus,
+.git-timeline:focus { outline: none; }
 
 /* On the plain rail the HEAD line carries a dashed rail segment of its own. */
 .head::before {
@@ -1182,6 +1184,25 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .git-timeline.has-motion .head { opacity: 0; transform: translateY(8px); transition: opacity 400ms ease, transform 400ms ease; }
 .git-timeline.has-motion .commit.is-visible,
 .git-timeline.has-motion .head.is-visible { opacity: 1; transform: none; }
+/* After a jump everything is simply there, so the landing spot is exact. */
+.git-timeline.is-shown-all .commit,
+.git-timeline.is-shown-all .head { transition: none; }
+
+/* Print: every entry, on the plain rail (the lanes are sized for the screen
+   and uncovered by scrolling), without the controls that only work on screen. */
+@media print {
+  .git-timeline.has-motion .commit,
+  .git-timeline.has-motion .head { opacity: 1; transform: none; transition: none; }
+  .git-timeline.is-lanes { --gutter: 32px; }
+  .is-lanes .commit::before,
+  .is-lanes .head::before { display: block; }
+  .is-lanes .commit-dot { --x: 7px; }
+  .git-lanes,
+  .branch-tip,
+  .fold-toggle,
+  .head-pointer a,
+  .head-back { display: none; }
+}
 
 /* About: card rows */
 .project-card h3 { font-size: 19px; margin: 0 0 8px; }

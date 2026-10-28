@@ -277,18 +277,51 @@
       // visitor asked to skip the story, so nothing waits to fade in.
       const showAll = () => {
         revealAll = true;
+        timeline.classList.add("is-shown-all");
         commits.forEach((commit) => commit.classList.add("is-visible"));
         head.classList.add("is-visible");
         updateReveal();
       };
       // Links can be rewritten to full URLs, so match on the hash, not the href.
+      // The jump happens here, not in the browser: Quarto answers every
+      // hashchange by scrolling up another header height, which would land a
+      // click lower than opening the same URL. pushState fires no hashchange.
       document.addEventListener("click", (event) => {
         const link = event.target.closest("a");
         if (!link || link.pathname !== location.pathname || !["#now", "#how-it-started"].includes(link.hash)) return;
+        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        const target = document.getElementById(link.hash.slice(1));
+        if (!target) return;
+        event.preventDefault();
         showAll();
-        if (link.hash === "#now") setTimeout(() => head.focus({ preventScroll: true }), 0);
+        history.pushState(null, "", link.hash);
+        target.scrollIntoView();
+        target.focus({ preventScroll: true });
       });
-      if (["#now", "#how-it-started"].includes(location.hash)) showAll();
+      // Opening the page at either link: the browser scrolled there before
+      // this script folded entries and added the pointer above, and Quarto
+      // pads the body for its fixed header a moment later, which the browser
+      // doesn't compensate for. So for the first moments, until the visitor
+      // does anything, put the target back whenever it moves.
+      if (["#now", "#how-it-started"].includes(location.hash)) {
+        const target = document.getElementById(location.hash.slice(1));
+        showAll();
+        let landed = null;
+        let settling = true;
+        const settle = () => {
+          if (!settling) return;
+          const top = target.getBoundingClientRect().top;
+          if (landed === null || Math.abs(top - landed) > 1) {
+            target.scrollIntoView();
+            landed = target.getBoundingClientRect().top;
+          }
+          requestAnimationFrame(settle);
+        };
+        requestAnimationFrame(settle);
+        const stop = () => (settling = false);
+        ["wheel", "touchstart", "pointerdown", "keydown"].forEach((type) => window.addEventListener(type, stop, { once: true, passive: true }));
+        setTimeout(stop, 1500);
+      }
     }
 
     // Lanes. Branches that start before main exists run from their first entry

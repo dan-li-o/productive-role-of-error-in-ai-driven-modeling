@@ -50,7 +50,7 @@ the same question. Here's how they came together, and where we're going next.
 </ul>
 </div>
 
-<div class="git-timeline" id="how-it-started" data-fold="error-in-science opacity credibility">
+<div class="git-timeline" id="how-it-started" tabindex="-1" data-fold="error-in-science opacity credibility">
 <ol class="git-log">
 <li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1989</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">A philosopher sorts the errors that can creep into an experiment by the stage at which they arise. <a class="cite" href="#ref-hon-1989">Hon 1989</a></p></li>
 <li class="commit" data-branch="ai-climate"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1995</time> <span class="branch-tag">ai-climate</span></p><p class="commit-text">Climate scientists start running their models through the same experiments so they can be compared: CMIP, the Coupled Model Intercomparison Project, still going three decades later. <a class="cite" href="#ref-meehl-2000">Meehl et al. 2000</a></p></li>
