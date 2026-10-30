@@ -24,6 +24,9 @@ include-in-header:
         document.documentElement.classList.add("hero-type-pending");
       }
     </script>
+    <!-- This page's include-in-header replaces _quarto.yml's, so GoatCounter is repeated here. -->
+    <script data-goatcounter="https://dan-li-o.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
 ---
 
 <!--

@@ -5,13 +5,21 @@ toc: false
 ---
 
 We want this site to work for everyone. It aims to meet the Web Content
-Accessibility Guidelines (WCAG) 2.1 at level AA: text has sufficient contrast,
-everything works by keyboard, images have text alternatives, and animations
-are turned off when your device asks for reduced motion.
+Accessibility Guidelines (WCAG) 2.1 at level AA: text has enough contrast,
+everything works by keyboard, and images have text alternatives.
 
-The homepage "notebook" reveals its outputs as you scroll. All of the text is
-in the page from the start, so screen readers and search engines see
-everything, and the **Run all** button shows every output at once.
+The homepage is laid out like a coding notebook. Each cell's output appears
+when you scroll to it or press the cell's run button. All of the text is in
+the page from the start, so screen readers and search engines get all of it.
+
+- **Keyboard.** Tab to a cell, then press Shift+Enter to run it and move to
+  the next one, or Ctrl+Enter (⌘+Enter on a Mac) to run it in place.
+- **Screen readers.** When a cell runs, the first line of its output is read
+  out. The globe animation has a text description.
+- **Motion.** The globe animation has a Pause button. If your device asks for
+  reduced motion, the site turns its animations off: the homepage shows every
+  output at once, the headline appears without typing itself, and the globes
+  hold still.
 
 If you meet a barrier on this site, or need a document in another format,
 please tell us. We will do our best to help.
@@ -20,3 +28,5 @@ please tell us. We will do our best to help.
 
 Or write to
 <span class="email-obfuscate" data-user="tech" data-domain="productive-error.org">tech [at] productive-error.org</span>.
+
+We count visits to this site. We don’t collect personal information.

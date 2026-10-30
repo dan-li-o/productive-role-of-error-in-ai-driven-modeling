@@ -55,6 +55,11 @@ format:
     theme:
       - default
       - notebook.scss
+    # GoatCounter visit counts: no cookies, no personal data.
+    include-in-header:
+      text: |
+        <script data-goatcounter="https://dan-li-o.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
     include-after-body: notebook-loader.html
     toc: true
     # Quarto extras the site doesn't use; each one adds a script.
