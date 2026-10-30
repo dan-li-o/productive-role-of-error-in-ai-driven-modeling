@@ -10,7 +10,6 @@ listing:
   sort: "date desc"
   type: default
   fields: [date, title, description]
-  feed: true
 # Listings load MathJax by default; the posts have no math.
 html-math-method: plain
 ---
@@ -20,7 +19,7 @@ and edit its title, date, description and text. -->
 
 <!-- Post titles are h3s; this hidden h2 keeps the heading order. -->
 ::: {.news-subscribe}
-Get news by email, or follow the [RSS feed](news.xml).
+Get news by email.
 
 <span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
 

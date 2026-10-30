@@ -1,0 +1,20 @@
+---
+title: "Privacy"
+description: "What this site records about visits, and what happens to the emails you send us."
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  sub: "What we record, and what we don’t"
+toc: false
+---
+
+We count visits to this site, to see which pages people read. The counter
+uses no cookies and collects no personal information.
+
+If you email us, we use your address only to reply. If you join the email
+list, we send a few emails a year, and you can reply "unsubscribe" any time.
+
+If you share an error story, we won't quote, publish or use it in our
+research without asking you first.
+
+Questions? Write to
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org">contact [at] productive-error.org</span>.

@@ -225,7 +225,7 @@ confidential.
 
 <dl class="ack-list">
 <dt>Funding</dt>
-<dd>This project is supported by the Alfred P. Sloan Foundation (2026–2028).</dd>
+<dd>This project is supported by the Alfred P. Sloan Foundation ([2026–2028]{.text-nowrap}).</dd>
 <dt>Institutional home</dt>
 <dd class="ack-org"><img src="logos/qc.png" alt="" class="logo" width="28" height="28" loading="lazy"> Research Foundation of CUNY – Queens College, City University of New York</dd>
 <dt>Partner institution</dt>

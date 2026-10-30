@@ -1,9 +1,9 @@
 ---
 title: "Workshop"
-description: "An interdisciplinary workshop for scientists, philosophers and STS scholars on error in AI-driven modeling."
+description: "A two-day workshop in New York City, fall 2027, for scientists, philosophers and STS scholars on error in AI-driven modeling. Call for abstracts February 2027."
 # Subtitle on the social preview card (_social-cards/README.md).
 social-card:
-  sub: "A workshop for scientists, philosophers and STS scholars"
+  sub: "New York City, fall 2027 · Call for abstracts February 2027"
 ---
 
 A two-day interdisciplinary workshop where scientists, philosophers and STS

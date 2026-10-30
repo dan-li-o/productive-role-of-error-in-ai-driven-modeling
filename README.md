@@ -16,8 +16,7 @@ other pages are plain reading pages in the same style.
 - The homepage cells are hand-written divs in `index.qmd`; a comment at the
   top of that file explains how to edit them.
 - **News:** add a file to `news/` named `YYYY-MM-DD-short-name.qmd` with a
-  `title`, `date` and `description`. The News page lists posts newest first
-  and builds an RSS feed (`news.xml`).
+  `title`, `date` and `description`. The News page lists posts newest first.
 - **Email addresses** are never written out in full. Use
   `<span class="email-obfuscate" data-user="name" data-domain="example.org">name [at] example.org</span>`.
   Optional attributes turn it into a prefilled email: `data-subject`,

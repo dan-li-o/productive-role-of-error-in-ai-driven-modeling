@@ -531,6 +531,9 @@ main.content { margin-bottom: 0; }
 }
 
 .cell-actions > p { display: contents; } /* Pandoc wraps inline content in <p> */
+/* An email button is a link inside .email-obfuscate; make the link the flex
+   item, so it sizes like the other buttons (full width on phones). */
+.cell-actions .email-obfuscate { display: contents; }
 
 /* Under the hero buttons, on its own line. */
 .cell-actions:has(+ #latest-news) { margin-bottom: var(--nb-space-4); }
@@ -1265,6 +1268,16 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 }
 
 .take-part { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Each card is heading, text, button and (sometimes) small print. Sharing
+   those rows with the card beside it puts both buttons on one line, even
+   when only one card has small print under its button. */
+.take-part .project-card {
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+.take-part .project-card > p:has(> .button, > .email-obfuscate) { margin: 0; }
 
 .ack-list {
   display: grid;

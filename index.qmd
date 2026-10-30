@@ -24,9 +24,6 @@ include-in-header:
         document.documentElement.classList.add("hero-type-pending");
       }
     </script>
-    <!-- This page's include-in-header replaces _quarto.yml's, so GoatCounter is repeated here. -->
-    <script data-goatcounter="https://dan-li-o.goatcounter.com/count"
-            async src="//gc.zgo.at/count.js"></script>
 ---
 
 <!--
@@ -90,7 +87,7 @@ join
 ::: {.behind-note}
 Led by [Ryan O'Loughlin](people.qmd#ryan-oloughlin) (Queens College, CUNY) and
 [Matthew Mayernik](people.qmd#matthew-mayernik) (NSF NCAR). Funded by the
-Alfred P. Sloan Foundation, 2026–2028. Fieldwork at NSF NCAR, NASA GISS and
+Alfred P. Sloan Foundation, [2026–2028]{.text-nowrap}. Fieldwork at NSF NCAR, NASA GISS and
 Columbia University's LEAP Center.
 :::
 :::

@@ -109,13 +109,6 @@ def snake(text):
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
 
 
-def lower_first(text):
-    """"The team" -> "the team", but leaves "AI-driven" and "STS" alone."""
-    first = text.split(" ", 1)[0]
-    plain = first[1:].islower() if len(first) > 1 else first != "I"
-    return text[0].lower() + text[1:] if plain else text
-
-
 def home_spec(index_qmd):
     """The homepage card is its headline, with the word the page types first struck out."""
     h1 = re.search(r'<h1[^>]*data-type-wrong="([^"]+)"[^>]*>.*?class="hero-type-final">(.*?)</span>', index_qmd, re.S)
@@ -129,7 +122,7 @@ def home_spec(index_qmd):
 
 def card_alt(spec):
     if spec["title"] == SITE_TITLE:
-        return f"{SITE_TITLE}: {lower_first(spec['sub'])}" if spec.get("sub") else SITE_TITLE
+        return f"{SITE_TITLE}: {spec['sub']}" if spec.get("sub") else SITE_TITLE
     return f"{spec['title']}. {spec['sub']}" if spec.get("sub") else spec["title"]
 
 

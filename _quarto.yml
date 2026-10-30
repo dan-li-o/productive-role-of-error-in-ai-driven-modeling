@@ -43,7 +43,7 @@ website:
       <span class="email-obfuscate" data-user="contact" data-domain="productive-error.org">contact [at] productive-error.org</span>
       · <span class="email-obfuscate" data-user="tech" data-domain="productive-error.org" data-subject="Website problem on productive-error.org" data-body="Page: {page}|What happened:|Device and browser, if you know:" data-label="Report a website problem">tech [at] productive-error.org</span>
 
-      [Accessibility](/accessibility.qmd) · Text [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)<span class="footer-qr-text"> · [QR code](/qr-code.svg)</span>
+      [Accessibility](/accessibility.qmd) · [Privacy](/privacy.qmd) · Text [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)<span class="footer-qr-text"> · [QR code](/qr-code.svg)</span>
 
       <a class="footer-qr" href="/qr-code.svg"><img src="/qr-code.svg" alt="QR code for productive-error.org" width="64" height="64"></a>
 
@@ -58,11 +58,6 @@ format:
     theme:
       - default
       - notebook.scss
-    # GoatCounter visit counts: no cookies, no personal data.
-    include-in-header:
-      text: |
-        <script data-goatcounter="https://dan-li-o.goatcounter.com/count"
-                async src="//gc.zgo.at/count.js"></script>
     include-after-body: notebook-loader.html
     toc: true
     # Quarto extras the site doesn't use; each one adds a script.

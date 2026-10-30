@@ -4,62 +4,68 @@
     "about": {
       "file": "about.png",
       "page": "about.qmd",
-      "alt": "Productive Error: how the project came together, and what we’re asking",
-      "hash": "533395e9fc2ba5b8"
+      "alt": "Productive Error: How the project came together, and what we’re asking",
+      "hash": "933b5f38134d9afa"
     },
     "accessibility": {
       "file": "accessibility.png",
       "page": "accessibility.qmd",
-      "alt": "Productive Error: how the site works for everyone, and how to report a barrier",
-      "hash": "efae44071fd4c537"
+      "alt": "Productive Error: How the site works for everyone, and how to report a barrier",
+      "hash": "967a977e6f8f1421"
     },
     "contact": {
       "file": "contact.png",
       "page": "contact.qmd",
-      "alt": "Productive Error: share an error story, or work with us",
-      "hash": "dece17855bed56ba"
+      "alt": "Productive Error: Share an error story, or work with us",
+      "hash": "088d995d8c78d535"
     },
     "default": {
       "file": "default.png",
       "page": "(pages without their own card)",
-      "alt": "Productive Error: how errors in AI-driven scientific models lead to new knowledge",
-      "hash": "2e852c7aca4b3667"
+      "alt": "Productive Error: How errors in AI-driven scientific models lead to new knowledge",
+      "hash": "28456ac9eb7666e5"
     },
     "deliverables": {
       "file": "deliverables.png",
       "page": "deliverables.qmd",
-      "alt": "Productive Error: papers, talks and workshop materials",
-      "hash": "9ae50456b6ea5279"
+      "alt": "Productive Error: Papers, talks and workshop materials",
+      "hash": "74f9da902826e54a"
     },
     "index": {
       "file": "index.png",
       "page": "index.qmd",
       "alt": "Sometimes the most useful thing an AI model does is work, crossed out, fail.",
-      "hash": "5bfbfd8532dae182"
+      "hash": "4fa34a526e2f7a8b"
     },
     "news": {
       "file": "news.png",
       "page": "news.qmd",
-      "alt": "Productive Error: updates from the project",
-      "hash": "0f5e0a85a8137d68"
+      "alt": "Productive Error: Updates from the project",
+      "hash": "a876710b9585c859"
     },
     "news-2026-10-01-project-begins": {
       "file": "news-2026-10-01-project-begins.png",
       "page": "news/2026-10-01-project-begins.qmd",
       "alt": "The project begins. 1 October 2026 · News",
-      "hash": "fca82b0c4aab04f8"
+      "hash": "2ee00aad4d84ff9e"
     },
     "people": {
       "file": "people.png",
       "page": "people.qmd",
-      "alt": "Productive Error: the team and advisory board",
-      "hash": "6f46d6df6c4a3020"
+      "alt": "Productive Error: The team and advisory board",
+      "hash": "865fa71691d402a2"
+    },
+    "privacy": {
+      "file": "privacy.png",
+      "page": "privacy.qmd",
+      "alt": "Productive Error: What we record, and what we don’t",
+      "hash": "83982147e2837b1d"
     },
     "workshop": {
       "file": "workshop.png",
       "page": "workshop.qmd",
-      "alt": "Productive Error: a workshop for scientists, philosophers and STS scholars",
-      "hash": "767c9cb4213301b1"
+      "alt": "Productive Error: New York City, fall 2027 · Call for abstracts February 2027",
+      "hash": "691875aaff1287bc"
     }
   }
 }

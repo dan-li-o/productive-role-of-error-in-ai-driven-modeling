@@ -31,5 +31,3 @@ please tell us. We will do our best to help.
 
 Or write to
 <span class="email-obfuscate" data-user="tech" data-domain="productive-error.org">tech [at] productive-error.org</span>.
-
-We count visits to this site. We don’t collect personal information.

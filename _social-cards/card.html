@@ -19,6 +19,7 @@
   .label .in { color: var(--nb-in-prompt); }
   .title { font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; margin: 0; max-width: 980px; text-wrap: balance; }
   .sub { font-size: 38px; line-height: 1.3; color: var(--nb-text-muted); margin: 30px 0 0; max-width: 900px; text-wrap: balance; }
+  .sub .part { display: inline-block; }
   .cur { display: inline-block; width: 7px; height: .82em; background: var(--nb-brand); vertical-align: -.06em; margin-left: 8px; }
   .home .title { font-size: 76px; line-height: 1.14; font-weight: 500; letter-spacing: -0.01em; }
   .no { color: var(--nb-text-muted); text-decoration: line-through; text-decoration-color: var(--nb-red); text-decoration-thickness: 6px; }
@@ -60,7 +61,15 @@
     }
     title.append(el("span", "cur"));
     w.append(title);
-    if (spec.sub) { sub = el("p", "sub", spec.sub); w.append(sub); }
+    if (spec.sub) {
+      // Each " · " part is kept together where it fits, so two lines break at the dot.
+      sub = el("p", "sub");
+      spec.sub.split(" · ").forEach(function (part, i) {
+        if (i) sub.append(" ", el("span", "sep", "·"), " ");
+        sub.append(el("span", "part", part));
+      });
+      w.append(sub);
+    }
 
     await document.fonts.load("600 64px CardSans");
     await document.fonts.load("30px CardMono");
@@ -74,6 +83,12 @@
         if (lines(title) <= MAX_TITLE_LINES) break;
       }
     }
+
+    // A dot left at the end of a line is dropped; the line break separates the parts.
+    if (sub) sub.querySelectorAll(".sep").forEach(function (sep) {
+      var next = sep.nextElementSibling;
+      if (next.getBoundingClientRect().top > sep.getBoundingClientRect().top + 1) sep.style.display = "none";
+    });
 
     var box = null, overflow = [];
     Array.prototype.forEach.call(w.children, function (c) {
