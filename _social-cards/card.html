@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Social card</title>
+<!-- Social preview template, 1200x630. make_cards.py opens this page, calls
+     renderCard(spec) for each card and screenshots it. spec:
+       kind: "home"  before, wrong, right   the homepage headline, with "wrong" struck out
+       kind: "card"  label, title, sub      label is the code after "In [ ]:"
+       tokens        the site's --nb-* colors, read from notebook.scss
+     renderCard returns a layout report that make_cards.py checks. -->
+<style>
+  @font-face { font-family: "CardSans"; src: url("fonts/Inter.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "CardMono"; src: url("fonts/DejaVuSansMono.ttf") format("truetype"); }
+  html, body { margin: 0; }
+  body { width: 1200px; height: 630px; background: var(--nb-page); color: var(--nb-text); position: relative;
+         overflow: hidden; font-family: "CardSans", sans-serif; }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: var(--nb-brand); }
+  .wrap { position: absolute; inset: 0 110px; display: flex; flex-direction: column; align-items: center;
+          justify-content: center; text-align: center; }
+  .label { font-family: "CardMono", monospace; font-size: 30px; color: var(--nb-text-muted); margin-bottom: 34px; }
+  .label .in { color: var(--nb-in-prompt); }
+  .title { font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; margin: 0; max-width: 980px; text-wrap: balance; }
+  .sub { font-size: 38px; line-height: 1.3; color: var(--nb-text-muted); margin: 30px 0 0; max-width: 900px; text-wrap: balance; }
+  .cur { display: inline-block; width: 7px; height: .82em; background: var(--nb-brand); vertical-align: -.06em; margin-left: 8px; }
+  .home .title { font-size: 76px; line-height: 1.14; font-weight: 500; letter-spacing: -0.01em; }
+  .no { color: var(--nb-text-muted); text-decoration: line-through; text-decoration-color: var(--nb-red); text-decoration-thickness: 6px; }
+</style></head>
+<body>
+<div class="bar"></div>
+<div class="wrap" id="wrap"></div>
+<script>
+  // Title sizes to try, largest first; a title starts at the size its length
+  // suggests and steps down until it fits in MAX_TITLE_LINES.
+  var SIZES = [104, 78, 64, 56], MAX_TITLE_LINES = 3, MAX_SUB_LINES = 2;
+  var SAFE = { left: 110, right: 1090, top: 60, bottom: 570 };
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text) e.textContent = text;
+    return e;
+  }
+  function lines(e) {
+    if (!e) return 0;
+    return Math.round(e.getBoundingClientRect().height / parseFloat(getComputedStyle(e).lineHeight));
+  }
+
+  async function renderCard(spec) {
+    Object.keys(spec.tokens || {}).forEach(function (k) { document.documentElement.style.setProperty(k, spec.tokens[k]); });
+    var w = document.getElementById("wrap"), title, sub, size = null;
+    w.className = "wrap" + (spec.kind === "home" ? " home" : "");
+    w.replaceChildren();
+
+    var label = el("div", "label");
+    label.append(el("span", "in", spec.kind === "home" ? "In [1]:" : "In [ ]:"), " " + (spec.label || ""));
+    w.append(label);
+    title = el(spec.kind === "home" ? "h1" : "p", "title");
+    if (spec.kind === "home") {
+      title.append(spec.before + " ", el("span", "no", spec.wrong), " " + spec.right);
+    } else {
+      title.textContent = spec.title;
+    }
+    title.append(el("span", "cur"));
+    w.append(title);
+    if (spec.sub) { sub = el("p", "sub", spec.sub); w.append(sub); }
+
+    await document.fonts.load("600 64px CardSans");
+    await document.fonts.load("30px CardMono");
+    await document.fonts.ready;
+
+    if (spec.kind !== "home") {
+      var n = spec.title.length, i = n <= 18 ? 0 : n <= 34 ? 1 : 2;
+      for (; i < SIZES.length; i++) {
+        size = SIZES[i];
+        title.style.fontSize = size + "px";
+        if (lines(title) <= MAX_TITLE_LINES) break;
+      }
+    }
+
+    var box = null, overflow = [];
+    Array.prototype.forEach.call(w.children, function (c) {
+      var r = c.getBoundingClientRect();
+      box = box ? { left: Math.min(box.left, r.left), right: Math.max(box.right, r.right),
+                    top: Math.min(box.top, r.top), bottom: Math.max(box.bottom, r.bottom) }
+                : { left: r.left, right: r.right, top: r.top, bottom: r.bottom };
+      if (c.scrollWidth > c.clientWidth + 1) overflow.push(c.className);
+    });
+    return {
+      fonts: document.fonts.check("600 64px CardSans") && document.fonts.check("30px CardMono"),
+      titleSize: size, titleLines: lines(title), subLines: lines(sub),
+      maxTitleLines: MAX_TITLE_LINES, maxSubLines: MAX_SUB_LINES,
+      overflow: overflow, box: box, safe: SAFE,
+      inSafeArea: box.left >= SAFE.left && box.right <= SAFE.right && box.top >= SAFE.top && box.bottom <= SAFE.bottom
+    };
+  }
+</script>
+</body></html>

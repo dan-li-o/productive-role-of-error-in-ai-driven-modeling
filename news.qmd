@@ -1,6 +1,9 @@
 ---
 title: "News"
 description: "Calls, announcements, workshop recaps, talks and new papers from the project."
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  sub: "Updates from the project"
 toc: false
 listing:
   contents: news

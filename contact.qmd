@@ -1,6 +1,9 @@
 ---
 title: "Get involved"
 description: "Collaborate with the project, share an error story, or contact the team."
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  sub: "Share an error story, or work with us"
 toc: false
 ---
 

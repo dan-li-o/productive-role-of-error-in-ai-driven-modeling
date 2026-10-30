@@ -1,6 +1,9 @@
 ---
 title: "Deliverables"
 description: "Publications and talks from the project."
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  sub: "Papers, talks and workshop materials"
 ---
 
 ## Project outputs

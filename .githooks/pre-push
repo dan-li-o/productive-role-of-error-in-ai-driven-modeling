@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Before a push, build a social preview card for every page whose card is new
+# or out of date (_social-cards/make_cards.py, reading the committed pages).
+#   - A card that doesn't fit its layout stops the push, with what to change.
+#   - New cards are committed, and the push stops so you can push them too:
+#     git can't add a commit to a push that has already started.
+# Enable once per clone:  git config core.hooksPath .githooks
+# Skip in an emergency:   git push --no-verify
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+if ! python3 _social-cards/make_cards.py --from-git HEAD; then
+  echo >&2
+  echo "pre-push: a social preview card doesn't fit (see above). Fix the page, commit, and push again." >&2
+  exit 1
+fi
+
+git add -A -- images/social
+if ! git diff --cached --quiet -- images/social; then
+  git commit -q -m "Update social preview cards" -- images/social
+  echo >&2
+  echo "pre-push: social preview cards updated and committed ($(git rev-parse --short HEAD))." >&2
+  echo "          Run git push again to push them with your changes." >&2
+  exit 1
+fi

@@ -13,8 +13,9 @@ website:
   favicon: favicon.svg
   search: false
   open-graph: true
-  twitter-card: true
-  # image: share.png   # a screenshot of a notebook cell, 1200×630
+  # Each page's preview image is its card in images/social/ (social-card.lua).
+  twitter-card:
+    card-style: summary_large_image
   navbar:
     pinned: true
     logo: favicon.svg
@@ -46,9 +47,11 @@ website:
 
       <a class="footer-qr" href="/qr-code.svg"><img src="/qr-code.svg" alt="QR code for productive-error.org" width="64" height="64"></a>
 
-# Adds the render date for the header's "Last checkpoint".
+# Adds the render date for the header's "Last checkpoint", and each page's
+# social preview card.
 filters:
   - checkpoint.lua
+  - social-card.lua
 
 format:
   html:

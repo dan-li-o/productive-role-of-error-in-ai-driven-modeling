@@ -1,6 +1,9 @@
 ---
 title: "Workshop"
 description: "An interdisciplinary workshop for scientists, philosophers and STS scholars on error in AI-driven modeling."
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  sub: "A workshop for scientists, philosophers and STS scholars"
 ---
 
 A two-day interdisciplinary workshop where scientists, philosophers and STS

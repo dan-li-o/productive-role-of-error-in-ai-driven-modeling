@@ -1,6 +1,9 @@
 ---
 title: "About the project"
 description: "A Sloan Foundation project on what errors in AI-driven modeling can teach science: where it came from, what we ask, and how to take part."
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  sub: "How the project came together, and what we’re asking"
 toc: false
 ---
 

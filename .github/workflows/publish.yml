@@ -27,6 +27,13 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.7.33
+      # A warning only: the pre-push hook builds the cards, and a stale card
+      # shouldn't hold up a deploy.
+      - name: Check social preview cards
+        continue-on-error: true
+        run: |
+          python3 -c 'import yaml' 2>/dev/null || pip install --quiet pyyaml
+          python3 _social-cards/make_cards.py --verify || echo "::warning::Some social preview cards are out of date (see above). Run python3 _social-cards/make_cards.py and push."
       - name: Render website
         uses: quarto-dev/quarto-actions/render@v2
       - name: Upload website artifact

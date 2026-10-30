@@ -1,0 +1,65 @@
+{
+  "note": "Written by _social-cards/make_cards.py; read by social-card.lua. Don't edit by hand.",
+  "cards": {
+    "about": {
+      "file": "about.png",
+      "page": "about.qmd",
+      "alt": "Productive Error: how the project came together, and what we’re asking",
+      "hash": "533395e9fc2ba5b8"
+    },
+    "accessibility": {
+      "file": "accessibility.png",
+      "page": "accessibility.qmd",
+      "alt": "Productive Error: how the site works for everyone, and how to report a barrier",
+      "hash": "efae44071fd4c537"
+    },
+    "contact": {
+      "file": "contact.png",
+      "page": "contact.qmd",
+      "alt": "Productive Error: share an error story, or work with us",
+      "hash": "dece17855bed56ba"
+    },
+    "default": {
+      "file": "default.png",
+      "page": "(pages without their own card)",
+      "alt": "Productive Error: how errors in AI-driven scientific models lead to new knowledge",
+      "hash": "2e852c7aca4b3667"
+    },
+    "deliverables": {
+      "file": "deliverables.png",
+      "page": "deliverables.qmd",
+      "alt": "Productive Error: papers, talks and workshop materials",
+      "hash": "9ae50456b6ea5279"
+    },
+    "index": {
+      "file": "index.png",
+      "page": "index.qmd",
+      "alt": "Sometimes the most useful thing an AI model does is work, crossed out, fail.",
+      "hash": "5bfbfd8532dae182"
+    },
+    "news": {
+      "file": "news.png",
+      "page": "news.qmd",
+      "alt": "Productive Error: updates from the project",
+      "hash": "0f5e0a85a8137d68"
+    },
+    "news-2026-10-01-project-begins": {
+      "file": "news-2026-10-01-project-begins.png",
+      "page": "news/2026-10-01-project-begins.qmd",
+      "alt": "The project begins. 1 October 2026 · News",
+      "hash": "fca82b0c4aab04f8"
+    },
+    "people": {
+      "file": "people.png",
+      "page": "people.qmd",
+      "alt": "Productive Error: the team and advisory board",
+      "hash": "6f46d6df6c4a3020"
+    },
+    "workshop": {
+      "file": "workshop.png",
+      "page": "workshop.qmd",
+      "alt": "Productive Error: a workshop for scientists, philosophers and STS scholars",
+      "hash": "767c9cb4213301b1"
+    }
+  }
+}

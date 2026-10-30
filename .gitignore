@@ -4,3 +4,8 @@ _site/
 
 
 /.quarto/
+
+# Social card previews (make_cards.py)
+_social-cards/out/
+
+/.luarc.json

@@ -1,6 +1,9 @@
 ---
 title: "People"
 description: "The project team, advisory board and partner institutions."
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  sub: "The team and advisory board"
 ---
 
 <!-- Photos: square, 384×384px, in people/. Ryan's is his press headshot
