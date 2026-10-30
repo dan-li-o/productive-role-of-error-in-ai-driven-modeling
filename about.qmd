@@ -89,7 +89,7 @@ the same question. Here's how they came together, and where we're going next.
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The advisory board meets twice a year.</p></li>
 <li class="commit" data-branch="workshop"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>February 2027</time> <span class="branch-tag">workshop</span></p><p class="commit-text">Call for extended abstracts and invited speakers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd#call-for-extended-abstracts-and-speakers">Submit an abstract</a></p></li>
 <li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Mid 2027</time> <span class="branch-tag">interviews</span></p><p class="commit-text">First round of interviews complete.</p></li>
-<li class="commit" data-branch="workshop"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About July–September 2027</time> <span class="branch-tag">workshop</span></p><p class="commit-text">Two-day workshop for philosophers, STS scholars and scientists, with funding for PhD students and early-career researchers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd">Come to the workshop</a></p></li>
+<li class="commit" data-branch="workshop"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Fall 2027</time> <span class="branch-tag">workshop</span></p><p class="commit-text">Two-day workshop in New York City for philosophers, STS scholars and scientists, with some travel support planned for PhD students and early-career researchers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd">Come to the workshop</a></p></li>
 <li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About September 2027</time> <span class="branch-tag">interviews</span></p><p class="commit-text">First findings presented at a conference.</p></li>
 <li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2027–28</time> <span class="branch-tag">interviews</span></p><p class="commit-text">Follow-up conversations with interviewees.</p></li>
 <li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">merge into main</span></p><p class="commit-text">What we heard in the interviews and tested at the workshop comes together: the framework takes shape.</p><p class="commit-invite"><a class="invite" href="contact.qmd#collaborate">Give feedback on the framework</a></p></li>
@@ -182,8 +182,9 @@ happened next.
 ::: {.project-card}
 ### Come to the workshop
 
-For philosophers, STS scholars and scientists, with funding for PhD students
-and early-career researchers. The call opens in February 2027.
+In New York City in fall 2027, for philosophers, STS scholars and scientists,
+with some travel support planned for PhD students and early-career
+researchers. The call opens in February 2027.
 
 [Workshop details](workshop.qmd){.button .button-secondary}
 :::
@@ -210,8 +211,10 @@ there, we'd like to compare notes.
 :::
 :::
 
-Interviews are voluntary and confidential, and no one is named without their
-consent.
+Writing to us starts a conversation, nothing more. We won't quote, publish
+or use your story in our research without asking you first. If it fits the
+project, we may invite you to an interview, which is voluntary and
+confidential.
 
 <!-- Add the IRB approval note once approval is granted. -->
 

@@ -533,10 +533,12 @@ main.content { margin-bottom: 0; }
 .cell-actions > p { display: contents; } /* Pandoc wraps inline content in <p> */
 
 /* Under the hero buttons, on its own line. */
-.cell-actions:has(+ .behind-note) { margin-bottom: var(--nb-space-4); }
+.cell-actions:has(+ #latest-news) { margin-bottom: var(--nb-space-4); }
 
-/* Who's behind the project, then the newest news post (#latest-news). Quiet
-   lines under the hero buttons. */
+/* The newest news post (#latest-news), then who's behind the project: quiet
+   lines under the hero buttons. The credit line is smaller and runs the full
+   width of the cell, so it sits in two or three long lines, not a narrow
+   column. */
 .behind-note,
 .latest-note {
   color: var(--nb-text-muted);
@@ -544,7 +546,9 @@ main.content { margin-bottom: 0; }
   line-height: 1.5;
 }
 
-.behind-note { margin-bottom: var(--nb-space-3); }
+#latest-news { margin-bottom: var(--nb-space-2); }
+.behind-note { font-size: 13px; }
+.prose-cell .behind-note > p { max-width: none; }
 .behind-note a,
 .behind-note a:visited { color: inherit; }
 .behind-note a:hover { color: var(--nb-text); }

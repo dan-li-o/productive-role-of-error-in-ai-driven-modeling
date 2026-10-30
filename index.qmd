@@ -81,14 +81,14 @@ join
 [Share an error story](contact.qmd#share-an-error-story){.button .button-secondary}
 :::
 
+::: {#latest-news}
+:::
+
 ::: {.behind-note}
 Led by [Ryan O'Loughlin](people.qmd#ryan-oloughlin) (Queens College, CUNY) and
 [Matthew Mayernik](people.qmd#matthew-mayernik) (NSF NCAR). Funded by the
 Alfred P. Sloan Foundation, 2026–2028. Fieldwork at NSF NCAR, NASA GISS and
 Columbia University's LEAP Center.
-:::
-
-::: {#latest-news}
 :::
 :::
 :::
@@ -309,8 +309,10 @@ philosophers, STS scholars, scientists and the public.
 Using AI in climate science, or in any other field? Tell us about a time a
 model went wrong and what it taught you. We also welcome collaborators.
 
-<!-- T11: the wording on what happens to a story goes here, above the
-buttons, once Ryan settles it. -->
+Writing to us starts a conversation, nothing more. We won't quote, publish
+or use your story in our research without asking you first. If it fits the
+project, we may invite you to an interview, which is voluntary and
+confidential.
 
 ::: {.cell-actions}
 <span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="I have an error story to share" data-body="What model or tool was involved:|What went wrong:|How it was found:|What it taught you or your team:|Best way to reach you:" data-label="Share an error story" data-class="button button-primary">contact [at] productive-error.org</span>

@@ -26,8 +26,10 @@ A few emails a year, sent by Ryan. Reply "unsubscribe" any time.
 Tell us about a time an AI-driven model went wrong: what happened, how it was
 found, and what it taught you.
 
-<!-- T11: once Ryan settles how stories are used (and checks the wording with
-the Queens College IRB), that wording goes here, next to the button. -->
+Writing to us starts a conversation, nothing more. We won't quote, publish
+or use your story in our research without asking you first. If it fits the
+project, we may invite you to an interview, which is voluntary and
+confidential.
 
 <span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="I have an error story to share" data-body="What model or tool was involved:|What went wrong:|How it was found:|What it taught you or your team:|Best way to reach you:" data-label="Share an error story" data-class="button button-secondary">contact [at] productive-error.org</span>
 
@@ -46,7 +48,8 @@ Journalists are welcome to write to the team.
 
 ## Workshop
 
-The call for extended abstracts and speakers goes out in February 2027. See the
+The workshop is in New York City in fall 2027, and the call for extended
+abstracts and speakers goes out in February 2027. See the
 [Workshop](workshop.qmd) page.
 
 ## Addresses

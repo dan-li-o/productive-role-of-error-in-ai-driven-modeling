@@ -49,6 +49,9 @@ routing.
 
 - [ ] Ask CUNY's IRB whether fieldwork and interview wording counts as
       recruitment material
+- [ ] Ryan shows the error-story wording (option A: Get involved, homepage,
+      About) to the Queens College IRB office. Switch to option B (research
+      use with consent) once the interview study is approved
 - [ ] Short site name, domain and wordmark (the site currently uses
       "Productive Error")
 - [x] Ryan checks the plain-language wording of the FourCastNet → SFNO case
@@ -81,9 +84,7 @@ routing.
 - [ ] About timeline: dates checked against sources (CMIP began in 1995, per
       Meehl et al. 2000; Bommer et al. is the 2024 journal version of a 2023
       preprint). Optional: a "proposal submitted" entry before the merge
-- [ ] Workshop date: About says "about July–September 2027" (proposal months
-      10–12), Workshop says "end of the first year"; earlier notes say fall 2027
-      at Queens College. Use one date everywhere
+- [x] Workshop date: fall 2027, in New York City, used everywhere
 - [ ] About acknowledgments: confirm "Research Foundation of CUNY – Queens
       College" with the QC grants office; name research sites and letter
       writers only after each agrees; add the IRB approval note under "Take
@@ -94,9 +95,11 @@ routing.
 - [ ] Analytics (cookie-free: GoatCounter or Plausible)
 - [ ] Mailing list (e.g. Buttondown), with sign-up on the homepage and Get
       involved, before the February 2027 call
-- [ ] Workshop: date, venue, accessibility, fees, travel policy, code of
-      conduct, upload service (Dropbox File Request or Google Form), consent and
-      release form for recordings and slides
+- [ ] Workshop: exact dates, venue (then restore Venue accessibility on the
+      Workshop page), fees, travel support details (the site says "we aim
+      to"; keep it guarded until the budget is settled), code of conduct (link
+      an existing one once adopted), upload service (Dropbox File Request or
+      Google Form), consent and release form for recordings and slides
 - [ ] Ask Sloan's communications team about logo use; tell them when the site
       launches and before the workshop
 - [ ] Permission for any partner logos

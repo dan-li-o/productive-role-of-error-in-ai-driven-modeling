@@ -11,21 +11,29 @@ invited talks, discussion sessions and working groups.
 We especially welcome early-career researchers, including graduate students,
 as participants and presenters, and researchers from sciences beyond climate.
 
-**When:** at the end of the project's first year; date to be announced.
-
-**Venue:** to be announced.
+**When and where:** fall 2027, in New York City.
 
 ## Call for extended abstracts and speakers
 
-The call for extended abstracts and invitations to speakers will go out in
-**February 2027**. Topics, deadlines and submission instructions will be posted
-here. Want to hear when the call opens?
+The call for extended abstracts and invitations to speakers goes out in
+**February 2027**, with topics, deadlines and how to submit. Want to hear when
+the call opens?
 
 <span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
 
 ::: {.email-note}
 A few emails a year, sent by Ryan. Reply "unsubscribe" any time.
 :::
+
+## Support for early-career researchers
+
+We aim to offer travel support to some PhD students and early-career
+researchers who attend and present. How many we can support, and how to apply,
+will be set out in the call.
+
+<!-- Sections to restore when there is something to say. Add Venue
+accessibility back as soon as the venue is known; for the code of conduct,
+link an existing one once adopted rather than promising one.
 
 ## Travel and registration
 
@@ -52,3 +60,4 @@ The program will be posted once speakers are confirmed.
 Accepted presenters will receive instructions for uploading slides. Recordings
 and slides are published on the [Deliverables](deliverables.qmd) page only with
 each presenter's permission.
+-->
