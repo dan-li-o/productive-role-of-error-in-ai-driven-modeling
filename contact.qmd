@@ -6,31 +6,52 @@ toc: false
 
 We welcome collaborators, especially researchers using AI in sciences beyond
 climate and Earth system science, and anyone with an error story to share.
+Each button opens an email with a few prompts filled in.
 
-## Express interest
+<!-- Email buttons: notebook.js fills in the address, subject and body from the
+data- attributes (see README). Without JavaScript, the address shows instead. -->
 
-Write to us with a few lines about your work and how you'd like to be
-involved:
+## Keep me posted
 
-<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
+Hear about news and the February 2027 call by email.
 
-<!-- Switch to the project alias (contact@[domain]) once it exists, and to an
-embedded form if volume grows. -->
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
+
+::: {.email-note}
+A few emails a year, sent by Ryan. Reply "unsubscribe" any time.
+:::
 
 ## Share an error story
 
 Tell us about a time an AI-driven model went wrong: what happened, how it was
-found, and what it taught you. A few lines by email is plenty, and we'll
-follow up.
+found, and what it taught you.
 
-<!-- Check with CUNY's IRB before using shared stories in research or on the
-site (see README). -->
+<!-- T11: once Ryan settles how stories are used (and checks the wording with
+the Queens College IRB), that wording goes here, next to the button. -->
+
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="I have an error story to share" data-body="What model or tool was involved:|What went wrong:|How it was found:|What it taught you or your team:|Best way to reach you:" data-label="Share an error story" data-class="button button-secondary">contact [at] productive-error.org</span>
+
+## Collaborate
+
+Working on error in AI-driven modeling, in climate or another science? Tell
+us about your work and how you'd like to be involved.
+
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Interested in collaborating with Productive Error" data-body="About my work:|How I'd like to be involved:" data-label="Collaborate with us" data-class="button button-secondary">contact [at] productive-error.org</span>
+
+## Media enquiries
+
+Journalists are welcome to write to the team.
+
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Media enquiry: Productive Error" data-body="Outlet:|Deadline:|Question:" data-label="Media enquiry" data-class="button button-secondary">contact [at] productive-error.org</span>
 
 ## Workshop
 
 The call for extended abstracts and speakers goes out in February 2027. See the
 [Workshop](workshop.qmd) page.
 
-## Media enquiries
+## Addresses
 
-Journalists are welcome to use the same address.
+For anything else, write to
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org">contact [at] productive-error.org</span>.
+For problems with this website, write to
+<span class="email-obfuscate" data-user="tech" data-domain="productive-error.org">tech [at] productive-error.org</span>.

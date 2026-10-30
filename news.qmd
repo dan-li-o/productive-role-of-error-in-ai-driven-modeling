@@ -16,4 +16,14 @@ html-math-method: plain
 and edit its title, date, description and text. -->
 
 <!-- Post titles are h3s; this hidden h2 keeps the heading order. -->
+::: {.news-subscribe}
+Get news by email, or follow the [RSS feed](news.xml).
+
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
+
+::: {.email-note}
+A few emails a year, sent by Ryan. Reply "unsubscribe" any time.
+:::
+:::
+
 ## All posts {.visually-hidden .unnumbered .unlisted}

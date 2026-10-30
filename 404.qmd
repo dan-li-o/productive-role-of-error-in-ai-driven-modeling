@@ -1,5 +1,5 @@
 ---
-pagetitle: "Page not found · Productive Error"
+pagetitle: "Page not found"
 description: "The page you asked for doesn't exist, or it has moved."
 toc: false
 page-layout: full
@@ -25,6 +25,11 @@ The page you asked for doesn't exist, or it has moved.
 ::: {.notebook-cell .prose-cell}
 ::: {.cell-content}
 [Back to the homepage](index.qmd){.button .button-primary}
+
+::: {.email-note}
+Followed a link here?
+<span class="email-obfuscate" data-user="tech" data-domain="productive-error.org" data-subject="Broken link on productive-error.org" data-body="Missing page: {page}|Where you found the link (optional):" data-label="Report this broken link">tech [at] productive-error.org</span>
+:::
 :::
 :::
 ::::

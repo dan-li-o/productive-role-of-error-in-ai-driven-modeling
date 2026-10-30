@@ -163,6 +163,15 @@ main.content { margin-bottom: 0; }
   text-underline-offset: 0.3em;
 }
 
+/* "Workshop ’27": the year as a small superscript-like tag. */
+.nav-year {
+  color: var(--nb-text-muted);
+  font-family: var(--nb-font-code);
+  font-size: 11px;
+  position: relative;
+  top: -3px;
+}
+
 /* Title row, placed by notebook.js: "Last checkpoint" beside the title, and
    the funder with the kernel circle on the right. */
 .nb-checkpoint,
@@ -300,9 +309,18 @@ main.content { margin-bottom: 0; }
 .nav-footer a:visited { color: var(--nb-text-muted); }
 .nav-footer a:hover { color: var(--nb-text); }
 
+/* Share code: a small QR under the links on desktop and in print, for
+   showing the site to someone nearby. Phones get a text link to the
+   full-size code instead. Black at .62 opacity matches --nb-text-muted. */
+.footer-qr { display: none; }
+.footer-qr img { display: block; opacity: .62; }
+.footer-qr:hover img { opacity: 1; }
+
 @media (min-width: 992px) {
   .nav-footer { flex-wrap: nowrap; }
   .nav-footer-right { text-align: right; }
+  .footer-qr { display: block; margin: var(--nb-space-3) 0 0 auto; width: 64px; }
+  .footer-qr-text { display: none; }
 }
 
 @media (max-width: 991.98px) {
@@ -515,15 +533,26 @@ main.content { margin-bottom: 0; }
 .cell-actions > p { display: contents; } /* Pandoc wraps inline content in <p> */
 
 /* Under the hero buttons, on its own line. */
-.cell-actions:has(+ .latest-note) { margin-bottom: var(--nb-space-4); }
+.cell-actions:has(+ .behind-note) { margin-bottom: var(--nb-space-4); }
 
+/* Who's behind the project, then the newest news post (#latest-news). Quiet
+   lines under the hero buttons. */
+.behind-note,
 .latest-note {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
   line-height: 1.5;
 }
 
+.behind-note { margin-bottom: var(--nb-space-3); }
+.behind-note a,
+.behind-note a:visited { color: inherit; }
+.behind-note a:hover { color: var(--nb-text); }
+
+.behind-note > p,
+.latest-note,
 .latest-note > p { margin: 0; }
+.latest-date { white-space: nowrap; }
 
 .latest-note strong { color: var(--nb-text); font-weight: 500; }
 
@@ -534,6 +563,36 @@ main.content { margin-bottom: 0; }
 
 .bridge-cell,
 .closing-cell { margin-top: var(--nb-space-6); }
+
+/* The key line: between cells and outside their grid, so the page pauses on
+   it. 24px on phones, 34px on wide screens. */
+.key-line {
+  margin-block: var(--nb-space-8);
+  text-align: center;
+}
+
+.key-line > p {
+  color: var(--nb-text);
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 auto;
+  max-width: 26ch;
+  text-wrap: balance;
+}
+
+/* Small print beside an email button (the email list's promise). */
+.email-note {
+  color: var(--nb-text-muted);
+  font-size: var(--nb-size-small);
+  line-height: 1.5;
+  margin-top: var(--nb-space-2);
+}
+
+.email-note > p { margin: 0; }
+
+/* News: the sign-up sits above the post list. */
+.news-subscribe { margin-bottom: var(--nb-space-6); }
 
 /* Buttons in a row share a width, so the row reads as one even set. */
 .cell-actions .button { min-width: 12rem; }
@@ -1202,6 +1261,9 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   .fold-toggle,
   .head-pointer a,
   .head-back { display: none; }
+  .footer-qr { display: block; width: 64px; }
+  .footer-qr img { opacity: 1; }
+  .footer-qr-text { display: none; }
 }
 
 /* About: card rows */

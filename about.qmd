@@ -92,10 +92,10 @@ the same question. Here's how they came together, and where we're going next.
 <li class="commit" data-branch="workshop"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About July–September 2027</time> <span class="branch-tag">workshop</span></p><p class="commit-text">Two-day workshop for philosophers, STS scholars and scientists, with funding for PhD students and early-career researchers.</p><p class="commit-invite"><a class="invite" href="workshop.qmd">Come to the workshop</a></p></li>
 <li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>About September 2027</time> <span class="branch-tag">interviews</span></p><p class="commit-text">First findings presented at a conference.</p></li>
 <li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2027–28</time> <span class="branch-tag">interviews</span></p><p class="commit-text">Follow-up conversations with interviewees.</p></li>
-<li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">merge into main</span></p><p class="commit-text">What we heard in the interviews and tested at the workshop comes together: the framework takes shape.</p><p class="commit-invite"><a class="invite" href="contact.qmd#express-interest">Give feedback on the framework</a></p></li>
+<li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">merge into main</span></p><p class="commit-text">What we heard in the interviews and tested at the workshop comes together: the framework takes shape.</p><p class="commit-invite"><a class="invite" href="contact.qmd#collaborate">Give feedback on the framework</a></p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2028</time> <span class="branch-tag">main</span></p><p class="commit-text">Papers submitted: two in philosophy of science, one in STS, one for climate scientists and one for the public, plus a workshop report.</p><p class="commit-invite"><a class="invite" href="news.qmd">Get updates</a></p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>30 September 2028</time> <span class="branch-tag">main</span></p><p class="commit-text">Project ends.</p></li>
-<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Beyond</time> <span class="branch-tag">main</span></p><p class="commit-text">A longer-term research program on error, AI and scientific modeling, reaching beyond climate science.</p><p class="commit-invite">Using AI in another science? <a class="invite" href="contact.qmd#express-interest">Collaborate with us</a></p></li>
+<li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Beyond</time> <span class="branch-tag">main</span></p><p class="commit-text">A longer-term research program on error, AI and scientific modeling, reaching beyond climate science.</p><p class="commit-invite">Using AI in another science? <a class="invite" href="contact.qmd#collaborate">Collaborate with us</a></p></li>
 </ol>
 </div>
 
@@ -193,7 +193,11 @@ and early-career researchers. The call opens in February 2027.
 
 Read our framework as it develops and tell us where it's wrong.
 
-[Get updates](news.qmd){.button .button-secondary}
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
+
+::: {.email-note}
+A few emails a year, sent by Ryan. Reply "unsubscribe" any time.
+:::
 :::
 
 ::: {.project-card}
@@ -202,7 +206,7 @@ Read our framework as it develops and tell us where it's wrong.
 Similar questions are arising in genomics, astronomy and beyond. If you work
 there, we'd like to compare notes.
 
-[Get in touch](contact.qmd#express-interest){.button .button-secondary}
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Interested in collaborating with Productive Error" data-body="About my work:|How I'd like to be involved:" data-label="Collaborate with us" data-class="button button-secondary">contact [at] productive-error.org</span>
 :::
 :::
 
@@ -221,12 +225,13 @@ consent.
 <dt>Partner institution</dt>
 <dd class="ack-org"><img src="logos/ncar.png" alt="" class="logo" width="28" height="28" loading="lazy"> NSF National Center for Atmospheric Research, home of co-PI Matthew Mayernik</dd>
 <dt>Research sites</dt>
-<dd>The scientists and institutions who make our fieldwork possible.</dd>
-<dt>Advisory board</dt>
-<dd>Thanks to our <a href="people.qmd">advisory board</a> for their guidance.</dd>
+<dd>NSF NCAR, NASA GISS and Columbia University's LEAP Center</dd>
+</dl>
+
+<!-- Restore once interviews begin:
 <dt>Interviewees</dt>
 <dd>Thanks to everyone who shares their experience with us. Interviewees are not named.</dd>
-</dl>
+-->
 
 <!-- Research sites: name letter writers and in-kind supporters only after
 each agrees. Sloan logo: ask Sloan's communications team before using it. -->

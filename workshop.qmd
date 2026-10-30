@@ -19,7 +19,13 @@ as participants and presenters, and researchers from sciences beyond climate.
 
 The call for extended abstracts and invitations to speakers will go out in
 **February 2027**. Topics, deadlines and submission instructions will be posted
-here. To hear when the call opens, [get in touch](contact.qmd).
+here. Want to hear when the call opens?
+
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
+
+::: {.email-note}
+A few emails a year, sent by Ryan. Reply "unsubscribe" any time.
+:::
 
 ## Travel and registration
 

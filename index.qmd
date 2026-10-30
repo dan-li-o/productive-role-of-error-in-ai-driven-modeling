@@ -1,8 +1,19 @@
 ---
-pagetitle: "Productive Error · The Productive Role of Error in AI-Driven Modeling"
+pagetitle: "The Productive Role of Error in AI-Driven Modeling"
 description: "Sometimes the most useful thing an AI model does is fail. A Sloan Foundation project on how mistakes made by AI models in science can lead to new knowledge, starting with weather and climate."
 toc: false
 page-layout: full
+# The hero's "Latest" line: the newest news post (latest.ejs).
+listing:
+  id: latest-news
+  contents: news
+  sort: "date desc"
+  max-items: 1
+  type: custom
+  template: latest.ejs
+  date-format: "D MMMM YYYY"
+# Listings load MathJax by default; the page has no math.
+html-math-method: plain
 include-in-header:
   text: |
     <script>
@@ -32,6 +43,8 @@ How this page works
   typed first.
 - Under the headline, .hero-facts is a definition list: the term (what, why,
   join) shows as a code-style label beside its one-sentence answer.
+- The hero's "Latest" line is the newest post in news/, filled in by the
+  listing in the front matter (template: latest.ejs).
 - The header's "Last checkpoint" date comes from checkpoint.lua (render date);
   the funder line beside it is FUNDER in notebook.js.
 - The bar chart in cell 4 is drawn to scale: 10 days vs 365 days
@@ -65,11 +78,17 @@ join
 
 ::: {.cell-actions}
 [About the project](about.qmd){.button .button-primary}
-[Share an error story](contact.qmd){.button .button-secondary}
+[Share an error story](contact.qmd#share-an-error-story){.button .button-secondary}
 :::
 
-::: {.latest-note}
-**Latest:** [Call for extended abstracts and speakers, February 2027](workshop.qmd)
+::: {.behind-note}
+Led by [Ryan O'Loughlin](people.qmd#ryan-oloughlin) (Queens College, CUNY) and
+[Matthew Mayernik](people.qmd#matthew-mayernik) (NSF NCAR). Funded by the
+Alfred P. Sloan Foundation, 2026–2028. Fieldwork at NSF NCAR, NASA GISS and
+Columbia University's LEAP Center.
+:::
+
+::: {#latest-news}
 :::
 :::
 :::
@@ -184,9 +203,6 @@ The error didn't just get fixed. It left science better off:
 - **Credibility.** By diagnosing the failure in the open, researchers showed
   they understood a system that is hard to see inside.
 
-**Most discussions of AI in science ask how to eliminate errors. We ask what
-errors teach.**
-
 ::: {.cell-source}
 Sources: [O'Loughlin 2023](https://doi.org/10.1007/s13194-023-00522-z) and
 [O'Loughlin et al. 2025](https://doi.org/10.5194/gmd-18-787-2025) on
@@ -194,6 +210,13 @@ understanding; Taleb 2012, *Antifragile*, on antifragility;
 [Mayernik 2021](https://doi.org/10.17351/ests2021.769) on credibility.
 :::
 :::
+:::
+
+<!-- The key line sits between cells, outside the grid, so the page pauses on
+it. A plain paragraph, not a quote: it's the project speaking. -->
+::: {.key-line}
+Most discussions of AI in science ask how to eliminate errors. We ask what
+errors teach.
 :::
 
 ::: {.notebook-cell .code-cell tabindex="0" data-cell="6" role="group" aria-label="Cell 6"}
@@ -286,10 +309,17 @@ philosophers, STS scholars, scientists and the public.
 Using AI in climate science, or in any other field? Tell us about a time a
 model went wrong and what it taught you. We also welcome collaborators.
 
+<!-- T11: the wording on what happens to a story goes here, above the
+buttons, once Ryan settles it. -->
+
 ::: {.cell-actions}
-[Share an error story](contact.qmd){.button .button-primary}
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="I have an error story to share" data-body="What model or tool was involved:|What went wrong:|How it was found:|What it taught you or your team:|Best way to reach you:" data-label="Share an error story" data-class="button button-primary">contact [at] productive-error.org</span>
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
 [Workshop details](workshop.qmd){.button .button-secondary}
-[Latest news](news.qmd){.button .button-secondary}
+:::
+
+::: {.email-note}
+Keep me posted: a few emails a year, sent by Ryan. Reply "unsubscribe" any time.
 :::
 :::
 :::

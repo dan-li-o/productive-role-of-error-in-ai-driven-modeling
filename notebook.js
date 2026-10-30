@@ -1,11 +1,23 @@
 (() => {
   // Email addresses are stored in pieces and assembled here, so the page
-  // source and the repo never contain a plain address.
+  // source and the repo never contain a plain address. Optional: data-subject
+  // and data-body prefill the email ("|" in the body starts a new line,
+  // "{page}" becomes this page's address); data-label replaces the address as
+  // the link text, and data-class styles the link (e.g. as a button).
   document.querySelectorAll(".email-obfuscate[data-user][data-domain]").forEach((element) => {
-    const address = `${element.dataset.user}@${element.dataset.domain}`;
+    const { user, domain, subject, body, label } = element.dataset;
+    const address = `${user}@${domain}`;
+    const fields = [];
+    if (subject) fields.push(`subject=${encodeURIComponent(subject)}`);
+    if (body) {
+      const lines = body.replaceAll("{page}", window.location.href).split("|");
+      // CRLF, which Outlook also reads as a line break.
+      fields.push(`body=${lines.map(encodeURIComponent).join("%0D%0A")}`);
+    }
     const link = document.createElement("a");
-    link.href = `mailto:${address}`;
-    link.textContent = address;
+    link.href = `mailto:${address}${fields.length ? `?${fields.join("&")}` : ""}`;
+    link.textContent = label || address;
+    if (element.dataset.class) link.className = element.dataset.class;
     element.replaceChildren(link);
   });
 

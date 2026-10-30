@@ -14,6 +14,9 @@ in the page from the start, so screen readers and search engines see
 everything, and the **Run all** button shows every output at once.
 
 If you meet a barrier on this site, or need a document in another format,
-please write to
-<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>.
-We will do our best to help.
+please tell us. We will do our best to help.
+
+<span class="email-obfuscate" data-user="tech" data-domain="productive-error.org" data-subject="Accessibility barrier on productive-error.org" data-body="Page: {page}|What got in the way:|A format you need, if any:" data-label="Report a barrier" data-class="button button-secondary">tech [at] productive-error.org</span>
+
+Or write to
+<span class="email-obfuscate" data-user="tech" data-domain="productive-error.org">tech [at] productive-error.org</span>.

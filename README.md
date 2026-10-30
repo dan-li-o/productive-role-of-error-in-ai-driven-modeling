@@ -20,6 +20,12 @@ other pages are plain reading pages in the same style.
   and builds an RSS feed (`news.xml`).
 - **Email addresses** are never written out in full. Use
   `<span class="email-obfuscate" data-user="name" data-domain="example.org">name [at] example.org</span>`.
+  Optional attributes turn it into a prefilled email: `data-subject`,
+  `data-body` (`|` starts a new line, `{page}` becomes the page's address),
+  `data-label` (link text in place of the address) and `data-class` (e.g.
+  `button button-secondary`). Without JavaScript the span's own text shows.
+  General enquiries go to `contact@`, website problems to `tech@`; the
+  email-list sign-ups ("Keep me posted") arrive at `contact@` for now.
 
 To preview locally (optional): install [Quarto](https://quarto.org) and run
 `quarto preview`.
@@ -34,9 +40,10 @@ sitemap and full page addresses are built from it. The old
 `dan-li-o.github.io/productive-role-of-error-in-ai-driven-modeling/` address
 redirects to the domain.
 
-Still to do: set up `contact@productive-error.org` forwarding (registrar or
-Cloudflare Email Routing) and replace the addresses in the footer, Get
-involved and Accessibility pages.
+Email: `contact@productive-error.org` forwards to Ryan and
+`tech@productive-error.org` to the site builder (Cloudflare Email Routing).
+Send a test to each before relying on them, and after any change to the
+routing.
 
 ## Before launch
 
@@ -44,9 +51,10 @@ involved and Accessibility pages.
       recruitment material
 - [ ] Short site name, domain and wordmark (the site currently uses
       "Productive Error")
-- [ ] Ryan checks the plain-language wording of the FourCastNet → SFNO case
+- [x] Ryan checks the plain-language wording of the FourCastNet → SFNO case
       (homepage cells 3–5 and About; "It assumed the Earth was flat" glosses
-      the "Euclidean geometry" point in O'Loughlin et al. 2025, Sect. 4.2)
+      the "Euclidean geometry" point in O'Loughlin et al. 2025, Sect. 4.2).
+      Final: the case keeps "10 days" and "It assumed the Earth was flat."
 - [ ] Ryan OKs the globe animation in homepage cell 3: an illustration
       inspired by Bonev et al. 2023, Fig. 4, not model output (its note says so)
 - [ ] Ryan and Matthew approve their bios and photos (`people.qmd`, `people/`;
@@ -80,8 +88,8 @@ involved and Accessibility pages.
       College" with the QC grants office; name research sites and letter
       writers only after each agrees; add the IRB approval note under "Take
       part" once approval is granted, and check the consent sentence with the IRB
-- [ ] Gavin Schmidt isn't named in the proposal: confirm he's on the advisory
-      board (People page) before launch
+- [x] Gavin Schmidt isn't named in the proposal: confirmed he's on the
+      advisory board (People page)
 - [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`
 - [ ] Analytics (cookie-free: GoatCounter or Plausible)
 - [ ] Mailing list (e.g. Buttondown), with sign-up on the homepage and Get
