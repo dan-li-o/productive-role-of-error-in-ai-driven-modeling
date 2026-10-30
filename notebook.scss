@@ -568,23 +568,6 @@ main.content { margin-bottom: 0; }
 .bridge-cell,
 .closing-cell { margin-top: var(--nb-space-6); }
 
-/* The key line: between cells and outside their grid, so the page pauses on
-   it. 24px on phones, 34px on wide screens. */
-.key-line {
-  margin-block: var(--nb-space-8);
-  text-align: center;
-}
-
-.key-line > p {
-  color: var(--nb-text);
-  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
-  font-weight: 500;
-  line-height: 1.3;
-  margin: 0 auto;
-  max-width: 26ch;
-  text-wrap: balance;
-}
-
 /* Small print beside an email button (the email list's promise). */
 .email-note {
   color: var(--nb-text-muted);

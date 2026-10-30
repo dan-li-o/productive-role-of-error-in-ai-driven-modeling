@@ -212,11 +212,10 @@ understanding; Taleb 2012, *Antifragile*, on antifragility;
 :::
 :::
 
-<!-- The key line sits between cells, outside the grid, so the page pauses on
-it. A plain paragraph, not a quote: it's the project speaking. -->
-::: {.key-line}
-Most discussions of AI in science ask how to eliminate errors. We ask what
-errors teach.
+::: {.notebook-cell .prose-cell .bridge-cell tabindex="-1"}
+::: {.cell-content}
+## Most discussions of AI in science ask how to eliminate errors. We ask what errors teach.
+:::
 :::
 
 ::: {.notebook-cell .code-cell tabindex="0" data-cell="6" role="group" aria-label="Cell 6"}
