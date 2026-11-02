@@ -36,6 +36,8 @@ check back here or email me.
 <dd>Queens College undergraduates</dd>
 <dt>Application deadline</dt>
 <dd>[Tuesday, December 1, 2026]{#ra-deadline}</dd>
+<dt>This ad online</dt>
+<dd><https://productive-error.org/research-assistant.html></dd>
 </dl>
 
 I'm hiring one undergraduate research assistant to work with me on a
@@ -111,6 +113,8 @@ applicants to a short interview.
 
 *Ryan O'Loughlin, Assistant Professor of Philosophy and Director of the BA/MA
 Program in Philosophy, Queens College, CUNY*
+
+This ad online: <https://productive-error.org/research-assistant.html>
 
 ```{=html}
 <script>

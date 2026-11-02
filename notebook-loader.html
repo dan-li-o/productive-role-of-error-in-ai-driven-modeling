@@ -8,7 +8,12 @@
     // page with an older cached notebook.js (GitHub Pages caches files for 10 minutes).
     const script = document.createElement("script");
     script.src = `${root}notebook.js?v=${Date.parse(document.lastModified)}`;
-    document.body.append(script);
+    // This loader sits above the footer, and a cached notebook.js can run at
+    // once; add it only when the whole page has been read, so it finds the
+    // footer's email addresses too.
+    const load = () => document.body.append(script);
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", load);
+    else load();
   })();
 </script>
 <!-- Visit counts (GoatCounter): no cookies, no personal data. Ad blockers often
