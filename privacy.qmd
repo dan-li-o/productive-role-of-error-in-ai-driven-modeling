@@ -10,6 +10,9 @@ toc: false
 We count visits to this site, to see which pages people read. The counter
 uses no cookies and collects no personal information.
 
+If you close the announcement at the top of the page, your browser remembers
+that, on your device only, so it stays closed. Nothing about it is sent to us.
+
 If you email us, we use your address only to reply. If you join the email
 list, we send a few emails a year, and you can reply "unsubscribe" any time.
 

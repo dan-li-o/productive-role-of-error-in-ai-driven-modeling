@@ -16,6 +16,15 @@ website:
   # Each page's preview image is its card in images/social/ (social-card.lua).
   twitter-card:
     card-style: summary_large_image
+  # Site-wide banner. Visitors can close it; their browser remembers that.
+  # data-until: notebook.js removes the banner from that moment on. Changing
+  # the content shows it again to people who closed the old one.
+  announcement:
+    content: '**Now hiring:** a paid undergraduate research assistant at Queens College for Spring 2027. [Details and how to apply](/research-assistant.html). [Applications due December 1.]{data-until="2026-12-02T00:00:00-05:00"}'
+    type: primary
+    icon: megaphone
+    dismissable: true
+    position: below-navbar
   navbar:
     pinned: true
     logo: favicon.svg

@@ -1,0 +1,25 @@
+---
+title: "Project receives additional support from Queens College, CUNY"
+date: 2026-11-02
+description: "A Queens College Research Enhancement Grant will fund an undergraduate research assistant for Spring 2027."
+---
+
+*The Productive Role of Error in AI-Driven Modeling*, funded by the Alfred P.
+Sloan Foundation, has received additional support through a Queens College
+Research Enhancement Grant.
+
+The award will fund an undergraduate research assistant to work with project
+PI [Ryan O'Loughlin](../people.qmd#ryan-oloughlin) during Spring 2027. The
+research assistant will help build the project's conceptual groundwork in its
+first year: synthesizing the literature in philosophy of science and
+philosophy of AI on error, explainability and scientific credibility, and
+helping prepare for the project's [workshop](../workshop.qmd) at Queens
+College.
+
+The award also strengthens the project's commitment to undergraduate research
+training at Queens College. Funded research positions are rare in philosophy,
+and this one is structured as a research apprenticeship built around regular
+working sessions with the PI.
+
+A [description of the research assistant position](../research-assistant.qmd)
+is available.

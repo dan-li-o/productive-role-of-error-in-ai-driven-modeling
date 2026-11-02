@@ -48,6 +48,27 @@
     });
   });
 
+  // Anything marked data-until="<date>" goes away from that moment on; a mark
+  // inside the announcement banner (_quarto.yml) takes the whole banner.
+  document.querySelectorAll("[data-until]").forEach((element) => {
+    if (Date.now() < Date.parse(element.dataset.until)) return;
+    (element.closest("#quarto-announcement") || element).remove();
+  });
+
+  // Quarto's announcement closes from a bare icon; make it a keyboard-usable button.
+  const announcementClose = document.querySelector(".quarto-announcement-action");
+  if (announcementClose) {
+    announcementClose.setAttribute("role", "button");
+    announcementClose.setAttribute("aria-label", "Close announcement");
+    announcementClose.tabIndex = 0;
+    announcementClose.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        announcementClose.click();
+      }
+    });
+  }
+
   // Track the header's height, which changes when the phone menu opens, so
   // cells scrolled into view clear the sticky header.
   const header = document.querySelector("#quarto-header");

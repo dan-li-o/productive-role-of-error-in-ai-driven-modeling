@@ -43,6 +43,12 @@
       "alt": "The project begins. 1 October 2026 · News",
       "hash": "2ee00aad4d84ff9e"
     },
+    "news-2026-11-02-queens-college-support": {
+      "file": "news-2026-11-02-queens-college-support.png",
+      "page": "news/2026-11-02-queens-college-support.qmd",
+      "alt": "Project receives additional support from Queens College, CUNY. 2 November 2026 · News",
+      "hash": "a9034e35b957df6e"
+    },
     "people": {
       "file": "people.png",
       "page": "people.qmd",

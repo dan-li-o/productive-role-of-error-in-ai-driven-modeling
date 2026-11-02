@@ -240,6 +240,33 @@ main.content { margin-bottom: 0; }
   .footer .nav-footer { border-top: 0; }
 }
 
+/* Announcement banner (_quarto.yml): a pale-blue strip under the menu, its
+   text in the notebook's frame like the logo and menu. Quarto's close icon is
+   made a button by notebook.js. */
+#quarto-announcement {
+  align-items: flex-start;
+  background: var(--nb-button-hover);
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid var(--nb-border);
+  color: var(--nb-text);
+  font-size: var(--nb-size-small);
+  gap: var(--nb-space-3);
+  line-height: 1.5;
+  padding: 10px max(var(--nb-gutter), calc((100% - var(--nb-max-width)) / 2 + var(--nb-gutter)));
+}
+
+#quarto-announcement a,
+#quarto-announcement a:visited { color: var(--nb-link); }
+#quarto-announcement .quarto-announcement-icon { color: var(--nb-brand); margin: 0; }
+#quarto-announcement .quarto-announcement-action {
+  border-radius: var(--nb-radius);
+  color: var(--nb-text-muted);
+  line-height: 1;
+  padding: 4px;
+}
+#quarto-announcement .quarto-announcement-action:hover { color: var(--nb-text); }
+
 /* Reading progress along the header's bottom edge, set by notebook.js. */
 .nb-progress {
   background: var(--nb-brand);
@@ -559,6 +586,11 @@ main.content { margin-bottom: 0; }
 .behind-note > p,
 .latest-note,
 .latest-note > p { margin: 0; }
+
+/* The Latest line runs the full width of the cell, so it fits on one line on
+   desktop. Where it wraps, the date keeps the title's last word with it
+   (non-breaking spaces in latest.ejs), so it is never alone on a line. */
+.prose-cell .latest-note { max-width: none; }
 .latest-date { white-space: nowrap; }
 
 .latest-note strong { color: var(--nb-text); font-weight: 500; }
