@@ -61,6 +61,12 @@
       "alt": "Productive Error: Papers, talks and workshop materials",
       "hash": "3bd9dfbb4b8b1c6a"
     },
+    "research-assistant": {
+      "file": "research-assistant.png",
+      "page": "research-assistant.qmd",
+      "alt": "Undergraduate research assistant. Paid · Spring 2027 · Apply by December 1, 2026",
+      "hash": "70a3c81a576a65fe"
+    },
     "workshop": {
       "file": "workshop.png",
       "page": "workshop.qmd",

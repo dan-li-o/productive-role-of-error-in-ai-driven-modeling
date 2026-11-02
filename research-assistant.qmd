@@ -1,0 +1,124 @@
+---
+title: "Undergraduate Research Assistant (Paid), Spring 2027"
+description: "A paid research apprenticeship in philosophy of science for Queens College undergraduates, January to May 2027. Apply by December 1, 2026."
+date: 2026-11-02
+# Subtitle on the social preview card (_social-cards/README.md).
+social-card:
+  title: "Undergraduate research assistant"
+  sub: "Paid · Spring 2027 · Apply by December 1, 2026"
+---
+
+<!-- Job ad, written by Ryan in the first person. After the deadline the page
+says so by itself (the script at the end): the notice below appears and the
+deadline reads "(closed)". Once closed, also remove the link from Get involved
+(contact.qmd). -->
+
+::: {#ra-closed hidden=""}
+::: {.callout-important}
+**Applications for this position are now closed.** Thank you to everyone who
+applied. If you're interested in future opportunities on the project, please
+check back here or email me.
+:::
+:::
+
+<dl class="ack-list">
+<dt>Position</dt>
+<dd>Undergraduate Research Assistant (1 position)</dd>
+<dt>Supervisor</dt>
+<dd>[Ryan O'Loughlin](people.qmd#ryan-oloughlin), Assistant Professor of Philosophy, Queens College, CUNY</dd>
+<dt>Funding</dt>
+<dd>Queens College Research Enhancement Grant</dd>
+<dt>Compensation</dt>
+<dd>$3,500 stipend</dd>
+<dt>Dates</dt>
+<dd>January 15 – May 15, 2027 (about 10 hours per week)</dd>
+<dt>Eligibility</dt>
+<dd>Queens College undergraduates</dd>
+<dt>Application deadline</dt>
+<dd>[Tuesday, December 1, 2026]{#ra-deadline}</dd>
+</dl>
+
+I'm hiring one undergraduate research assistant to work with me on a
+philosophy of science project. The project is called "[The Productive Role of
+Error in AI-Driven Modeling](about.qmd)" and is funded by the Alfred P. Sloan
+Foundation. If this sounds interesting to you, please read on and consider
+applying. Feel free to email me if you have questions
+(<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>).
+
+## Background
+
+Can getting things wrong be part of how science gets things right?
+Philosophers of science have long asked how science manages to be reliable
+when its individual models, theories, and practitioners are fallible. My new
+research project takes up a version of this question in one of the most
+consequential areas of science today: climate modeling, where scientists are
+increasingly turning to AI. The project focuses on three questions. First, how
+can scientists understand what an AI model is doing, and explain why it goes
+wrong when it does? Second, can errors actually make scientific models
+stronger over time, so that a model improves *because* it was pushed until it
+broke? And third, how does the way scientists find, handle, and communicate
+errors shape whether the rest of us should trust their results?
+
+## The position
+
+- **Paid:** a $3,500 stipend, funded by a Queens College Research Enhancement
+  Grant
+- **Time:** January 15 through May 15, 2027, at about 10 hours per week
+  (roughly 175 hours in total). The schedule is flexible. The position may be
+  extended if additional funding becomes available (which is my hope).
+- **What you'll do:** read and summarize research in philosophy of science and
+  philosophy of AI, write short literature review memos, meet with me regularly
+  to discuss the readings and the project's open questions, and help prepare
+  materials for the project's [workshop](workshop.qmd) at Queens College.
+
+## What I'm looking for
+
+This is meant to be a genuine research apprenticeship, not only a list of
+assigned tasks. Our working sessions are a central part of the job. I'm
+looking for someone who reads carefully, asks good questions, and is willing
+to push back on my arguments when they think I've gotten something wrong.
+
+Some familiarity with philosophy of science is helpful but not required. If
+you're new to the field, we'll spend the first weeks of the position working
+through some foundational readings together. No background in climate science
+or AI is needed, and you don't need prior research experience.
+
+The position is open to all Queens College undergraduates. Philosophy majors,
+students in the BA/MA program, and students in the School of Earth and
+Environmental Sciences are especially encouraged to apply.
+
+## How to apply
+
+Email the following to
+<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu">ryan.oloughlin [at] qc.cuny.edu</span>
+with "RA Application" in the subject line:
+
+1. A statement (one page, single-spaced, maximum) explaining why you're
+   interested in the position, how it connects to your academic or
+   professional plans, and what background you'd bring, whether in
+   philosophy, science, or elsewhere
+2. A resume
+3. Optional: a writing sample, such as a paper from any course
+
+Please do not use AI to write your statement or writing sample.
+
+Applications are due **Tuesday, December 1, 2026**. I'll invite shortlisted
+applicants to a short interview.
+
+<span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu" data-subject="RA Application" data-label="Email your application" data-class="button button-primary">ryan.oloughlin [at] qc.cuny.edu</span>
+
+---
+
+*Ryan O'Loughlin, Assistant Professor of Philosophy and Director of the BA/MA
+Program in Philosophy, Queens College, CUNY*
+
+```{=html}
+<script>
+  // Applications close at the end of December 1, 2026, New York time.
+  document.addEventListener("DOMContentLoaded", function () {
+    if (new Date() < new Date("2026-12-02T00:00:00-05:00")) return;
+    document.getElementById("ra-closed").hidden = false;
+    document.getElementById("ra-deadline").textContent = "December 1, 2026 (closed)";
+  });
+</script>
+```

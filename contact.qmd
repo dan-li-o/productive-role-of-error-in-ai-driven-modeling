@@ -14,6 +14,14 @@ Each button opens an email with a few prompts filled in.
 <!-- Email buttons: notebook.js fills in the address, subject and body from the
 data- attributes (see README). Without JavaScript, the address shows instead. -->
 
+<!-- Remove this section once applications close (December 1, 2026). -->
+## Research assistant, Spring 2027
+
+Queens College undergraduates: we're hiring a paid research assistant for
+January to May 2027. Apply by December 1, 2026.
+
+[Read the job ad](research-assistant.qmd){.button .button-secondary}
+
 ## Keep me posted
 
 Hear about news and the February 2027 call by email.

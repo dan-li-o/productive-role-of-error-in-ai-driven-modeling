@@ -60,8 +60,8 @@ routing.
 - [ ] Ryan OKs the globe animation in homepage cell 3: an illustration
       inspired by Bonev et al. 2023, Fig. 4, not model output (its note says so)
 - [ ] Ryan and Matthew approve their bios and photos (`people.qmd`, `people/`;
-      bios adapted from the proposal, photos from Ryan's press page and the
-      NCAR Library directory) and Matthew's listed email (mayernik [at] ucar.edu)
+      bios adapted from the proposal, photos from Ryan's press page and
+      Matthew's NCAR profile) and Matthew's listed email (mayernik [at] ucar.edu)
 - [ ] Each advisor confirms their one-line description and affiliation
       (`people.qmd`; Paul Edwards retired from Stanford in January 2026)
 - [ ] Institution logos on People (`logos/`): check each institution's logo
