@@ -30,8 +30,8 @@ website:
       - href: workshop.qmd
         # Drop the year once the workshop has happened.
         text: 'Workshop <span class="nav-year">’27</span>'
-      - href: deliverables.qmd
-        text: Deliverables
+      - href: products.qmd
+        text: Products
       - href: contact.qmd
         text: Get involved
   page-footer:

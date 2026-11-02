@@ -67,9 +67,9 @@ what
   knowledge, starting with weather and climate.
 
 why
-: AI is entering weather and climate science faster than anyone can explain
-  how it works. Its failures show what a model has missed, and when it can be
-  trusted.
+: AI models are entering weather and climate science faster than anyone can
+  explain how they work. But their failures can be illuminating: they lead to
+  discoveries and, counterintuitively, can strengthen warranted trust.
 
 join
 : Tell us about an AI model that went wrong, talk with us about your work, or
@@ -78,7 +78,7 @@ join
 
 ::: {.cell-actions}
 [About the project](about.qmd){.button .button-primary}
-[Share an error story](contact.qmd#share-an-error-story){.button .button-secondary}
+<span class="email-obfuscate" data-user="contact" data-domain="productive-error.org" data-subject="Add me to the Productive Error email list" data-body="Please add me to the Productive Error email list.|Name:|Affiliation (optional):|Most interested in (the workshop, findings, or both):" data-label="Keep me posted" data-class="button button-secondary">contact [at] productive-error.org</span>
 :::
 
 ::: {#latest-news}
@@ -156,7 +156,7 @@ beyond ten days, its forecasts fell apart.
 
 Researchers traced the problem to one component: a piece of math that treats
 the Earth like a flat map, which breaks down near the poles. Rebuilding that
-piece with math designed for a sphere gave a model that stayed stable for a
+piece with math designed for a sphere yielded a model that stayed stable for a
 full year of simulated weather.
 
 <figure class="forecast-chart">
@@ -194,14 +194,16 @@ Sources: [Pathak et al. 2022](https://arxiv.org/abs/2202.11214), FourCastNet;
 :::
 
 ::: {.cell-output}
-The error didn't just get fixed. It left science better off:
+Fixing the error paid off in three ways:
 
-- **Understanding.** Tracing the failure to one component showed how the
-  model works, insight that explainability tools rarely provide.
-- **Antifragility: coming back stronger after a failure.** The model went from
-  ten stable days to a full year.
-- **Credibility.** By diagnosing the failure in the open, researchers showed
-  they understood a system that is hard to see inside.
+- **Better performance.** The model stopped blowing up.
+- **Component-level understanding.** Tracing the blow-up to a single component
+  both revealed and deepened the researchers' grasp of how the model works.
+  Explainability (XAI) tools rarely deliver that kind of mechanistic insight.
+- **Earned credibility.** The failure was a test that only genuine expertise
+  could pass. By diagnosing it in the open, the researchers gave others
+  evidence, not just assurances, that they understand a system that is hard
+  to see inside.
 
 ::: {.cell-source}
 Sources: [O'Loughlin 2023](https://doi.org/10.1007/s13194-023-00522-z) and
@@ -265,12 +267,12 @@ We're talking with the people who build and use these models: scientists,
 software engineers and data specialists at the U.S. National Science
 Foundation's National Center for Atmospheric Research (NSF NCAR), NASA's
 Goddard Institute for Space Studies (NASA GISS) and Columbia University's LEAP
-Center (Learning the Earth with Artificial Intelligence and Physics). We also read the reports, code and data records
+Center (Learning the Earth with Artificial Intelligence and Physics). We also read the reports and data records
 where errors get written down.
 
 ::: {.project-links}
 ::: {.project-card}
-## The questions
+## Core themes
 
 Error and understanding, antifragility (coming back stronger after a failure)
 and credibility in AI-driven modeling.
@@ -293,7 +295,7 @@ working through real cases of error side by side.
 A framework for how errors produce knowledge, with articles for
 philosophers, STS scholars, scientists and the public.
 
-[Deliverables](deliverables.qmd)
+[Products](products.qmd)
 :::
 :::
 
@@ -305,7 +307,7 @@ philosophers, STS scholars, scientists and the public.
 ::: {.cell-content}
 ## Have an error story? We want to hear it.
 
-Using AI in climate science, or in any other field? Tell us about a time a
+Are you using AI in climate science, or in any other field? Tell us about a time a
 model went wrong and what it taught you. We also welcome collaborators.
 
 Writing to us starts a conversation, nothing more. We won't quote, publish

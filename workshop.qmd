@@ -61,6 +61,6 @@ The program will be posted once speakers are confirmed.
 ## Presentation files
 
 Accepted presenters will receive instructions for uploading slides. Recordings
-and slides are published on the [Deliverables](deliverables.qmd) page only with
+and slides are published on the [Products](products.qmd) page only with
 each presenter's permission.
 -->

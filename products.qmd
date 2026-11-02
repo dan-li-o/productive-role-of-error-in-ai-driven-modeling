@@ -1,5 +1,8 @@
 ---
-title: "Deliverables"
+title: "Products"
+# The page was deliverables.qmd until November 2026; keep old links working.
+aliases:
+  - deliverables.html
 description: "Publications and talks from the project."
 # Subtitle on the social preview card (_social-cards/README.md).
 social-card:

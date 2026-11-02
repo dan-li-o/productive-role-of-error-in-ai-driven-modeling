@@ -25,12 +25,6 @@
       "alt": "Productive Error: How errors in AI-driven scientific models lead to new knowledge",
       "hash": "28456ac9eb7666e5"
     },
-    "deliverables": {
-      "file": "deliverables.png",
-      "page": "deliverables.qmd",
-      "alt": "Productive Error: Papers, talks and workshop materials",
-      "hash": "74f9da902826e54a"
-    },
     "index": {
       "file": "index.png",
       "page": "index.qmd",
@@ -60,6 +54,12 @@
       "page": "privacy.qmd",
       "alt": "Productive Error: What we record, and what we don’t",
       "hash": "83982147e2837b1d"
+    },
+    "products": {
+      "file": "products.png",
+      "page": "products.qmd",
+      "alt": "Productive Error: Papers, talks and workshop materials",
+      "hash": "3bd9dfbb4b8b1c6a"
     },
     "workshop": {
       "file": "workshop.png",

@@ -7,8 +7,9 @@ social-card:
 ---
 
 <!-- Photos: square, 384×384px, in people/. Ryan's is his press headshot
-(ryanoloughlin.org/media.html); Matthew's is his NCAR Library staff photo,
-cropped to head and shoulders to match. The site softens both to the same
+(ryanoloughlin.org/media.html); Matthew's is his 2025 photo from his NCAR
+profile (impacts.ucar.edu), cropped to head and shoulders to match, with
+the shadows lifted to suit Ryan's lighter background. The site softens both to the same
 muted colour (notebook.scss), so a new photo needs only a similar crop.
 Logos: 80×80px marks in logos/, from each institution's website or Wikimedia
 Commons. The NASA insignia needs NASA's approval (14 CFR 1221), so GISS gets
@@ -40,10 +41,10 @@ NASA GISS since 2019, and leads the project's philosophical analysis.
 ![](people/matthew.jpg){fig-alt="Portrait of Matthew Mayernik" width="112" height="112"}
 
 ::: {.person-text}
-### [Matthew Mayernik](https://library.ucar.edu/directory/matt-mayernik)
+### [Matthew Mayernik](https://impacts.ucar.edu/en/persons/matthew-mayernik/)
 
-[Co-principal investigator · Project Scientist and Research Data Services
-Specialist]{.role}
+[Co-principal investigator · Scientist VI and Deputy Director, NSF NCAR
+Library]{.role}
 
 <p class="org"><img src="logos/ncar.png" alt="" class="logo" width="20" height="20"> NSF National Center for Atmospheric Research</p>
 
