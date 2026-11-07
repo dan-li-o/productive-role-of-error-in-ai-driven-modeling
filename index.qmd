@@ -43,9 +43,10 @@ How this page works
   typed first.
 - Under the headline, a facts list (.facts .lead; README, "Facts list"): the
   term (what, why) shows as a code-style label beside its one-sentence answer.
-- The run(project) cell's output includes the "How we work" icon flow
+- The run(project) cell's output is a sentence and the "How we work" icon flow
   (.how-flow in notebook.scss): its steps appear in order each time the cell
-  runs. About uses the same markup, still.
+  runs. Steps carry what used to be three cards: bubbles on hover (desktop)
+  and links to Workshop and Outputs. About shows a plain, still copy.
 - The hero's "Latest" line is the newest post in news/, filled in by the
   listing in the front matter (template: latest.ejs).
 - The header's "Last checkpoint" date comes from checkpoint.lua (render date);
@@ -85,8 +86,10 @@ why
 ::: {.behind-note}
 Led by [Ryan O'Loughlin](people.qmd#ryan-oloughlin) (Queens College, CUNY) and
 [Matthew Mayernik](people.qmd#matthew-mayernik) (NSF NCAR). Funded by the
-Alfred P. Sloan Foundation, [2026–2028]{.text-nowrap}. Fieldwork at NSF NCAR, NASA GISS and
-Columbia University's LEAP Center.
+Alfred P. Sloan Foundation, [2026–2028]{.text-nowrap}. Fieldwork at the U.S. National Science
+Foundation's National Center for Atmospheric Research (NSF NCAR), NASA's
+Goddard Institute for Space Studies (NASA GISS) and Columbia University's LEAP
+Center (Learning the Earth with Artificial Intelligence and Physics).
 :::
 :::
 :::
@@ -260,75 +263,59 @@ University's LEAP Center, and reading the reports and records where their
 errors get written down.
 
 ```{=html}
-<!-- How we work: icon flow (see README / Style guide). Steps are revealed in
-     order when the cell runs; --d is each step's delay in ms. -->
+<!-- How we work: icon flow (README, "How we work icon flow"). Steps appear in
+     order when the cell runs; --d is each step's delay in ms.
+     .has-tip: a bubble (.hf-tip) on hover, desktop only; a speech-bubble badge
+     marks it. .is-link: a real link with a ↗ badge, lifts on hover; its bubble
+     says where it goes. In a bubble, parallel items are .hf-li (dash bullets).
+     NSF NCAR, NASA GISS and LEAP are spelled out in the hero's credit line. Everything outside the links is aria-hidden; the
+     visually hidden sentence tells screen readers the whole flow, so keep it
+     in step with the bubbles. -->
 <div class="how-flow">
-  <p class="visually-hidden">How the project works: interviews and documents feed the analysis, which builds a framework for when errors help science. The workshop tests the framework and feeds back into it. The results become papers for four audiences.</p>
-  <div class="hf-row" aria-hidden="true">
-    <div class="hf-col">
-      <div class="hf-node" data-step style="--d: 0">
+  <p class="visually-hidden">How the project works: interviews at three research sites and documents feed the analysis, which is organized around three themes: understanding, antifragility (coming back stronger) and credibility. The analysis builds a framework for how errors produce knowledge. The workshop tests the framework and feeds back into it. The results become papers for four audiences.</p>
+  <div class="hf-row">
+    <div class="hf-col" aria-hidden="true">
+      <div class="hf-node has-tip" data-step style="--d: 0">
         <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M3 5h11v7H8l-3 3v-3H3z"/><path d="M14 9h7v7h-2v3l-3-3h-5v-3"/></svg></span>
         <span class="hf-word">interviews</span><span class="hf-note">3 sites</span>
+        <span class="hf-tip is-start"><span class="hf-tip-title">Research sites</span><span class="hf-li">NSF National Center for Atmospheric Research (NCAR)</span><span class="hf-li">NASA Goddard Institute for Space Studies (GISS)</span><span class="hf-li">Columbia University's LEAP Center (Learning the Earth with Artificial Intelligence and Physics)</span></span>
       </div>
       <div class="hf-node" data-step style="--d: 150">
         <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 11h6M9 14h6M9 17h4"/></svg></span>
         <span class="hf-word">documents</span><span class="hf-note">code, reports</span>
       </div>
     </div>
-    <div class="hf-link" data-step style="--d: 450"></div>
-    <div class="hf-node" data-step style="--d: 700">
-      <span class="hf-icon"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span>
-      <span class="hf-word">analysis</span>
-    </div>
-    <div class="hf-link" data-step style="--d: 1000"></div>
-    <div class="hf-node is-key" data-step style="--d: 1250">
+    <div class="hf-link" aria-hidden="true" data-step style="--d: 450"></div>
+    <a class="hf-node is-link" href="about.qmd#the-questions" aria-label="Core themes: the questions, on the About page" data-step style="--d: 700">
+      <span class="hf-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span>
+      <span class="hf-word" aria-hidden="true">analysis</span>
+      <span class="hf-tip" aria-hidden="true"><span class="hf-tip-title">Core themes</span><span class="hf-li">Understanding</span><span class="hf-li">Antifragility: coming back stronger</span><span class="hf-li">Credibility</span><span class="hf-tip-go">The questions →</span></span>
+    </a>
+    <div class="hf-link" aria-hidden="true" data-step style="--d: 1000"></div>
+    <div class="hf-node is-key has-tip" aria-hidden="true" data-step style="--d: 1250">
       <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg></span>
       <span class="hf-word">framework</span><span class="hf-note">when errors help</span>
+      <span class="hf-tip"><span class="hf-tip-title">The framework</span><span>How errors produce knowledge</span></span>
     </div>
-    <div class="hf-loop">
+    <div class="hf-loop" aria-hidden="true">
       <div class="hf-link" data-step style="--d: 1550"></div>
       <div class="hf-link hf-back" data-step style="--d: 1700"></div>
       <span class="hf-dot" style="--d: 2300"></span>
     </div>
-    <div class="hf-node" data-step style="--d: 1850">
-      <span class="hf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 19c0-3 2-5 4.5-5s4.5 2 4.5 5M2 18c0-2.3 1.5-4 3.5-4M22 18c0-2.3-1.5-4-3.5-4"/></svg></span>
-      <span class="hf-word">workshop</span><span class="hf-note">tests it, 2027</span>
-    </div>
-    <div class="hf-link" data-step style="--d: 2150"></div>
-    <div class="hf-node" data-step style="--d: 2400">
-      <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 6v14"/></svg></span>
-      <span class="hf-word">papers</span><span class="hf-note">4 audiences</span>
-    </div>
+    <a class="hf-node is-link" href="workshop.qmd" aria-label="Workshop page" data-step style="--d: 1850">
+      <span class="hf-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 19c0-3 2-5 4.5-5s4.5 2 4.5 5M2 18c0-2.3 1.5-4 3.5-4M22 18c0-2.3-1.5-4-3.5-4"/></svg></span>
+      <span class="hf-word" aria-hidden="true">workshop</span><span class="hf-note" aria-hidden="true">tests it, 2027</span>
+      <span class="hf-tip" aria-hidden="true"><span class="hf-tip-title">The workshop</span><span>Scientists, philosophers and scholars of how science works (STS)</span><span>Real cases of error</span><span class="hf-tip-go">Workshop page →</span></span>
+    </a>
+    <div class="hf-link" aria-hidden="true" data-step style="--d: 2150"></div>
+    <a class="hf-node is-link" href="products.qmd" aria-label="Outputs page" data-step style="--d: 2400">
+      <span class="hf-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 6v14"/></svg></span>
+      <span class="hf-word" aria-hidden="true">papers</span><span class="hf-note" aria-hidden="true">4 audiences</span>
+      <span class="hf-tip is-end" aria-hidden="true"><span class="hf-tip-title">Written for</span><span class="hf-li">Philosophers</span><span class="hf-li">STS scholars</span><span class="hf-li">Climate scientists</span><span class="hf-li">General readers</span><span class="hf-tip-go">Outputs page →</span></span>
+    </a>
   </div>
 </div>
 ```
-
-::: {.project-links}
-::: {.project-card}
-## Core themes
-
-Understanding, antifragility (coming back stronger) and credibility.
-
-[About the project](about.qmd)
-:::
-
-::: {.project-card}
-## The workshop
-
-Scientists, philosophers and scholars of how science works (STS), working
-through real cases of error.
-
-[Workshop details](workshop.qmd)
-:::
-
-::: {.project-card}
-## The work
-
-A framework for how errors produce knowledge, written for four audiences.
-
-[Outputs](products.qmd)
-:::
-:::
 
 **The people:** [our team and advisory board](people.qmd).
 :::

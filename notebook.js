@@ -317,13 +317,16 @@
         head.classList.add("is-visible");
         updateReveal();
       };
+      // In-page jumps on this page: HEAD, the timeline's start, and the
+      // questions below it (linked from the merge entry and the homepage).
+      const jumps = ["#now", "#how-it-started", "#the-questions"];
       // Links can be rewritten to full URLs, so match on the hash, not the href.
       // The jump happens here, not in the browser: Quarto answers every
       // hashchange by scrolling up another header height, which would land a
       // click lower than opening the same URL. pushState fires no hashchange.
       document.addEventListener("click", (event) => {
         const link = event.target.closest("a");
-        if (!link || link.pathname !== location.pathname || !["#now", "#how-it-started"].includes(link.hash)) return;
+        if (!link || link.pathname !== location.pathname || !jumps.includes(link.hash)) return;
         if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
         const target = document.getElementById(link.hash.slice(1));
         if (!target) return;
@@ -333,12 +336,12 @@
         target.scrollIntoView();
         target.focus({ preventScroll: true });
       });
-      // Opening the page at either link: the browser scrolled there before
+      // Opening the page at one of them: the browser scrolled there before
       // this script folded entries and added the pointer above, and Quarto
       // pads the body for its fixed header a moment later, which the browser
       // doesn't compensate for. So for the first moments, until the visitor
       // does anything, put the target back whenever it moves.
-      if (["#now", "#how-it-started"].includes(location.hash)) {
+      if (jumps.includes(location.hash)) {
         const target = document.getElementById(location.hash.slice(1));
         showAll();
         let landed = null;

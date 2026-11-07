@@ -38,9 +38,13 @@ other pages are plain reading pages in the same style.
   an id or a span (the job ad's `#ra-deadline`), raw HTML:
   `<dl class="facts boxed">`. A new job ad copies the research assistant's list
   and changes only the values.
-- **"How we work" icon flow** (`.how-flow`): the same markup is in the
-  homepage's `run(project)` cell, where its steps appear in order each time the
-  cell runs, and on About, where it is still. Edit both copies together.
+- **"How we work" icon flow** (`.how-flow`): in the homepage's `run(project)`
+  cell its steps appear in order each time the cell runs. There, steps marked
+  `.has-tip` show a bubble on hover (desktop only), and workshop and papers
+  are links (`.is-link`); small badges on the circles say which is which. The
+  screen-reader sentence above the flow must say what the bubbles say. About
+  has a plain, still copy (no bubbles or links): keep its steps and notes in
+  step with the homepage's.
 
 To preview locally (optional): install [Quarto](https://quarto.org) and run
 `quarto preview`.

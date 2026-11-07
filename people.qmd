@@ -56,6 +56,24 @@ document analysis, and leads the workshop.
 :::
 :::
 
+<!-- The research assistant we're hiring (research-assistant.qmd). The bio
+quietly borrows the job ad's "what I'm looking for". Once someone is hired,
+replace the placeholder photo, name and bio with theirs. -->
+::: {.person .is-forthcoming}
+![](people/forthcoming.svg){fig-alt="Placeholder portrait" width="112" height="112"}
+
+::: {.person-text}
+### Forthcoming
+
+[Undergraduate Research Assistant · Spring 2027]{.role}
+
+<p class="org"><img src="logos/qc.png" alt="" class="logo" width="20" height="20"> Queens College, City University of New York</p>
+
+Reads carefully, asks good questions and pushes back when an argument seems
+wrong. New to philosophy of science, climate or AI? Not a problem.
+:::
+:::
+
 ## Advisory board
 
 <!-- Checked October 2026 against each member's official page. Paul Edwards

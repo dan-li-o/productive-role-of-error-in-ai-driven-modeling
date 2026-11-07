@@ -625,9 +625,6 @@ main.content { margin-bottom: 0; }
 
 .email-note > p { margin: 0; }
 
-/* News: the sign-up sits above the post list. */
-.news-subscribe { margin-bottom: var(--nb-space-6); }
-
 /* Buttons in a row share a width, so the row reads as one even set. */
 .cell-actions .button { min-width: 12rem; }
 
@@ -899,7 +896,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
    Wide containers: one row. Narrow (under 640px): a column with down arrows. */
 .how-flow {
   container-type: inline-size;
-  margin: 20px 0 8px;
+  margin: 20px 0 24px;
 }
 
 .hf-row {
@@ -1037,19 +1034,176 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 @keyframes hf-draw-down { from { transform: scaleY(0); } }
 
+/* Steps with more to say (homepage only).
+   .has-tip: a bubble (.hf-tip) on hover, only where there is a mouse and the
+   flow is a row; phones get the plain, scannable column. A small speech-bubble
+   badge on the circle marks these steps wherever the bubble can open.
+   .is-link: an <a>; a blue ↗ badge marks it everywhere, and on hover or focus
+   its circle lifts with a shadow. Badges pop in once the flow has drawn. */
+.hf-node.has-tip,
+.hf-node.is-link { position: relative; }
+
+.hf-node.is-link,
+.hf-node.is-link:visited,
+.hf-node.is-link:hover { color: inherit; text-decoration: none; }
+
+.hf-node.is-link .hf-icon { transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease; }
+
+.hf-node.is-link:hover .hf-icon,
+.hf-node.is-link:focus-visible .hf-icon {
+  border-color: var(--nb-brand);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.14);
+  transform: translateY(-3px);
+}
+
+.hf-node.is-link:hover .hf-word,
+.hf-node.is-link:focus-visible .hf-word { text-decoration: underline; text-underline-offset: 3px; }
+
+.hf-node.is-link:focus-visible { border-radius: var(--nb-radius); outline: 2px solid var(--nb-focus-glow); outline-offset: 4px; }
+
+/* Badges: a white disc (::before) with a masked glyph (::after) on the
+   circle's top-right edge. */
+.hf-node.is-link .hf-icon,
+.hf-node.has-tip .hf-icon { position: relative; }
+
+.hf-node.is-link .hf-icon::before,
+.hf-node.is-link .hf-icon::after {
+  content: "";
+  position: absolute;
+}
+
+.hf-node.is-link .hf-icon::before {
+  background: var(--nb-page);
+  border: 1px solid var(--nb-border);
+  border-radius: 50%;
+  height: 20px;
+  right: -6px;
+  top: -6px;
+  width: 20px;
+}
+
+.hf-node.is-link .hf-icon::after {
+  background: var(--nb-brand);
+  height: 12px;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 11 11 5M6 5h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 11 11 5M6 5h5v5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  right: -2px;
+  top: -2px;
+  width: 12px;
+}
+
+/* The bubble. Hidden unless the conditions below allow it. */
+.hf-tip {
+  display: none;
+  background: var(--nb-page);
+  border: 1px solid var(--nb-border);
+  border-radius: 4px;
+  bottom: calc(100% + 12px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  color: var(--nb-text);
+  font-size: 14px;
+  left: 50%;
+  line-height: 1.45;
+  max-width: 290px;
+  padding: 10px 12px;
+  pointer-events: none;
+  position: absolute;
+  text-align: left;
+  transform: translateX(-50%);
+  width: max-content;
+  z-index: 3;
+}
+
+.hf-tip > span { display: block; }
+.hf-tip .hf-li { padding-left: 14px; text-indent: -14px; }
+.hf-tip .hf-li::before { color: var(--nb-text-muted); content: "–"; display: inline-block; text-indent: 0; width: 14px; }
+.hf-tip .hf-li + .hf-li { margin-top: 2px; }
+.hf-tip .hf-tip-title { color: var(--nb-in-prompt); font-family: var(--nb-font-code); font-size: 13px; margin-bottom: 2px; }
+.hf-tip .hf-tip-go { color: var(--nb-link); margin-top: 4px; }
+
+/* The pointer under the bubble, aimed at the circle. */
+.hf-tip::after {
+  background: inherit;
+  border-bottom: 1px solid var(--nb-border);
+  border-right: 1px solid var(--nb-border);
+  bottom: -6px;
+  content: "";
+  height: 10px;
+  left: calc(50% - 5px);
+  position: absolute;
+  transform: rotate(45deg);
+  width: 10px;
+}
+
+/* First and last steps: keep the bubble inside the flow's edges. */
+.hf-tip.is-start { left: 0; transform: none; }
+.hf-tip.is-start::after { left: 49px; }
+.hf-tip.is-end { left: auto; right: 0; transform: none; }
+.hf-tip.is-end::after { left: auto; right: 49px; }
+
+@media (hover: hover) {
+  @container not (max-width: 640px) {
+    .hf-node.has-tip .hf-icon::before,
+    .hf-node.has-tip .hf-icon::after {
+      content: "";
+      position: absolute;
+    }
+
+    .hf-node.has-tip .hf-icon::before {
+      background: var(--nb-page);
+      border: 1px solid var(--nb-border);
+      border-radius: 50%;
+      height: 20px;
+      right: -6px;
+      top: -6px;
+      width: 20px;
+    }
+
+    .hf-node.has-tip .hf-icon::after {
+      background: var(--nb-text-muted);
+      height: 12px;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M2 3h12v8H7.5L4 14v-3H2zM4.6 6.2h1.6v1.6H4.6zM7.2 6.2h1.6v1.6H7.2zM9.8 6.2h1.6v1.6H9.8z'/%3E%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M2 3h12v8H7.5L4 14v-3H2zM4.6 6.2h1.6v1.6H4.6zM7.2 6.2h1.6v1.6H7.2zM9.8 6.2h1.6v1.6H9.8z'/%3E%3C/svg%3E") center / contain no-repeat;
+      right: -2px;
+      top: -2px;
+      width: 12px;
+    }
+
+    .hf-tip {
+      display: block;
+      opacity: 0;
+      transition: opacity 120ms ease, visibility 120ms;
+      visibility: hidden;
+    }
+
+    .hf-node:hover,
+    .hf-node:focus-visible { z-index: 4; }
+
+    .hf-node:hover > .hf-tip,
+    .hf-node:focus-visible > .hf-tip { opacity: 1; visibility: visible; }
+  }
+}
+
+/* Badges appear just after the last step. */
+.is-revealed .how-flow .hf-icon::before,
+.is-revealed .how-flow .hf-icon::after {
+  animation: hf-badge 300ms ease 2700ms both;
+}
+
+@keyframes hf-badge { from { opacity: 0; transform: scale(0.4); } }
+
 @media (prefers-reduced-motion: reduce) {
   .how-flow [data-step],
-  .how-flow .hf-dot { animation: none !important; }
+  .how-flow .hf-dot,
+  .how-flow .hf-icon::before,
+  .how-flow .hf-icon::after { animation: none !important; }
+  .hf-node.is-link .hf-icon,
+  .hf-tip { transition: none; }
+  .hf-node.is-link:hover .hf-icon,
+  .hf-node.is-link:focus-visible .hf-icon { transform: none; }
 }
 
-/* Cards in the project cell */
-.project-links {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-block: 16px;
-}
-
+/* Cards (Get involved) */
 .project-card {
   border: 1px solid var(--nb-border);
   border-radius: var(--nb-radius);
@@ -1087,6 +1241,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 /* Name, role and institution sit close together; the bio follows. */
 .person h3 { font-size: 22px; margin: 0 0 var(--nb-space-1); }
+/* The opening we're hiring for: a grey placeholder and a muted name. */
+.person.is-forthcoming h3 { color: var(--nb-text-muted); font-weight: 500; }
 .person-text > p { margin: 0 0 var(--nb-space-3); max-width: var(--nb-measure); }
 /* Styled on the paragraph, so a wrapped role keeps the small line height.
    A label, not prose, so no reading-width cap. */
@@ -1386,12 +1542,43 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   top: -10px;
 }
 
-.head-label { font-weight: 600; }
-.head-back { margin-left: auto; }
+/* Jumps to a section land clear of the sticky header, like the timeline's.
+   On About, notebook.js makes the jump itself (see "jumps") so Quarto's own
+   hashchange scroll doesn't add a second header height. */
+#quarto-content section[id] { scroll-margin-top: calc(var(--nb-header-h) + 24px); }
 
-@media (max-width: 599px) {
-  .head-back { margin-left: 0; width: 100%; }
+.head-label { font-weight: 600; }
+
+/* "Back to the beginning" floats at the bottom right of the screen while the
+   timeline is in view: a zero-height sticky row at the timeline's end, so it
+   takes no space. notebook.js handles the jump (#how-it-started). */
+.timeline-jump {
+  align-items: flex-start; /* the link keeps its own height in the 0-high row */
+  bottom: 16px;
+  display: flex;
+  height: 0;
+  justify-content: flex-end;
+  pointer-events: none;
+  position: sticky;
+  z-index: 5;
 }
+
+.timeline-jump .head-back,
+.timeline-jump .head-back:visited {
+  background: var(--nb-page);
+  border: 1px solid var(--nb-border);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  color: var(--nb-link);
+  font-size: var(--nb-size-small);
+  padding: 6px 14px;
+  pointer-events: auto;
+  text-decoration: none;
+  transform: translateY(-100%);
+  white-space: nowrap;
+}
+
+.timeline-jump .head-back:hover { background: var(--nb-button-hover); }
 
 .git-lanes {
   height: 100%;
@@ -1446,7 +1633,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   .branch-tip,
   .fold-toggle,
   .head-pointer a,
-  .head-back { display: none; }
+  .timeline-jump { display: none; }
   .footer-qr { display: block; width: 64px; }
   .footer-qr img { opacity: 1; }
   .footer-qr-text { display: none; }
@@ -1469,7 +1656,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .question {
   display: grid;
   gap: 10px;
-  justify-items: start;
+  justify-items: center;
+  text-align: center;
 }
 
 .question .hf-icon { margin-bottom: 2px; }
@@ -1488,13 +1676,14 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 @media (max-width: 599.98px) {
   .questions { gap: 20px; grid-template-columns: minmax(0, 1fr); }
-  .question { column-gap: 16px; grid-template-columns: 56px minmax(0, 1fr); row-gap: 2px; }
+  .question { column-gap: 16px; grid-template-columns: 56px minmax(0, 1fr); justify-items: start; row-gap: 2px; text-align: left; }
   .question .hf-icon { grid-row: 1 / span 2; margin: 0; }
 }
 
 /* Acknowledgments: the institution's logo beside its name. */
 .ack-org { align-items: center; display: flex; gap: 10px; }
 .ack-org .logo { height: 28px; width: 28px; }
+.ack-sites > span { display: block; }
 
 /* Get involved: four ways in, as a 2×2 grid that fits the first screen on
    phones too. Each card: title, one short line, a short button. */
@@ -1524,6 +1713,15 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 /* Current openings: says so when none are listed. */
 .openings { margin-top: var(--nb-space-6); }
 .openings-empty { display: none; }
+
+/* Each opening is marked by a line down its left side. */
+.opening {
+  border-left: 3px solid var(--nb-brand);
+  margin-block: var(--nb-space-4);
+  padding-left: var(--nb-space-4);
+}
+#quarto-content .opening > :first-child { margin-top: 0; }
+.opening > :last-child { margin-bottom: 0; }
 .openings:not(:has(.opening)) .openings-empty { display: block; }
 
 /* Outputs: who each planned output is for. */
@@ -1537,10 +1735,6 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .reference-list li:target { background: var(--nb-button-hover); }
 
 /* ---------- Breakpoints ---------- */
-
-@media (max-width: 1024px) {
-  .project-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 
 @media (max-width: 639.98px) {
   h1, .h1, .title { font-size: 30px; }
@@ -1582,7 +1776,6 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   main.content { margin-top: var(--nb-space-5); }
   .prose-cell h1 { font-size: 36px; }
 
-  .project-links { grid-template-columns: minmax(0, 1fr); }
   /* Photo beside the name, role and institution; bio and email full width. */
   .person { gap: 0 var(--nb-space-4); grid-template-columns: 80px minmax(0, 1fr); }
   .person > p:first-child { grid-row: 1 / span 3; }

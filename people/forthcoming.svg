@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" width="384" height="384">
+  <!-- Placeholder portrait: a grey head-and-shoulders silhouette, framed like
+       the team photos. Replace with a real photo once someone is hired. -->
+  <rect width="384" height="384" fill="#EEEEEE"/>
+  <circle cx="192" cy="150" r="70" fill="#BDBDBD"/>
+  <path d="M62 384c0-80 58-140 130-140s130 60 130 140z" fill="#BDBDBD"/>
+</svg>

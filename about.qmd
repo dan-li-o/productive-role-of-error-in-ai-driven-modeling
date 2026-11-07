@@ -80,10 +80,10 @@ How this page works
 <li class="commit" data-branch="ryan"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>August 2025</time> <span class="branch-tag">ryan</span></p><p class="commit-text">Pilot interviews at NSF NCAR. A first finding: scientists often avoid the word "error", preferring "bias", "limitation" or "statistical distinguishability". (Starting from <a class="cite" href="#ref-parker-2008">Parker 2008</a>'s typology of errors.)</p></li>
 <li class="commit" data-branch="ryan"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>In progress</time> <span class="branch-tag">ryan</span></p><p class="commit-text">Ryan identifies four kinds of antifragility in modeling: flexibility, new hypotheses, learning from error signals, and credibility won by overcoming failure. <a class="cite" href="#ref-oloughlin-ms">O'Loughlin, manuscript</a></p></li>
 <li class="commit" data-branch="error-in-science"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">error-in-science</span></p><p class="commit-text">Allchin argues for "negative knowledge": knowing about errors, and how they were corrected, is knowledge too. <a class="cite" href="#ref-allchin-2026">Allchin 2026</a></p></li>
-<li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">merge into main</span></p><p class="commit-text"><strong>These lines of work were all moving toward one question none had asked directly: how can errors, and the ways scientists handle them, make AI-driven science better?</strong></p></li>
+<li class="commit merge" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">merge into main</span></p><p class="commit-text"><strong>These lines of work were all moving toward one question none had asked directly: how can errors, and the ways scientists handle them, make AI-driven science better?</strong></p><p class="commit-invite"><a class="invite" href="#the-questions">Read the three questions</a></p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The team forms: Ryan O'Loughlin (philosophy of climate modeling, Queens College, CUNY) and Matthew Mayernik (data and credibility, NSF NCAR), with an <a href="people.qmd">advisory board</a> of philosophers, STS (science and technology studies) scholars and scientists.</p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>1 October 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The Alfred P. Sloan Foundation funds the project: two years, through 30 September 2028.</p></li>
-<li class="head" id="now" tabindex="-1"><span class="head-ref">HEAD</span> <span class="head-label">Where we are now<span class="visually-hidden">. Entries below are planned.</span></span> <a class="head-back" href="#how-it-started">↑ Back to the beginning</a></li>
+<li class="head" id="now" tabindex="-1"><span class="head-ref">HEAD</span> <span class="head-label">Where we are now<span class="visually-hidden">. Entries below are planned.</span></span></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Late 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">Interview plan finished and ethics approval (IRB) obtained.</p></li>
 <li class="commit" data-branch="interviews"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">interviews</span></p><p class="commit-text">Interviews begin at NSF NCAR, NASA GISS and Columbia University's LEAP Center, with document analysis alongside.</p><p class="commit-invite">Work with AI models? <a class="invite" href="contact.qmd#share-an-error-story">Share an error story</a></p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>From late 2026</time> <span class="branch-tag">main</span></p><p class="commit-text">The advisory board meets twice a year.</p></li>
@@ -97,6 +97,8 @@ How this page works
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>30 September 2028</time> <span class="branch-tag">main</span></p><p class="commit-text">Project ends.</p></li>
 <li class="commit" data-branch="main"><span class="commit-dot" aria-hidden="true"></span><p class="commit-meta"><time>Beyond</time> <span class="branch-tag">main</span></p><p class="commit-text">A longer-term research program on error, AI and scientific modeling, reaching beyond climate science.</p><p class="commit-invite">Using AI in another science? <a class="invite" href="contact.qmd#collaborate">Collaborate with us</a></p></li>
 </ol>
+<!-- Stays at the bottom of the screen while the timeline is in view. -->
+<div class="timeline-jump"><a class="head-back" href="#how-it-started">↑ Back to the beginning</a></div>
 </div>
 
 ## The questions
@@ -192,7 +194,7 @@ How this page works
 <dt>partner</dt>
 <dd class="ack-org"><img src="logos/ncar.png" alt="" class="logo" width="28" height="28" loading="lazy"> NSF National Center for Atmospheric Research, home of co-PI Matthew Mayernik</dd>
 <dt>sites</dt>
-<dd>NSF NCAR, NASA GISS and Columbia University's LEAP Center</dd>
+<dd class="ack-sites"><span>NSF National Center for Atmospheric Research (NCAR)</span> <span>NASA Goddard Institute for Space Studies (GISS)</span> <span>Columbia University's LEAP Center (Learning the Earth with Artificial Intelligence and Physics)</span></dd>
 </dl>
 
 <!-- Restore once interviews begin (a short key, e.g. "thanks"):
