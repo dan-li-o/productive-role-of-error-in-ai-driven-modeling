@@ -40,7 +40,7 @@ website:
         # Drop the year once the workshop has happened.
         text: 'Workshop <span class="nav-year">’27</span>'
       - href: products.qmd
-        text: Products
+        text: Outputs
       - href: contact.qmd
         text: Get involved
   page-footer:

@@ -287,7 +287,9 @@
     };
 
     // HEAD: the line between done (above) and planned (below). The pointer
-    // above the timeline names the latest entry and links down to HEAD.
+    // above the timeline gives the newest milestone's date and text and links
+    // down to HEAD. No "Latest:" label: on the homepage that word means the
+    // newest news post, which can be a different thing.
     const head = log.querySelector(".head");
     let revealAll = false;
     if (head) {
@@ -302,7 +304,7 @@
           line.className = "head-latest";
           const date = document.createElement("b");
           date.textContent = latest.querySelector("time").textContent;
-          line.append("Latest: ", date, ` · ${text.textContent.trim()}`);
+          line.append(date, ` · ${text.textContent.trim()}`);
           pointer.prepend(line);
         }
       }

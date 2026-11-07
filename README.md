@@ -25,6 +25,22 @@ other pages are plain reading pages in the same style.
   `button button-secondary`). Without JavaScript the span's own text shows.
   General enquiries go to `contact@`, website problems to `tech@`; the
   email-list sign-ups ("Keep me posted") arrive at `contact@` for now.
+- **Facts list** (`.facts` in `notebook.scss`): wherever readers scan for who,
+  what, when, where or how much, give each fact one line, a short code-style
+  key beside its answer. Used on the homepage hero (`.facts .lead`: what, why),
+  Workshop (`.facts .boxed`: when, where, who, format, call, support), job ads
+  (`.facts .boxed`: role, who, when, pay, funding, with, apply by, link) and
+  About's acknowledgments (`.facts`: funder, host, partner, sites). Rules:
+  lowercase keys of eight characters at most, the same word for the same idea
+  on every page (always `when`); values of 15 words at most, no full stop;
+  three to eight rows; state each fact once, not again in the prose beside it.
+  In Quarto, a definition list inside `::: {.facts .boxed}`; when a value needs
+  an id or a span (the job ad's `#ra-deadline`), raw HTML:
+  `<dl class="facts boxed">`. A new job ad copies the research assistant's list
+  and changes only the values.
+- **"How we work" icon flow** (`.how-flow`): the same markup is in the
+  homepage's `run(project)` cell, where its steps appear in order each time the
+  cell runs, and on About, where it is still. Edit both copies together.
 
 To preview locally (optional): install [Quarto](https://quarto.org) and run
 `quarto preview`.
@@ -48,8 +64,8 @@ routing.
 
 - [ ] Ask CUNY's IRB whether fieldwork and interview wording counts as
       recruitment material
-- [ ] Ryan shows the error-story wording (option A: Get involved, homepage,
-      About) to the Queens College IRB office. Switch to option B (research
+- [ ] Ryan shows the error-story wording (option A: Get involved and
+      homepage) to the Queens College IRB office. Switch to option B (research
       use with consent) once the interview study is approved
 - [ ] Short site name, domain and wordmark (the site currently uses
       "Productive Error")
@@ -86,8 +102,9 @@ routing.
 - [x] Workshop date: fall 2027, in New York City, used everywhere
 - [ ] About acknowledgments: confirm "Research Foundation of CUNY – Queens
       College" with the QC grants office; name research sites and letter
-      writers only after each agrees; add the IRB approval note under "Take
-      part" once approval is granted, and check the consent sentence with the IRB
+      writers only after each agrees; add the IRB approval note on Get
+      involved (`contact.qmd`, next to the error-story wording) once approval is
+      granted, and check the consent sentence with the IRB
 - [x] Gavin Schmidt isn't named in the proposal: confirmed he's on the
       advisory board (People page)
 - [ ] Share image (`share.png`, 1200×630) and enable `image:` in `_quarto.yml`

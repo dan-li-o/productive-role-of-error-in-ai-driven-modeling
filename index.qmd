@@ -41,8 +41,11 @@ How this page works
 - The headline types "work", backspaces it and types "fail." (notebook.js).
   Edit the sentence inside .hero-type-final; data-type-wrong is the word
   typed first.
-- Under the headline, .hero-facts is a definition list: the term (what, why,
-  join) shows as a code-style label beside its one-sentence answer.
+- Under the headline, a facts list (.facts .lead; README, "Facts list"): the
+  term (what, why) shows as a code-style label beside its one-sentence answer.
+- The run(project) cell's output includes the "How we work" icon flow
+  (.how-flow in notebook.scss): its steps appear in order each time the cell
+  runs. About uses the same markup, still.
 - The hero's "Latest" line is the newest post in news/, filled in by the
   listing in the front matter (template: latest.ejs).
 - The header's "Last checkpoint" date comes from checkpoint.lua (render date);
@@ -61,19 +64,14 @@ How this page works
 <h1 class="hero-type" data-type-wrong="work"><span class="hero-type-final">Sometimes the most useful thing an AI model does is fail.</span><span class="hero-type-live" aria-hidden="true"></span></h1>
 ```
 
-::: {.hero-facts}
+::: {.facts .lead}
 what
-: We study how mistakes made by AI models in science can lead to new
-  knowledge, starting with weather and climate.
+: We study what AI models' mistakes teach science, and when they make it more
+  trustworthy.
 
 why
-: AI models are entering weather and climate science faster than anyone can
-  explain how they work. But their failures can be illuminating: they lead to
-  discoveries and, counterintuitively, can strengthen warranted trust.
-
-join
-: Tell us about an AI model that went wrong, talk with us about your work, or
-  come to our 2027 workshop.
+: AI models now help forecast the weather, yet no one can fully explain how
+  they work.
 :::
 
 ::: {.cell-actions}
@@ -97,9 +95,8 @@ Columbia University's LEAP Center.
 ::: {.cell-content}
 ## What does a productive error look like?
 
-Here's a real one, from AI weather forecasting: how the model failed, what the
-failure revealed, and what science gained. Scroll to step through
-it.
+A real case from AI weather forecasting, in three steps: how the model failed,
+what the failure revealed and what science gained.
 :::
 :::
 
@@ -120,9 +117,8 @@ it.
 [InstabilityError]{.error-name}: forecast unstable beyond 10 days
 :::
 
-FourCastNet, an AI weather model built on Fourier neural operators, a common
-design for AI weather models, made fast, accurate short-range forecasts. But
-beyond ten days, its forecasts fell apart.
+FourCastNet, an AI weather model, made fast, accurate short-range forecasts.
+Beyond ten days, they fell apart.
 
 <figure class="globe-figure">
 <div class="globes" role="img" aria-label="Animation: two spinning globes. On the left, real weather patterns evolve smoothly. On the right, the AI model's forecast develops a star-shaped pattern of errors around the south pole that grows until the forecast breaks down around day 10.">
@@ -154,10 +150,9 @@ beyond ten days, its forecasts fell apart.
 ::: {.cell-output}
 **It assumed the Earth was flat.**
 
-Researchers traced the problem to one component: a piece of math that treats
-the Earth like a flat map, which breaks down near the poles. Rebuilding that
-piece with math designed for a sphere yielded a model that stayed stable for a
-full year of simulated weather.
+Researchers traced the failure to one piece of math that treats the Earth like
+a flat map, which breaks down near the poles. Rebuilt with math for a sphere,
+the model stayed stable for a full year of simulated weather.
 
 <figure class="forecast-chart">
 <figcaption>How far ahead each model could forecast before its forecasts fell apart (to scale)</figcaption>
@@ -197,13 +192,11 @@ Sources: [Pathak et al. 2022](https://arxiv.org/abs/2202.11214), FourCastNet;
 Fixing the error paid off in three ways:
 
 - **Better performance.** The model stopped blowing up.
-- **Component-level understanding.** Tracing the blow-up to a single component
-  both revealed and deepened the researchers' grasp of how the model works.
-  Explainability (XAI) tools rarely deliver that kind of mechanistic insight.
-- **Earned credibility.** The failure was a test that only genuine expertise
-  could pass. By diagnosing it in the open, the researchers gave others
-  evidence, not just assurances, that they understand a system that is hard
-  to see inside.
+- **Understanding.** Tracing the failure to one component showed researchers
+  how the model works, which explainable-AI tools rarely reveal.
+- **Earned credibility.** Diagnosing the failure in the open gave others
+  evidence, not just assurances, that the researchers understand a system
+  that is hard to see inside.
 
 ::: {.cell-source}
 Sources: [O'Loughlin 2023](https://doi.org/10.1007/s13194-023-00522-z) and
@@ -233,12 +226,10 @@ understanding; Taleb 2012, *Antifragile*, on antifragility;
 :::
 
 ::: {.cell-output}
-AI models are moving into everyday science. Since February 2025, the European
-Centre for Medium-Range Weather Forecasts (ECMWF) has used an AI model in daily
-forecasting, alongside its traditional model.
-
-Climate is harder still. The future climate lies outside any data a model was
-trained on, so it can't simply be checked against observations.
+Since February 2025, the European Centre for Medium-Range Weather Forecasts
+(ECMWF) has used an AI model in its daily forecasts, alongside its traditional
+one. Climate is harder: future conditions lie outside any training data, so
+predictions can't be checked against observations.
 
 **Knowing how these models fail, and what their failures reveal, is how
 scientists will know when to trust them.**
@@ -263,19 +254,60 @@ Source: [ECMWF 2025](https://www.ecmwf.int/en/about/media-centre/news/2025/ecmwf
 :::
 
 ::: {.cell-output}
-We're talking with the people who build and use these models: scientists,
-software engineers and data specialists at the U.S. National Science
-Foundation's National Center for Atmospheric Research (NSF NCAR), NASA's
-Goddard Institute for Space Studies (NASA GISS) and Columbia University's LEAP
-Center (Learning the Earth with Artificial Intelligence and Physics). We also read the reports and data records
-where errors get written down.
+We're talking with the scientists, software engineers and data specialists
+who build and use these models at NSF NCAR, NASA GISS and Columbia
+University's LEAP Center, and reading the reports and records where their
+errors get written down.
+
+```{=html}
+<!-- How we work: icon flow (see README / Style guide). Steps are revealed in
+     order when the cell runs; --d is each step's delay in ms. -->
+<div class="how-flow">
+  <p class="visually-hidden">How the project works: interviews and documents feed the analysis, which builds a framework for when errors help science. The workshop tests the framework and feeds back into it. The results become papers for four audiences.</p>
+  <div class="hf-row" aria-hidden="true">
+    <div class="hf-col">
+      <div class="hf-node" data-step style="--d: 0">
+        <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M3 5h11v7H8l-3 3v-3H3z"/><path d="M14 9h7v7h-2v3l-3-3h-5v-3"/></svg></span>
+        <span class="hf-word">interviews</span><span class="hf-note">3 sites</span>
+      </div>
+      <div class="hf-node" data-step style="--d: 150">
+        <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 11h6M9 14h6M9 17h4"/></svg></span>
+        <span class="hf-word">documents</span><span class="hf-note">code, reports</span>
+      </div>
+    </div>
+    <div class="hf-link" data-step style="--d: 450"></div>
+    <div class="hf-node" data-step style="--d: 700">
+      <span class="hf-icon"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span>
+      <span class="hf-word">analysis</span>
+    </div>
+    <div class="hf-link" data-step style="--d: 1000"></div>
+    <div class="hf-node is-key" data-step style="--d: 1250">
+      <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg></span>
+      <span class="hf-word">framework</span><span class="hf-note">when errors help</span>
+    </div>
+    <div class="hf-loop">
+      <div class="hf-link" data-step style="--d: 1550"></div>
+      <div class="hf-link hf-back" data-step style="--d: 1700"></div>
+      <span class="hf-dot" style="--d: 2300"></span>
+    </div>
+    <div class="hf-node" data-step style="--d: 1850">
+      <span class="hf-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 19c0-3 2-5 4.5-5s4.5 2 4.5 5M2 18c0-2.3 1.5-4 3.5-4M22 18c0-2.3-1.5-4-3.5-4"/></svg></span>
+      <span class="hf-word">workshop</span><span class="hf-note">tests it, 2027</span>
+    </div>
+    <div class="hf-link" data-step style="--d: 2150"></div>
+    <div class="hf-node" data-step style="--d: 2400">
+      <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 6v14"/></svg></span>
+      <span class="hf-word">papers</span><span class="hf-note">4 audiences</span>
+    </div>
+  </div>
+</div>
+```
 
 ::: {.project-links}
 ::: {.project-card}
 ## Core themes
 
-Error and understanding, antifragility (coming back stronger after a failure)
-and credibility in AI-driven modeling.
+Understanding, antifragility (coming back stronger) and credibility.
 
 [About the project](about.qmd)
 :::
@@ -283,8 +315,8 @@ and credibility in AI-driven modeling.
 ::: {.project-card}
 ## The workshop
 
-Scientists, philosophers and scholars who study how science works (STS),
-working through real cases of error side by side.
+Scientists, philosophers and scholars of how science works (STS), working
+through real cases of error.
 
 [Workshop details](workshop.qmd)
 :::
@@ -292,10 +324,9 @@ working through real cases of error side by side.
 ::: {.project-card}
 ## The work
 
-A framework for how errors produce knowledge, with articles for
-philosophers, STS scholars, scientists and the public.
+A framework for how errors produce knowledge, written for four audiences.
 
-[Products](products.qmd)
+[Outputs](products.qmd)
 :::
 :::
 

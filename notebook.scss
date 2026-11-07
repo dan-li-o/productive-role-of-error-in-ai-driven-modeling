@@ -529,25 +529,37 @@ main.content { margin-bottom: 0; }
   margin-bottom: 12px;
 }
 
-/* Homepage what / why / join: code-style labels beside one sentence each. */
-.hero-facts dl {
+/* Facts list: scannable key-value facts (README, "Facts list"). Markup: a
+   Pandoc definition list inside ::: {.facts}, or <dl class="facts">.
+   .lead: open, larger text (homepage hero). .boxed: in a light panel
+   (Workshop, job ads). Plain .facts: open (About, acknowledgments). */
+.facts dl, dl.facts {
   display: grid;
-  font-size: 18px;
   gap: 8px 20px;
   grid-template-columns: max-content minmax(0, 1fr);
   line-height: 1.5;
-  margin: 24px 0 0;
+  margin: 24px 0;
 }
-
-.hero-facts dt {
+.facts dt, dl.facts dt {
   color: var(--nb-in-prompt);
   font-family: var(--nb-font-code);
   font-size: var(--nb-size-code);
   font-weight: 400;
-  line-height: 1.7; /* sits on the first line of the sentence beside it */
+  line-height: 1.7; /* sits on the first line of the answer */
 }
-
-.hero-facts dd { margin: 0; max-width: var(--nb-measure); }
+.facts dd, dl.facts dd { margin: 0; max-width: var(--nb-measure); }
+.facts.lead dl { font-size: 18px; }
+.facts.boxed dl, dl.facts.boxed {
+  background: #FAFAFA;
+  border: 1px solid var(--nb-border);
+  border-radius: var(--nb-radius);
+  padding: 16px 20px;
+}
+@media (max-width: 480px) {
+  .facts dl, dl.facts { gap: 6px 14px; }
+  .facts.lead dl { font-size: 17px; }
+  .facts.boxed dl, dl.facts.boxed { padding: 14px 16px; }
+}
 
 .cell-actions {
   align-items: center;
@@ -876,6 +888,158 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .cell-output,
 .output-prompt {
   transition: opacity 200ms ease;
+}
+
+/* ---------- How we work: icon flow ----------
+   Interviews + documents -> analysis -> framework <-> workshop -> papers.
+   One icon and one code-style word per step. Inside a homepage cell output
+   the steps appear in order when the cell runs (.is-revealed), and again on
+   every re-run; elsewhere add .is-on to play it. With no JavaScript or with
+   reduced motion it simply shows, complete. No script needed.
+   Wide containers: one row. Narrow (under 640px): a column with down arrows. */
+.how-flow {
+  container-type: inline-size;
+  margin: 20px 0 8px;
+}
+
+.hf-row {
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto minmax(20px, 1fr) auto minmax(20px, 1fr) auto minmax(36px, 1fr) auto minmax(20px, 1fr) auto;
+  max-width: 880px;
+}
+
+.hf-col { display: grid; gap: 20px; }
+
+.hf-node {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+  width: 108px;
+}
+
+.hf-icon {
+  background: var(--nb-page);
+  border: 1px solid var(--nb-border);
+  border-radius: 50%;
+  color: var(--nb-text);
+  display: grid;
+  height: 56px;
+  place-items: center;
+  width: 56px;
+}
+
+.hf-icon svg {
+  fill: none;
+  height: 28px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  width: 28px;
+}
+
+/* The framework is what the project builds: the one blue step. */
+.hf-node.is-key .hf-icon {
+  border-color: var(--nb-brand);
+  box-shadow: 0 0 0 4px var(--nb-button-hover);
+  color: var(--nb-brand);
+}
+
+.hf-word {
+  color: var(--nb-in-prompt);
+  font-family: var(--nb-font-code);
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.hf-note {
+  color: var(--nb-text-muted);
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+/* Arrows: a 2px line with a CSS triangle head. */
+.hf-link {
+  background: #BDBDBD;
+  height: 2px;
+  position: relative;
+  transform-origin: left;
+}
+
+.hf-link::after {
+  border: 5px solid transparent;
+  border-left: 7px solid #BDBDBD;
+  border-right: 0;
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -4px;
+}
+
+/* Framework <-> workshop: two arrows, and a dot that travels the loop. */
+.hf-loop { display: grid; gap: 10px; position: relative; }
+.hf-back { transform-origin: right; }
+.hf-back::after { border-left: 0; border-right: 7px solid #BDBDBD; left: -1px; right: auto; }
+
+.hf-dot {
+  background: var(--nb-brand);
+  border-radius: 50%;
+  height: 10px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: -4px;
+  width: 10px;
+}
+
+/* Reveal: when the cell runs, each step appears after its own --d delay. */
+.is-revealed .how-flow [data-step],
+.how-flow.is-on [data-step] {
+  animation: hf-in 450ms ease calc(var(--d) * 1ms) both;
+}
+
+.is-revealed .how-flow .hf-link[data-step],
+.how-flow.is-on .hf-link[data-step] {
+  animation-name: hf-draw;
+}
+
+.is-revealed .how-flow .hf-dot,
+.how-flow.is-on .hf-dot {
+  animation: hf-loop 1600ms ease-in-out calc(var(--d) * 1ms) 2;
+}
+
+@keyframes hf-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes hf-draw { from { transform: scaleX(0); } }
+@keyframes hf-loop {
+  0% { left: 0; opacity: 0; top: -4px; }
+  10% { opacity: 1; }
+  45% { left: calc(100% - 10px); top: -4px; }
+  55% { left: calc(100% - 10px); top: 8px; }
+  90% { left: 0; opacity: 1; top: 8px; }
+  100% { left: 0; opacity: 0; top: 8px; }
+}
+
+/* Narrow: a column, arrows pointing down. */
+@container (max-width: 640px) {
+  .hf-row { gap: 4px; grid-template-columns: 1fr; justify-items: center; }
+  .hf-col { gap: 24px; grid-auto-flow: column; }
+  .hf-link { height: 26px; transform-origin: top; width: 2px; }
+  .hf-link::after { border: 5px solid transparent; border-bottom: 0; border-top: 7px solid #BDBDBD; bottom: -1px; left: -4px; right: auto; top: auto; }
+  .hf-loop { gap: 14px; grid-auto-flow: column; }
+  .hf-back { transform-origin: bottom; }
+  .hf-back::after { border: 5px solid transparent; border-bottom: 7px solid #BDBDBD; border-top: 0; bottom: auto; left: -4px; top: -1px; }
+  .hf-dot { display: none; }
+  .is-revealed .how-flow .hf-link[data-step],
+  .how-flow.is-on .hf-link[data-step] { animation-name: hf-draw-down; }
+}
+
+@keyframes hf-draw-down { from { transform: scaleY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .how-flow [data-step],
+  .how-flow .hf-dot { animation: none !important; }
 }
 
 /* Cards in the project cell */
@@ -1292,36 +1456,81 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .project-card h3 { font-size: 19px; margin: 0 0 8px; }
 .project-card .button { margin-top: 8px; }
 
-.method-grid {
+/* About: the three questions. One icon (the How we work flow's circles), the
+   question's code-style name and one short question each. Three across;
+   below 600px, a list with each icon on the left. */
+.questions {
   display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-block: 16px;
+  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 24px 0 16px;
 }
 
-.take-part { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-/* Each card is heading, text, button and (sometimes) small print. Sharing
-   those rows with the card beside it puts both buttons on one line, even
-   when only one card has small print under its button. */
-.take-part .project-card {
+.question {
   display: grid;
-  grid-row: span 4;
-  grid-template-rows: subgrid;
-  row-gap: 0;
-}
-.take-part .project-card > p:has(> .button, > .email-obfuscate) { margin: 0; }
-
-.ack-list {
-  display: grid;
-  gap: 8px 24px;
-  grid-template-columns: max-content minmax(0, 1fr);
-  margin: 16px 0 32px;
+  gap: 10px;
+  justify-items: start;
 }
 
-.ack-list dt { color: var(--nb-text-muted); font-size: var(--nb-size-small); font-weight: 500; padding-top: 2px; }
-.ack-list dd { margin: 0; }
+.question .hf-icon { margin-bottom: 2px; }
+
+/* The names stay real h3 headings for the page outline and screen readers. */
+#quarto-content .question h3 {
+  color: var(--nb-in-prompt);
+  font-family: var(--nb-font-code);
+  font-size: var(--nb-size-code);
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.question p { line-height: 1.5; margin: 0; }
+
+@media (max-width: 599.98px) {
+  .questions { gap: 20px; grid-template-columns: minmax(0, 1fr); }
+  .question { column-gap: 16px; grid-template-columns: 56px minmax(0, 1fr); row-gap: 2px; }
+  .question .hf-icon { grid-row: 1 / span 2; margin: 0; }
+}
+
+/* Acknowledgments: the institution's logo beside its name. */
 .ack-org { align-items: center; display: flex; gap: 10px; }
 .ack-org .logo { height: 28px; width: 28px; }
+
+/* Get involved: four ways in, as a 2×2 grid that fits the first screen on
+   phones too. Each card: title, one short line, a short button. */
+.involve-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 8px 0 12px;
+}
+
+.involve-grid .project-card { padding: 16px; }
+#quarto-content .involve-grid .project-card > h2 { font-size: 19px; line-height: 1.25; margin: 0 0 6px; }
+.involve-grid .project-card p { font-size: 15px; margin: 0 0 12px; }
+.involve-grid .project-card > p:last-child { margin: auto 0 0; }
+.involve-grid .button { margin: 0; min-height: 40px; padding: 6px 14px; white-space: nowrap; }
+
+@media (max-width: 639.98px) {
+  .involve-grid { gap: 10px; }
+  .involve-grid .project-card { padding: 12px; }
+  #quarto-content .involve-grid .project-card > h2 { font-size: 17px; }
+  .involve-grid .project-card p { font-size: 14px; line-height: 1.4; margin-bottom: 10px; }
+  .involve-grid .button { font-size: 15px; padding: 6px 10px; width: 100%; }
+}
+
+.involve-grid + .email-note > p + p { margin-top: 8px; }
+
+/* Current openings: says so when none are listed. */
+.openings { margin-top: var(--nb-space-6); }
+.openings-empty { display: none; }
+.openings:not(:has(.opening)) .openings-empty { display: block; }
+
+/* Outputs: who each planned output is for. */
+.audience-table table { margin-block: 16px 24px; }
+.audience-table th,
+.audience-table td { padding: 8px 16px 8px 0; vertical-align: top; }
+.audience-table td:first-child { white-space: nowrap; }
 
 .reference-list ul { padding-left: 0; }
 .reference-list li { font-size: var(--nb-size-small); list-style: none; margin-bottom: 10px; padding-left: 24px; text-indent: -24px; }
@@ -1331,7 +1540,6 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 @media (max-width: 1024px) {
   .project-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .method-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 639.98px) {
@@ -1373,12 +1581,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
   main.content { margin-top: var(--nb-space-5); }
   .prose-cell h1 { font-size: 36px; }
-  .hero-facts dl { font-size: 17px; gap: 8px 14px; }
 
-  .project-links,
-  .method-grid { grid-template-columns: minmax(0, 1fr); }
-  .ack-list { grid-template-columns: minmax(0, 1fr); }
-  .ack-list dd { margin-bottom: 8px; }
+  .project-links { grid-template-columns: minmax(0, 1fr); }
   /* Photo beside the name, role and institution; bio and email full width. */
   .person { gap: 0 var(--nb-space-4); grid-template-columns: 80px minmax(0, 1fr); }
   .person > p:first-child { grid-row: 1 / span 3; }

@@ -21,22 +21,22 @@ check back here or email me.
 :::
 :::
 
-<dl class="ack-list">
-<dt>Position</dt>
+<dl class="facts boxed">
+<dt>role</dt>
 <dd>Undergraduate Research Assistant (1 position)</dd>
-<dt>Supervisor</dt>
-<dd>[Ryan O'Loughlin](people.qmd#ryan-oloughlin), Assistant Professor of Philosophy, Queens College, CUNY</dd>
-<dt>Funding</dt>
-<dd>Queens College Research Enhancement Grant</dd>
-<dt>Compensation</dt>
-<dd>$3,500 stipend</dd>
-<dt>Dates</dt>
-<dd>January 15 – May 15, 2027 (about 10 hours per week)</dd>
-<dt>Eligibility</dt>
+<dt>who</dt>
 <dd>Queens College undergraduates</dd>
-<dt>Application deadline</dt>
+<dt>when</dt>
+<dd>January 15 – May 15, 2027 (about 10 hours per week)</dd>
+<dt>pay</dt>
+<dd>$3,500 stipend</dd>
+<dt>funding</dt>
+<dd>Queens College Research Enhancement Grant</dd>
+<dt>with</dt>
+<dd>[Ryan O'Loughlin](people.qmd#ryan-oloughlin), Assistant Professor of Philosophy, Queens College, CUNY</dd>
+<dt>apply by</dt>
 <dd>[Tuesday, December 1, 2026]{#ra-deadline}</dd>
-<dt>This ad online</dt>
+<dt>link</dt>
 <dd><https://productive-error.org/research-assistant.html></dd>
 </dl>
 

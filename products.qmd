@@ -1,6 +1,7 @@
 ---
-title: "Products"
-# The page was deliverables.qmd until November 2026; keep old links working.
+title: "Outputs"
+# The page was deliverables.qmd until November 2026 and was titled Products
+# until 7 November 2026; the file keeps its name so links keep working.
 aliases:
   - deliverables.html
 description: "Publications and talks from the project."
@@ -9,22 +10,23 @@ social-card:
   sub: "Papers, talks and workshop materials"
 ---
 
-## Project outputs
+## Planned
 
-Papers and talks will be linked here as they become available. The project
-plans:
+Papers and talks will appear here as they come out.
 
-- Two articles in philosophy of science
-- One article in science and technology studies (STS)
-- A perspective piece for climate scientists
-- A public-facing article for a general audience
-- A report or proceedings from the [workshop](workshop.qmd)
-- Symposia at the Philosophy of Science Association and Society for Social
-  Studies of Science meetings
+::: {.audience-table}
+| For whom | What |
+|----|----|
+| Philosophers | Two articles in philosophy of science; a symposium at the Philosophy of Science Association |
+| STS scholars | One article in science and technology studies (STS); a symposium at the Society for Social Studies of Science |
+| Climate scientists | A perspective piece |
+| General readers | A public-facing article |
+| Everyone | A report or proceedings from the [workshop](workshop.qmd) |
+:::
 
 ## Background publications
 
-Earlier work by the project team that this project builds on.
+Earlier work by the team that this project builds on.
 
 <!-- Team: add or remove items; keep the same citation style. -->
 
