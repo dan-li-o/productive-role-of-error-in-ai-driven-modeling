@@ -1,7 +1,6 @@
 ---
 pagetitle: "The Productive Role of Error in AI-Driven Modeling"
 description: "Sometimes the most useful thing an AI model does is fail. A Sloan Foundation project on how mistakes made by AI models in science can lead to new knowledge, starting with weather and climate."
-toc: false
 page-layout: full
 # The hero's "Latest" line: the newest news post (latest.ejs).
 listing:
@@ -84,12 +83,9 @@ why
 :::
 
 ::: {.behind-note}
-Led by [Ryan O'Loughlin](people.qmd#ryan-oloughlin) (Queens College, CUNY) and
-[Matthew Mayernik](people.qmd#matthew-mayernik) (NSF NCAR). Funded by the
-Alfred P. Sloan Foundation, [2026–2028]{.text-nowrap}. Fieldwork at the U.S. National Science
-Foundation's National Center for Atmospheric Research (NSF NCAR), NASA's
-Goddard Institute for Space Studies (NASA GISS) and Columbia University's LEAP
-Center (Learning the Earth with Artificial Intelligence and Physics).
+Led by [Ryan O'Loughlin](people.qmd#ryan-oloughlin) (CUNY) and
+[Matthew Mayernik](people.qmd#matthew-mayernik) (NSF NCAR).\
+Funded by the Alfred P. Sloan Foundation.
 :::
 :::
 :::

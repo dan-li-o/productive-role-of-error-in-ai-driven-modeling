@@ -4,7 +4,6 @@ description: "Want to debug together? Pick one. Each button opens an email with 
 # Subtitle on the social preview card (_social-cards/README.md).
 social-card:
   sub: "Share an error story, or work with us"
-toc: false
 ---
 
 <!--

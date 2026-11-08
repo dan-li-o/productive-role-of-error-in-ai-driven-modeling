@@ -9,3 +9,4 @@ _site/
 _social-cards/out/
 
 /.luarc.json
+__pycache__/

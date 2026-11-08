@@ -62,21 +62,26 @@ phones), split into 12 columns with 24px between them (`--nb-col-gap`).
 | Columns | Region | Holds |
 |---|---|---|
 | 1–2 | margin | the homepage's `In [n]:` prompts, News dates, About's timeline lanes; empty on reading pages |
-| 3–10 | text | titles and running text, capped at `--nb-measure` (64ch, about 70 characters) |
-| 3–12 | wide | figures, tables, the timeline |
-| 11–12 | contents | the table of contents, on pages that have one (1024px and wider) |
+| 3–10 | text (`--nb-text-w`) | everything that holds text: titles, headings, paragraphs, lists, tables, cards, boxed facts, marked blocks, callouts, rules. 653px on desktop: about 73 characters of body text |
+| 3–12 | wide | things that aren't running text: code boxes and outputs, figures, the icon flow, the timeline's lanes, the homepage headline |
+| 11–12 | contents | a table of contents, only on a long page that opts in with `toc: true` (off site-wide; 1024px and wider) |
 
-- **One text line.** Text starts on the column-3 line on every page at every
-  width, so titles don't jump sideways between pages.
+- **One text line, one text edge.** Text starts on the column-3 line and
+  ends by column 10's right edge, on every page at every width, so nothing
+  jumps sideways between pages and nothing reaches past the text beside it.
+  Running text is also capped at `--nb-measure` (`min(64ch, --nb-text-w)`), so
+  small type keeps a short line. Don't widen it: lines longer than about 75
+  characters get harder to read. A page looks wider only where it has wide
+  items, like the homepage's code.
 - **Hang the box, not the text.** Code boxes, boxed facts, callouts and
   marked blocks move left into the gutter by their border plus padding
   (`--hang`). Their text stays on the text line. About's timeline hangs its
   rail and lanes into the margin columns the same way.
 - **Touch tablets** (640–899px, no hover) take columns 1–3 for the margin, to
-  fit the run button beside `In [n]:`. **Phones** (under 640px) have one
-  column. The margin collapses there, and prompts and dates sit above their
-  cells and titles.
-- **Breakpoints:** 600, 640, 900, 992 (Quarto's menu) and 1024px only.
+  fit the run button beside `In [n]:`; text is then columns 4–10. **Phones**
+  (under 640px) have one column. The margin collapses there, prompts and
+  dates sit above their cells and titles, and text takes the full width.
+- **Breakpoints:** 640, 900, 992 (Quarto's menu) and 1024px only.
 
 **Type: one scale.** A major third (×1.25) from the 17px body, used in half
 steps. Sizes are in `rem`, so they follow the reader's browser text size
@@ -122,16 +127,19 @@ Get involved. Add the class to any block, in Markdown
 any extra class for that component's own type or behaviour, but never draw
 another left bar.
 
-**Adding a component.** Pick the region it spans (text or wide). Set its type
-with one size token and its line height with the matching `--nb-lh-*`. Space
-it with `--nb-space-*`. Give a box around text a `--hang`, so its text stays
-on the line. A grid of cards holding text (Get involved) takes the text columns, two
-cards of 4 columns each on desktop, with `--nb-col-gap` between them. It hangs
-by the cards' border and padding, so each card's text starts on a column line.
-Card titles take `--nb-size-h3`, card text `--nb-size-small`, and buttons stay
-the standard 44px. Give the
-element a class in the page and style it in `notebook.scss`; inline `style=""`
-may only set custom properties (like `--d` in the icon flow).
+**Adding a component.** Pick the region it spans: text (anything with words
+in it) or wide (anything else). In the text region, cap it with
+`max-width: var(--nb-text-w)`. Set its type with one size token and its line
+height with the matching `--nb-lh-*`. Space it with `--nb-space-*`. Give a
+box around text a `--hang`: it moves left into the gutter by that much and
+ends at the text region's edge (`max-width: calc(var(--nb-text-w) +
+var(--hang))`), so its text stays on the line and its border doesn't reach
+past the text. Phones have no room, so boxes don't hang there. A grid of
+cards (Get involved) is such a box, with `--nb-col-gap` between the cards;
+card titles take `--nb-size-h3`, card text `--nb-size-small`, and buttons
+stay the standard 44px. Give the element a class in the page and style it in
+`notebook.scss`; inline `style=""` may only set custom properties (like `--d`
+in the icon flow).
 
 **Exceptions.** Some values are deliberately off the scale: a 1–3px hairline
 or optical nudge, a 44px touch target, a logo's own size. Write the value with
@@ -156,8 +164,10 @@ python3 _checks/check_layout.py          # measures the rendered site in Chromiu
   `--site` and warns.
 - `check_layout.py` serves `_site` and opens every page in headless Chromium
   at 1280, 1024, 768 (mouse and touch) and 390px. It checks the text line,
-  line heights on the unit, baselines (facts, prompts, News), the icon flow's
-  centre line, Get involved's buttons, sideways scrolling and script errors.
+  the text region's right edge (nothing that holds text reaches past it),
+  that nothing leaves the frame, line heights on the unit, baselines (facts,
+  prompts, News), the icon flow's centre line, Get involved's buttons,
+  sideways scrolling and script errors.
   Run it by hand after a layout change. Options: `--shots DIR` saves
   full-page screenshots; `--base https://productive-error.org` measures the
   live site (a "before"); `--text-size 20` checks a larger browser text size.

@@ -85,7 +85,7 @@ $footer-fg: #616161;
   --nb-max-width: 1040px;
   --nb-gutter: 24px;      /* frame padding at each side */
   --nb-col-gap: 24px;     /* between the 12 columns */
-  --nb-measure: 64ch;     /* running text: about 70 characters a line */
+  --nb-measure: 64ch;     /* running text; on the page it is also capped at the text region (#quarto-content) */
   --nb-active-bar: 6px;
   --nb-radius: 2px;
   --nb-cell-gap: var(--nb-space-4);
@@ -134,8 +134,11 @@ p, ul, ol, dl, blockquote, figure, table, pre { margin: 0 0 var(--nb-space-4); }
 :where(#quarto-document-content) ol:not([class]) { padding-left: 1.6em; } /* em: room for "10." */
 :where(#quarto-document-content) :is(ul, ol):not([class]) > li + li { margin-top: var(--nb-space-1); }
 
-/* Running text keeps to the measure; components may use the full column. */
-:where(#quarto-document-content) :is(p, li, dd, blockquote, .description) { max-width: var(--nb-measure); }
+/* Running text keeps to the measure; headings, rules and tables to the text
+   region (README, "Layout and type"). Hung boxes add their --hang. */
+:where(#quarto-document-content) :is(p, dd, blockquote, .description) { max-width: var(--nb-measure); }
+:where(#quarto-document-content) :where(h1, h2, h3, h4, hr, table, ul, ol), :where(#title-block-header) { max-width: var(--nb-text-w); } /* :where: no specificity, so a component's own width wins */
+:where(#quarto-document-content) li { max-width: min(64ch, 100%); } /* within its list's indent */
 
 hr { margin: var(--nb-space-6) 0; }
 
@@ -156,6 +159,7 @@ hr { margin: var(--nb-space-6) 0; }
 .callout {
   --hang: calc(5px + var(--nb-space-4));
   margin: var(--nb-space-5) 0 var(--nb-space-5) calc(-1 * var(--hang));
+  max-width: calc(var(--nb-text-w) + var(--hang));
 }
 .callout.callout-style-simple { padding: var(--nb-space-2) var(--nb-space-4); }
 .callout.callout-style-simple > div.callout-header { margin-bottom: 0; padding-top: 0; }
@@ -195,7 +199,7 @@ main.content { margin-bottom: 0; }
      columns 1-2   margin: the homepage's prompts; empty on reading pages
      columns 3-10  text: titles and running text (capped at --nb-measure)
      columns 3-12  wide: figures, tables, card grids, the timeline
-     columns 11-12 the table of contents, on pages that have one
+     columns 11-12 a table of contents, on a page that opts in (toc: true)
    Text sits on the column 3 line on every page. Boxes around text (code,
    boxed facts, left rules) hang into the gutter so their text stays on it.
    Touch tablets: the margin takes columns 1-3, for the run button.
@@ -208,6 +212,12 @@ main.content { margin-bottom: 0; }
   /* From the frame's inner edge to the text line: the margin columns and the
      gap after them. What hanging items (News dates, the timeline) may use. */
   --nb-margin-w: calc(var(--nb-margin-cols) * (var(--nb-col) + var(--nb-col-gap)));
+  /* The text region: from the text line to column 10's right edge (8
+     columns; 7 on touch tablets). Everything that holds text ends here:
+     paragraphs, headings, cards, boxed facts, tables, lists, rules. Running
+     text is also capped at 64ch, so small type keeps a short line. */
+  --nb-text-w: calc((10 - var(--nb-margin-cols)) * var(--nb-col) + (9 - var(--nb-margin-cols)) * var(--nb-col-gap));
+  --nb-measure: min(64ch, var(--nb-text-w));
   column-gap: var(--nb-col-gap);
   container-type: inline-size;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -239,18 +249,19 @@ main.content { margin-bottom: 0; }
 }
 
 @media (max-width: 639.98px) {
-  #quarto-content { --nb-margin-w: 0px; grid-template-columns: minmax(0, 1fr); }
+  #quarto-content { --nb-margin-w: 0px; --nb-text-w: 100%; grid-template-columns: minmax(0, 1fr); }
   #quarto-content > main.content { grid-column: 1; }
 }
 
 /* Marked block: a passage set off by a rule down its left side (About's "where
    we are" pointer, Get involved's job openings). Add .marked to any block;
    don't draw another left bar. The rule hangs into the gutter, so the text
-   stays on the text line (15px fits the 16px phone gutter too). */
+   stays on the text line; never further than the gutter (phones, large text). */
 .marked {
   --hang: calc(3px + var(--nb-space-3));
   border-left: 3px solid var(--nb-brand);
-  margin: var(--nb-space-4) 0 var(--nb-space-4) calc(-1 * var(--hang));
+  margin: var(--nb-space-4) 0 var(--nb-space-4) calc(-1 * min(var(--hang), var(--nb-gutter)));
+  max-width: calc(var(--nb-text-w) + var(--hang));
   padding-left: var(--nb-space-3);
 }
 #quarto-content .marked > :first-child { margin-top: 0; }
@@ -575,6 +586,7 @@ footer.footer .nav-footer {
 
 .notebook {
   column-gap: var(--nb-col-gap);
+  container-type: inline-size; /* so --nb-col and --nb-text-w use this frame */
   counter-reset: nb-cell;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -713,6 +725,7 @@ footer.footer .nav-footer {
   grid-template-columns: max-content minmax(0, 1fr);
   line-height: var(--nb-lh-text);
   margin: var(--nb-space-5) 0;
+  max-width: var(--nb-text-w);
 }
 .facts dt, dl.facts dt {
   color: var(--nb-in-prompt);
@@ -730,6 +743,7 @@ footer.footer .nav-footer {
   border: 1px solid var(--nb-border);
   border-radius: var(--nb-radius);
   margin-left: calc(-1 * var(--hang));
+  max-width: calc(var(--nb-text-w) + var(--hang));
   padding: var(--nb-space-4) var(--nb-space-5);
 }
 @media (max-width: 639.98px) {
@@ -754,10 +768,8 @@ footer.footer .nav-footer {
 /* Under the hero buttons, on its own line. */
 .cell-actions:has(+ #latest-news) { margin-bottom: var(--nb-space-4); }
 
-/* The newest news post (#latest-news), then who's behind the project: quiet
-   lines under the hero buttons. The credit line is smaller and runs the full
-   width of the cell, so it sits in two or three long lines, not a narrow
-   column. */
+/* The newest news post (#latest-news), then who's behind the project: two
+   quiet lines under the hero buttons, in one size. */
 .behind-note,
 .latest-note {
   color: var(--nb-text-muted);
@@ -766,8 +778,6 @@ footer.footer .nav-footer {
 }
 
 #latest-news { margin-bottom: var(--nb-space-2); }
-.behind-note { font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); }
-.prose-cell .behind-note > p { max-width: none; }
 .behind-note a,
 .behind-note a:visited { color: inherit; }
 .behind-note a:hover { color: var(--nb-text); }
@@ -776,10 +786,8 @@ footer.footer .nav-footer {
 .latest-note,
 .latest-note > p { margin: 0; }
 
-/* The Latest line runs the full width of the cell, so it fits on one line on
-   desktop. Where it wraps, the date keeps the title's last word with it
+/* Where the Latest line wraps, the date keeps the title's last word with it
    (non-breaking spaces in latest.ejs), so it is never alone on a line. */
-.prose-cell .latest-note { max-width: none; }
 .latest-date { white-space: nowrap; }
 
 .latest-note strong { color: var(--nb-text); font-weight: 500; }
@@ -1427,6 +1435,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   gap: 0 var(--nb-space-5);
   grid-template-columns: 112px minmax(0, 1fr);
   margin-block: var(--nb-space-5) var(--nb-space-7);
+  max-width: var(--nb-text-w);
 }
 
 /* Both portraits toned down to the same soft, muted colour, so they read as
@@ -1486,6 +1495,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   list-style: none;
   margin: var(--nb-space-4) 0 var(--nb-space-7);
+  max-width: var(--nb-text-w);
   padding: 0;
 }
 
@@ -1607,7 +1617,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .git-log { list-style: none; margin: 0; padding: 0; position: relative; }
 
 .commit {
-  max-width: calc(var(--nb-measure) + var(--gutter));
+  max-width: calc(var(--nb-text-w) + var(--gutter));
   padding: 0 0 var(--nb-space-5) var(--gutter);
   position: relative;
 }
@@ -1714,6 +1724,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   font-size: var(--nb-size-small);
   line-height: var(--nb-lh-small);
   margin: var(--nb-space-1) 0 var(--nb-space-5);
+  max-width: calc(var(--nb-text-w) + var(--gutter)); /* its rule ends with the text */
   padding: var(--nb-space-4) 0 0 var(--gutter);
   position: relative;
   scroll-margin-top: calc(var(--nb-header-h) + 30vh);
@@ -1854,15 +1865,15 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 /* About: the three questions. One icon (the How we work flow's circles), the
    question's code-style name and one short question each. Three across;
-   below 600px, a list with each icon on the left. */
-/* Three across over 9 grid columns (3 each), so each question's centre sits
-   on the grid. */
+   below 1024px, where the names need more room, a list with each icon on the
+   left. */
+/* In the text region, like the text around them. */
 .questions {
   display: grid;
   gap: var(--nb-col-gap);
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: var(--nb-space-5) 0 var(--nb-space-4);
-  max-width: calc(9 * var(--nb-col) + 8 * var(--nb-col-gap));
+  max-width: var(--nb-text-w);
 }
 
 .question {
@@ -1886,8 +1897,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 .question p { line-height: var(--nb-lh-text); margin: 0; }
 
-@media (max-width: 599.98px) {
-  .questions { gap: var(--nb-space-5); grid-template-columns: minmax(0, 1fr); max-width: none; }
+@media (max-width: 1023.98px) {
+  .questions { gap: var(--nb-space-5); grid-template-columns: minmax(0, 1fr); }
   .question { column-gap: var(--nb-space-4); grid-template-columns: 56px minmax(0, 1fr); justify-items: start; row-gap: 0; text-align: left; }
   .question .hf-icon { grid-row: 1 / span 2; margin: 0; }
 }
@@ -1901,11 +1912,11 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 /* Get involved: four ways in, as a 2×2 grid that fits the first screen on
    phones too. Each card: title, one short line, a standard button.
-   The cards hold running text, so the grid takes the text columns (3-10 on
-   desktop: two cards of 4 columns), not the wide region. Like any box around
-   text it hangs by its border and padding, so each card's text starts on a
-   column line (3 and 7). Each card's title, line and button share rows with
-   the card beside it (subgrid), so they line up when one title wraps. */
+   The cards hold running text, so the grid takes the text region, not the
+   wide one. Like any box around text it hangs by its border and padding: the
+   first card's text starts on the text line, and the grid's right edge is the
+   text region's. Each card's title, line and button share rows with the
+   card beside it (subgrid), so they line up when one title wraps. */
 .involve-grid {
   --hang: calc(1px + var(--nb-space-4));
   display: grid;
@@ -1913,11 +1924,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   grid-auto-rows: auto;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: var(--nb-space-5) 0 var(--nb-space-4) calc(-1 * var(--hang));
-  width: 100%;
-}
-
-@media (min-width: 1024px) {
-  .involve-grid { width: calc(8 * var(--nb-col) + 7 * var(--nb-col-gap)); }
+  max-width: calc(var(--nb-text-w) + var(--hang));
 }
 
 .involve-grid .project-card {
@@ -1928,8 +1935,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   row-gap: 0;
 }
 .involve-grid .project-card p { margin: 0 0 var(--nb-space-3); }
-.involve-grid .project-card > p:last-child { align-self: end; margin: 0; }
-.involve-grid .button { margin: 0; white-space: nowrap; }
+.involve-grid .project-card > p:last-child { align-self: start; margin: 0; } /* buttons level at the top, even when one wraps */
+.involve-grid .button { margin: 0; text-wrap: balance; } /* wraps only at large text sizes */
 
 @media (max-width: 639.98px) {
   .involve-grid { margin-left: 0; }
@@ -1956,6 +1963,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   flex-direction: row;
   gap: 0;
   margin-bottom: var(--nb-space-5);
+  max-width: var(--nb-text-w);
   padding-bottom: var(--nb-space-4);
 }
 .quarto-listing-default .quarto-post .metadata {

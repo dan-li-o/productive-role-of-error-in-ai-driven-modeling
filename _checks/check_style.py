@@ -39,8 +39,8 @@ SCSS = ROOT / "notebook.scss"
 JS = ROOT / "notebook.js"
 
 # Widths the layout changes at (README, "Layout and type"). 992 is Quarto's
-# own menu collapse; 600 the About questions; 900 touch tablets.
-BREAKPOINTS = {600, 640, 900, 992, 1024}
+# own menu collapse; 900 touch tablets.
+BREAKPOINTS = {640, 900, 992, 1024}
 
 SPACING = re.compile(r"^(margin|padding)(-[a-z-]+)?$|^(gap|row-gap|column-gap)$")
 LENGTH = re.compile(r"(?<![\w-])-?\d*\.?\d+(px|rem|em|pt)\b")

@@ -68,7 +68,9 @@ format:
       - default
       - notebook.scss
     include-after-body: notebook-loader.html
-    toc: true
+    # No table of contents: every page is short enough to scroll, and text
+    # keeps one width. A long page can opt in with toc: true.
+    toc: false
     # One date format on every page (README, "Layout and type").
     date-format: "D MMMM YYYY"
     # Quarto extras the site doesn't use; each one adds a script.

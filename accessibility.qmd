@@ -4,7 +4,6 @@ description: "How this site aims to meet WCAG 2.1 AA, and how to report a barrie
 # Subtitle on the social preview card (_social-cards/README.md).
 social-card:
   sub: "How the site works for everyone, and how to report a barrier"
-toc: false
 ---
 
 We want this site to work for everyone. It aims to meet the Web Content

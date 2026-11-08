@@ -13,6 +13,8 @@ headless Chromium at several widths and reports:
              and output, News dates on their titles (within 0.5px)
   flow       the "How we work" icons and arrows on one centre line (1px)
   cards      Get involved buttons level within a row (0.5px)
+  region     everything that holds text ends at the text region (column 10)
+  bleed      nothing in the content leaves the frame
   scroll     no sideways scrolling
   js         no uncaught script errors
 
@@ -180,6 +182,30 @@ MEASURE_JS = r"""
     (rows[Math.round(card.top)] ||= []).push(b.getBoundingClientRect().top);
   }
   for (const tops of Object.values(rows)) if (Math.max(...tops) - Math.min(...tops) > 0.5) out.problems.push(['cards', `buttons ${(Math.max(...tops) - Math.min(...tops)).toFixed(2)}px apart`]);
+
+  // region: everything that holds text ends at the text region's right edge
+  // (column 10 on wider screens, the content's edge on phones); only wide
+  // items (code, figures, the flow, the timeline lanes, the hero headline)
+  // go further. bleed: nothing in the content leaves the frame.
+  const main = document.querySelector('main.content');
+  if (main && out.edge != null) {
+    const textW = vw < 640 ? null : (10 - marginCols) * col + (9 - marginCols) * gap;
+    const textRight = textW == null ? main.getBoundingClientRect().right : out.expectedEdge + textW;
+    const frameLeft = (vw - frame) / 2, frameRight = frameLeft + frame;
+    const floating = el => { for (let e = el; e && e !== main; e = e.parentElement) { const p = getComputedStyle(e).position; if (p === 'absolute' || p === 'fixed') return true; } return false; };
+    const textual = 'p, li, dd, dt, h1, h2, h3, h4, hr, table, blockquote, .involve-grid, .facts dl, dl.facts, .person, .advisor-grid, .partner-list, .quarto-post, .callout, .questions, .marked';
+    const wide = '.prose-cell h1, .code-input, .how-flow, .hf-tip, .branch-tip, .git-lanes, nav';
+    for (const el of main.querySelectorAll(textual)) {
+      if (el.closest(wide) || !visible(el) || floating(el)) continue;
+      const r = el.getBoundingClientRect();
+      if (r.right > textRight + 0.5) out.problems.push(['region', `${name(el)} ends at ${r.right.toFixed(1)}px, past the text region (${textRight.toFixed(1)}px)`]);
+    }
+    for (const el of main.querySelectorAll('*')) {
+      if (el.closest('svg, .hf-tip, .branch-tip') || !visible(el) || floating(el)) continue;
+      const r = el.getBoundingClientRect();
+      if (r.left < frameLeft - 0.5 || r.right > frameRight + 0.5) out.problems.push(['bleed', `${name(el)} spans ${r.left.toFixed(1)}-${r.right.toFixed(1)}px, outside the frame (${frameLeft.toFixed(1)}-${frameRight.toFixed(1)}px)`]);
+    }
+  }
 
   if (out.scroll > 0) out.problems.push(['scroll', `page is ${out.scroll}px wider than the window`]);
   return JSON.stringify(out);
