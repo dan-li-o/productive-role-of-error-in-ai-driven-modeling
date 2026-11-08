@@ -63,7 +63,7 @@ phones), split into 12 columns with 24px between them (`--nb-col-gap`).
 |---|---|---|
 | 1–2 | margin | the homepage's `In [n]:` prompts, News dates, About's timeline lanes; empty on reading pages |
 | 3–10 | text | titles and running text, capped at `--nb-measure` (64ch, about 70 characters) |
-| 3–12 | wide | figures, tables, card grids, the timeline |
+| 3–12 | wide | figures, tables, the timeline |
 | 11–12 | contents | the table of contents, on pages that have one (1024px and wider) |
 
 - **One text line.** Text starts on the column-3 line on every page at every
@@ -125,7 +125,11 @@ another left bar.
 **Adding a component.** Pick the region it spans (text or wide). Set its type
 with one size token and its line height with the matching `--nb-lh-*`. Space
 it with `--nb-space-*`. Give a box around text a `--hang`, so its text stays
-on the line. A grid of cards uses `--nb-col-gap` between items. Give the
+on the line. A grid of cards holding text (Get involved) takes the text columns, two
+cards of 4 columns each on desktop, with `--nb-col-gap` between them. It hangs
+by the cards' border and padding, so each card's text starts on a column line.
+Card titles take `--nb-size-h3`, card text `--nb-size-small`, and buttons stay
+the standard 44px. Give the
 element a class in the page and style it in `notebook.scss`; inline `style=""`
 may only set custom properties (like `--d` in the icon flow).
 

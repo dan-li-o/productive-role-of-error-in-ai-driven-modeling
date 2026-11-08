@@ -1900,16 +1900,24 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .ack-sites > span { display: block; }
 
 /* Get involved: four ways in, as a 2×2 grid that fits the first screen on
-   phones too. Each card: title, one short line, a short button. */
-/* Two cards across = 6 grid columns each, with the column gap between them.
-   Each card's title, line and button share rows with the card beside it
-   (subgrid), so they line up even when one title wraps. */
+   phones too. Each card: title, one short line, a standard button.
+   The cards hold running text, so the grid takes the text columns (3-10 on
+   desktop: two cards of 4 columns), not the wide region. Like any box around
+   text it hangs by its border and padding, so each card's text starts on a
+   column line (3 and 7). Each card's title, line and button share rows with
+   the card beside it (subgrid), so they line up when one title wraps. */
 .involve-grid {
+  --hang: calc(1px + var(--nb-space-4));
   display: grid;
   gap: var(--nb-col-gap);
   grid-auto-rows: auto;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: var(--nb-space-2) 0 var(--nb-space-3);
+  margin: var(--nb-space-5) 0 var(--nb-space-4) calc(-1 * var(--hang));
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .involve-grid { width: calc(8 * var(--nb-col) + 7 * var(--nb-col-gap)); }
 }
 
 .involve-grid .project-card {
@@ -1919,15 +1927,15 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   padding: var(--nb-space-4);
   row-gap: 0;
 }
-#quarto-content .involve-grid section.project-card > h2:first-of-type { font-size: var(--nb-size-lead); margin: 0 0 var(--nb-space-2); }
-.involve-grid .project-card p { font-size: var(--nb-size-small); line-height: var(--nb-lh-small); margin: 0 0 var(--nb-space-3); }
+.involve-grid .project-card p { margin: 0 0 var(--nb-space-3); }
 .involve-grid .project-card > p:last-child { align-self: end; margin: 0; }
-.involve-grid .button { font-size: var(--nb-size-small); margin: 0; min-height: 40px; padding: var(--nb-space-2) var(--nb-space-3); white-space: nowrap; }
+.involve-grid .button { margin: 0; white-space: nowrap; }
 
 @media (max-width: 639.98px) {
+  .involve-grid { margin-left: 0; }
   .involve-grid .project-card { padding: var(--nb-space-3); }
-  #quarto-content .involve-grid section.project-card > h2:first-of-type { font-size: var(--nb-size-text); }
-  .involve-grid .project-card p { font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); margin-bottom: var(--nb-space-3); }
+  #quarto-content .involve-grid section.project-card > h2:first-of-type { font-size: var(--nb-size-text); line-height: var(--nb-lh-text); }
+  .involve-grid .project-card p { font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); }
   .involve-grid .button { padding: var(--nb-space-2); width: 100%; }
 }
 
