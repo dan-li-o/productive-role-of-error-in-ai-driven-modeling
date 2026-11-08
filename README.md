@@ -68,11 +68,10 @@ phones), split into 12 columns with 24px between them (`--nb-col-gap`).
 
 - **One text line.** Text starts on the column-3 line on every page at every
   width, so titles don't jump sideways between pages.
-- **Hang the box, not the text.** Code boxes, boxed facts, callouts and the
-  left rules (the "where we are" pointer, job openings) move left into the
-  gutter by their border plus padding (`--hang`). Their text stays on the
-  text line. About's timeline hangs its rail and lanes into the margin
-  columns the same way.
+- **Hang the box, not the text.** Code boxes, boxed facts, callouts and
+  marked blocks move left into the gutter by their border plus padding
+  (`--hang`). Their text stays on the text line. About's timeline hangs its
+  rail and lanes into the margin columns the same way.
 - **Touch tablets** (640–899px, no hover) take columns 1–3 for the margin, to
   fit the run button beside `In [n]:`. **Phones** (under 640px) have one
   column. The margin collapses there, and prompts and dates sit above their
@@ -115,6 +114,14 @@ below, so each sits with its text. A label beside text shares its baseline
 - Lists indent 1.25em (numbered lists 1.6em). Headings use
   `text-wrap: balance`, paragraphs `text-wrap: pretty`.
 
+**Marked block** (`.marked`): the site's one way to set a passage off with a
+bar down its left side: a 3px brand-blue rule, 12px from the text, hung into
+the gutter. Used for About's "where we are" pointer and each job opening on
+Get involved. Add the class to any block, in Markdown
+(`::: {.opening .marked}`) or HTML (`<p class="head-pointer marked">`). Keep
+any extra class for that component's own type or behaviour, but never draw
+another left bar.
+
 **Adding a component.** Pick the region it spans (text or wide). Set its type
 with one size token and its line height with the matching `--nb-lh-*`. Space
 it with `--nb-space-*`. Give a box around text a `--hang`, so its text stays
@@ -139,7 +146,8 @@ python3 _checks/check_layout.py          # measures the rendered site in Chromiu
 
 - `check_style.py` reads `notebook.scss` and the `.qmd` pages. It needs only
   Python, and checks sizes, line heights, spacing, fonts, undefined tokens,
-  breakpoints, inline styles and (with `--site`) straight quotes. The
+  breakpoints, inline styles, hand-drawn left bars (use `.marked`) and (with
+  `--site`) straight quotes. The
   pre-push hook runs it and stops a push that breaks a rule. CI runs it with
   `--site` and warns.
 - `check_layout.py` serves `_site` and opens every page in headless Chromium

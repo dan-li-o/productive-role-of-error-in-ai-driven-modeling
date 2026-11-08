@@ -30,7 +30,7 @@ How this page works
 - Every summary simplifies a published argument; Ryan checks each one (README).
 -->
 
-<p class="head-pointer"><a href="#now">Jump to where we are now <span aria-hidden="true">↓</span></a></p>
+<p class="head-pointer marked"><a href="#now">Jump to where we are now <span aria-hidden="true">↓</span></a></p>
 
 <div class="branch-legend visually-hidden">
 <p>Before the project</p>

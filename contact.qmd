@@ -16,9 +16,10 @@ How this page works
   data- attributes (see README). Without JavaScript, the address shows instead.
 - The error-story wording under the grid was chosen with the IRB in mind; keep
   it word for word.
-- Current openings: each opening is a .opening div. Give it data-until and
-  notebook.js removes it from that moment on; with none left, the section
-  says "No openings right now" by itself (.openings-empty, CSS only).
+- Current openings: each opening is a {.opening .marked} div (.marked draws
+  the site's one left bar). Give it data-until and notebook.js removes it
+  from that moment on; with none left, the section says "No openings right
+  now" by itself (.openings-empty, CSS only).
 -->
 
 :::: {.involve-grid}
@@ -72,7 +73,7 @@ the IRB at the same time. -->
 ## Current openings
 
 <!-- Hidden by notebook.js once applications close; delete it after that. -->
-::: {.opening data-until="2026-12-02T00:00:00-05:00"}
+::: {.opening .marked data-until="2026-12-02T00:00:00-05:00"}
 ### Research assistant, Spring 2027
 
 Queens College undergraduates: we're hiring a paid research assistant for

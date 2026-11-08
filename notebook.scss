@@ -243,10 +243,18 @@ main.content { margin-bottom: 0; }
   #quarto-content > main.content { grid-column: 1; }
 }
 
-/* Hang a box into the gutter so the text inside it stays on the text line.
-   --hang is the box's left border plus padding. Phones have no room. */
-.nb-hang { margin-left: calc(-1 * var(--hang)); }
-@media (max-width: 639.98px) { .nb-hang { margin-left: 0; } }
+/* Marked block: a passage set off by a rule down its left side (About's "where
+   we are" pointer, Get involved's job openings). Add .marked to any block;
+   don't draw another left bar. The rule hangs into the gutter, so the text
+   stays on the text line (15px fits the 16px phone gutter too). */
+.marked {
+  --hang: calc(3px + var(--nb-space-3));
+  border-left: 3px solid var(--nb-brand);
+  margin: var(--nb-space-4) 0 var(--nb-space-4) calc(-1 * var(--hang));
+  padding-left: var(--nb-space-3);
+}
+#quarto-content .marked > :first-child { margin-top: 0; }
+.marked > :last-child { margin-bottom: 0; }
 
 /* ---------- Header: title row + menu bar ---------- */
 
@@ -928,7 +936,7 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 }
 
 .cell-output blockquote {
-  border-left: 3px solid var(--nb-border);
+  border-left: 3px solid var(--nb-border); /* a quotation, not a .marked block */
   color: var(--nb-text);
   font-size: var(--nb-size-h3);
   line-height: var(--nb-lh-h3);
@@ -1546,15 +1554,10 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 [data-branch="workshop"] { --branch: var(--c-workshop); --lane: 1; }
 
 /* The one-line "where are we" pointer above the timeline. */
-/* Marked blocks (this pointer, job openings): a 3px rule in the gutter, the
-   text on the text line. */
+/* A .marked block (see "Marked block"), in small type. */
 .head-pointer {
-  --hang: calc(3px + var(--nb-space-3));
-  border-left: 3px solid var(--nb-text);
   font-size: var(--nb-size-small);
   line-height: var(--nb-lh-small);
-  margin: var(--nb-space-4) 0 0 calc(-1 * var(--hang));
-  padding: 0 0 0 var(--nb-space-3);
 }
 
 .head-pointer .head-latest { color: var(--nb-text-muted); display: block; }
@@ -1566,7 +1569,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   backdrop-filter: blur(6px);
   background: color-mix(in srgb, var(--nb-page) 80%, transparent);
   border: 1px solid var(--nb-border);
-  border-left: 3px solid var(--branch);
+  border-left: 3px solid var(--branch); /* the branch's colour key */
   border-radius: var(--nb-radius);
   box-shadow: var(--nb-shadow-1);
   color: var(--nb-text);
@@ -1614,7 +1617,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .commit-meta time { color: var(--nb-text); font-weight: 600; margin-right: var(--nb-space-2); }
 
 .branch-tag {
-  border-left: 3px solid var(--branch);
+  border-left: 3px solid var(--branch); /* the branch's colour key */
   font-family: var(--nb-font-code);
   font-size: var(--nb-size-meta);
   padding-left: var(--nb-space-2);
@@ -1934,15 +1937,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .openings { margin-top: var(--nb-space-6); }
 .openings-empty { display: none; }
 
-/* Each opening is marked by a line down its left side. */
-.opening {
-  --hang: calc(3px + var(--nb-space-3));
-  border-left: 3px solid var(--nb-brand);
-  margin: var(--nb-space-4) 0 var(--nb-space-4) calc(-1 * var(--hang));
-  padding-left: var(--nb-space-3);
-}
-#quarto-content .opening > :first-child { margin-top: 0; }
-.opening > :last-child { margin-bottom: 0; }
+/* Each opening is a .marked block (see "Marked block"). */
 .openings:not(:has(.opening)) .openings-empty { display: block; }
 
 /* News list: each date hangs in the margin columns, right-aligned on its

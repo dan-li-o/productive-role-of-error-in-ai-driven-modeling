@@ -15,6 +15,7 @@ properties):
   spacing   margin, padding and gap use tokens (--nb-space-*, --nb-col-gap,
             --nb-gutter, --hang ...): no literal px, rem or em lengths
   font      font-family is var(--nb-font-code), inherit or monospace
+  marked    a 3px left rule belongs to .marked only (the shared marked block)
   token     every var(--nb-*) used is defined
   break     media and container queries use the standard breakpoints
 A declaration that must break a rule (a hairline, an optical nudge, a touch
@@ -152,6 +153,9 @@ def check_scss() -> list[str]:
             if literal and not exempt:
                 report(line, "spacing", f"{prop}: {value} has a literal length ({literal.group(0)}); "
                        "use the spacing tokens, or say why in a comment on the line")
+        elif prop in ("border-left", "border-inline-start") and re.match(r"3px\s+solid", v):
+            if stack[-1] != ".marked" and not exempt:
+                report(line, "marked", f"{stack[-1]} draws its own left bar; add class .marked to the block instead")
         elif prop == "font-family":
             ok = v in {"var(--nb-font-code)", "inherit", "monospace"}
             if not ok and not exempt:
