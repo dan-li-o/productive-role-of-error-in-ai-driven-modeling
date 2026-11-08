@@ -76,7 +76,7 @@ the IRB at the same time. -->
 ### Research assistant, Spring 2027
 
 Queens College undergraduates: we're hiring a paid research assistant for
-January to May 2027. Apply by December 1, 2026.
+January to May 2027. Apply by 1 December 2026.
 
 [Read the job ad](research-assistant.qmd){.button .button-secondary}
 :::

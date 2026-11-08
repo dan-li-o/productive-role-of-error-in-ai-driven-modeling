@@ -1,11 +1,11 @@
 ---
 title: "Undergraduate Research Assistant (Paid), Spring 2027"
-description: "A paid research apprenticeship in philosophy of science for Queens College undergraduates, January to May 2027. Apply by December 1, 2026."
+description: "A paid research apprenticeship in philosophy of science for Queens College undergraduates, January to May 2027. Apply by 1 December 2026."
 date: 2026-11-02
 # Subtitle on the social preview card (_social-cards/README.md).
 social-card:
   title: "Undergraduate research assistant"
-  sub: "Paid · Spring 2027 · Apply by December 1, 2026"
+  sub: "Paid · Spring 2027 · Apply by 1 December 2026"
 ---
 
 <!-- Job ad, written by Ryan in the first person. After the deadline the page
@@ -27,7 +27,7 @@ check back here or email me.
 <dt>who</dt>
 <dd>Queens College undergraduates</dd>
 <dt>when</dt>
-<dd>January 15 – May 15, 2027 (about 10 hours per week)</dd>
+<dd>15 January – 15 May 2027 (about 10 hours per week)</dd>
 <dt>pay</dt>
 <dd>$3,500 stipend</dd>
 <dt>funding</dt>
@@ -35,7 +35,7 @@ check back here or email me.
 <dt>with</dt>
 <dd>[Ryan O'Loughlin](people.qmd#ryan-oloughlin), Assistant Professor of Philosophy, Queens College, CUNY</dd>
 <dt>apply by</dt>
-<dd>[Tuesday, December 1, 2026]{#ra-deadline}</dd>
+<dd>[Tuesday 1 December 2026]{#ra-deadline}</dd>
 <dt>link</dt>
 <dd><https://productive-error.org/research-assistant.html></dd>
 </dl>
@@ -65,7 +65,7 @@ errors shape whether the rest of us should trust their results?
 
 - **Paid:** a $3,500 stipend, funded by a Queens College Research Enhancement
   Grant
-- **Time:** January 15 through May 15, 2027, at about 10 hours per week
+- **Time:** 15 January through 15 May 2027, at about 10 hours per week
   (roughly 175 hours in total). The schedule is flexible. The position may be
   extended if additional funding becomes available (which is my hope).
 - **What you'll do:** read and summarize research in philosophy of science and
@@ -104,7 +104,7 @@ with "RA Application" in the subject line:
 
 Please do not use AI to write your statement or writing sample.
 
-Applications are due **Tuesday, December 1, 2026**. I'll invite shortlisted
+Applications are due **Tuesday 1 December 2026**. I'll invite shortlisted
 applicants to a short interview.
 
 <span class="email-obfuscate" data-user="ryan.oloughlin" data-domain="qc.cuny.edu" data-subject="RA Application" data-label="Email your application" data-class="button button-primary">ryan.oloughlin [at] qc.cuny.edu</span>
@@ -118,11 +118,11 @@ This ad online: <https://productive-error.org/research-assistant.html>
 
 ```{=html}
 <script>
-  // Applications close at the end of December 1, 2026, New York time.
+  // Applications close at the end of 1 December 2026, New York time.
   document.addEventListener("DOMContentLoaded", function () {
     if (new Date() < new Date("2026-12-02T00:00:00-05:00")) return;
     document.getElementById("ra-closed").hidden = false;
-    document.getElementById("ra-deadline").textContent = "December 1, 2026 (closed)";
+    document.getElementById("ra-deadline").textContent = "1 December 2026 (closed)";
   });
 </script>
 ```

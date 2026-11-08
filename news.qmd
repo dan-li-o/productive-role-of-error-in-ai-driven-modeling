@@ -10,6 +10,7 @@ listing:
   sort: "date desc"
   type: default
   fields: [date, title, description]
+  date-format: "D MMMM YYYY"
 # Listings load MathJax by default; the posts have no math.
 html-math-method: plain
 ---

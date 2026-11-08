@@ -20,7 +20,7 @@ website:
   # data-until: notebook.js removes the banner from that moment on. Changing
   # the content shows it again to people who closed the old one.
   announcement:
-    content: '**Now hiring:** a paid undergraduate research assistant at Queens College for Spring 2027. [Details and how to apply](/research-assistant.html). [Applications due December 1.]{data-until="2026-12-02T00:00:00-05:00"}'
+    content: '**Now hiring:** a paid undergraduate research assistant at Queens College for Spring 2027. [Details and how to apply](/research-assistant.html). [Applications due 1 December.]{data-until="2026-12-02T00:00:00-05:00"}'
     type: primary
     icon: megaphone
     dismissable: true
@@ -69,6 +69,8 @@ format:
       - notebook.scss
     include-after-body: notebook-loader.html
     toc: true
+    # One date format on every page (README, "Layout and type").
+    date-format: "D MMMM YYYY"
     # Quarto extras the site doesn't use; each one adds a script.
     code-copy: false
     anchor-sections: false

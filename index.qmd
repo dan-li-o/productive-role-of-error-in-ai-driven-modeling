@@ -278,7 +278,7 @@ errors get written down.
       <div class="hf-node has-tip" data-step style="--d: 0">
         <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M3 5h11v7H8l-3 3v-3H3z"/><path d="M14 9h7v7h-2v3l-3-3h-5v-3"/></svg></span>
         <span class="hf-word">interviews</span><span class="hf-note">3 sites</span>
-        <span class="hf-tip is-start"><span class="hf-tip-title">Research sites</span><span class="hf-li">NSF National Center for Atmospheric Research (NCAR)</span><span class="hf-li">NASA Goddard Institute for Space Studies (GISS)</span><span class="hf-li">Columbia University's LEAP Center (Learning the Earth with Artificial Intelligence and Physics)</span></span>
+        <span class="hf-tip is-start"><span class="hf-tip-title">Research sites</span><span class="hf-li">NSF National Center for Atmospheric Research (NCAR)</span><span class="hf-li">NASA Goddard Institute for Space Studies (GISS)</span><span class="hf-li">Columbia University’s LEAP Center (Learning the Earth with Artificial Intelligence and Physics)</span></span>
       </div>
       <div class="hf-node" data-step style="--d: 150">
         <span class="hf-icon"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 11h6M9 14h6M9 17h4"/></svg></span>

@@ -4,9 +4,11 @@
 // these mirror the --nb-* tokens below; keep the two in sync.
 $font-family-sans-serif: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 $font-family-monospace: Menlo, Consolas, "DejaVu Sans Mono", monospace;
-$font-size-root: 17px;
+// 106.25% = 17px at the browser default, and it follows the reader's own
+// text-size setting. 1rem is the body size; see "Type" in :root below.
+$font-size-root: 106.25%;
 $font-size-base: 1rem;
-$line-height-base: 1.6;
+$line-height-base: 1.6470588; // 28px at 17px: 7 rhythm units
 $headings-font-weight: 500;
 $headings-line-height: 1.2;
 $body-bg: #FFFFFF;
@@ -45,50 +47,123 @@ $footer-fg: #616161;
   --nb-menu-hover: #EEEEEE;
   --nb-button-hover: #E3F2FD;
 
-  /* Type */
-  --nb-font-code: Menlo, Consolas, "DejaVu Sans Mono", monospace;
-  --nb-size-text: 17px;
-  --nb-size-code: 16px;
-  --nb-size-prompt: 15px;
-  --nb-size-small: 15px;
-  --nb-line-text: 1.6;
-  --nb-line-code: 1.5;
+  /* Rhythm: one 4px unit (README, "Layout and type"). Every line height and
+     every vertical space is a whole number of units. In rem, so the rhythm
+     grows with the reader's text size (1rem = 17px at the default). */
+  --nb-u: calc(4rem / 17);
 
-  /* Layout */
+  /* Type: a major-third scale (x1.25) from the 17px body, used in half steps
+     (x1.118). Sizes in rem; px at the default text size in comments. */
+  --nb-font-code: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --nb-size-tiny: 0.7155rem;   /* 12.2px  -3 half steps */
+  --nb-size-meta: 0.8rem;      /* 13.6px  -2 */
+  --nb-size-small: 0.8944rem;  /* 15.2px  -1 */
+  --nb-size-text: 1rem;        /* 17px     0  body */
+  --nb-size-lead: 1.118rem;    /* 19px    +1 */
+  --nb-size-h3: 1.25rem;       /* 21.25px +2 */
+  /* Headings grow with the screen, between two steps of the scale. */
+  --nb-size-h2: clamp(1.3975rem, 1.299rem + 0.431vw, 1.5625rem);    /* 23.8 -> 26.6px  +3..+4 */
+  --nb-size-h1: clamp(1.747rem, 1.6235rem + 0.5385vw, 1.953rem);    /* 29.7 -> 33.2px  +5..+6 */
+  --nb-size-display: clamp(2.184rem, 1.66rem + 2.277vw, 3.052rem);  /* 37.1 -> 51.9px  +7..+10, the hero only */
+  /* Code, prompts and code-style labels share the small step. */
+  --nb-size-code: var(--nb-size-small);
+  --nb-size-prompt: var(--nb-size-small);
+
+  /* Line heights, in rhythm units. Headings: about 1.2em, rounded to a unit
+     (resolved on each heading, so it follows the fluid size). */
+  --nb-lh-tiny: calc(4 * var(--nb-u));   /* 16px */
+  --nb-lh-meta: calc(5 * var(--nb-u));   /* 20px */
+  --nb-lh-small: calc(6 * var(--nb-u));  /* 24px */
+  --nb-lh-code: calc(6 * var(--nb-u));   /* 24px */
+  --nb-lh-text: calc(7 * var(--nb-u));   /* 28px */
+  --nb-lh-lead: calc(7 * var(--nb-u));   /* 28px */
+  --nb-lh-h3: calc(7 * var(--nb-u));     /* 28px */
+  --nb-lh-tight: round(nearest, 1.2em, var(--nb-u));
+  --nb-lh-display: round(nearest, 1.08em, var(--nb-u));
+
+  /* Layout: a 12-column frame (README, "Layout and type"). */
   --nb-max-width: 1040px;
-  --nb-measure: 64ch; /* reading width: about 70 characters a line */
-  --nb-prompt-width: 96px;
+  --nb-gutter: 24px;      /* frame padding at each side */
+  --nb-col-gap: 24px;     /* between the 12 columns */
+  --nb-measure: 64ch;     /* running text: about 70 characters a line */
   --nb-active-bar: 6px;
   --nb-radius: 2px;
-  --nb-cell-gap: 16px;
-  --nb-gutter: 24px;
+  --nb-cell-gap: var(--nb-space-4);
   --nb-header-h: 91px; /* measured by notebook.js; this default keeps jumps clear of the header without JS */
   --nb-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
 
-  /* Spacing scale */
-  --nb-space-1: 4px;
-  --nb-space-2: 8px;
-  --nb-space-3: 12px;
-  --nb-space-4: 16px;
-  --nb-space-5: 24px;
-  --nb-space-6: 32px;
-  --nb-space-7: 48px;
-  --nb-space-8: 64px;
+  /* Spacing scale, in rhythm units: 4, 8, 12, 16, 24, 32, 48, 64px. */
+  --nb-space-1: var(--nb-u);
+  --nb-space-2: calc(2 * var(--nb-u));
+  --nb-space-3: calc(3 * var(--nb-u));
+  --nb-space-4: calc(4 * var(--nb-u));
+  --nb-space-5: calc(6 * var(--nb-u));
+  --nb-space-6: calc(8 * var(--nb-u));
+  --nb-space-7: calc(12 * var(--nb-u));
+  --nb-space-8: calc(16 * var(--nb-u));
 }
 
-@media (max-width: 1024px) { :root { --nb-prompt-width: 80px; } }
-/* Touch tablets: room for the run button beside "In [n]:". */
-@media (hover: none) and (min-width: 640px) { :root { --nb-prompt-width: 128px; } }
-@media (max-width: 639.98px) { :root { --nb-size-code: 15px; --nb-size-prompt: 14px; --nb-gutter: 16px; } }
+@media (max-width: 639.98px) { :root { --nb-gutter: 16px; --nb-col-gap: 16px; } }
+
+/* Browsers without CSS round() (before 2024) get plain ratios, a little off
+   the 4px steps, rather than an invalid line height. */
+@supports not (line-height: round(nearest, 1.2em, 4px)) {
+  :root { --nb-lh-tight: 1.2; --nb-lh-display: 1.08; }
+}
 
 /* ---------- Base ---------- */
 
 /* Set here rather than through Bootstrap variables: Quarto's rules make h1/h2
-   600 and underline h2, and Bootstrap's responsive sizing assumes a 16px root. */
-h1, h2, h3, h4, .h1, .h2, .h3, .h4, .title { font-weight: 500; letter-spacing: -0.01em; }
-h1, .h1, .title { font-size: 35px; }
-h2, .h2 { border-bottom: 0; font-size: 29px; padding-bottom: 0; }
-h3, .h3 { font-size: 24px; line-height: 1.25; }
+   600 and underline h2, and Bootstrap's responsive sizing assumes a 16px root.
+   Headings sit closer to the text they introduce than to what came before. */
+h1, h2, h3, h4, .h1, .h2, .h3, .h4, .title {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: var(--nb-lh-tight);
+  text-wrap: balance;
+}
+h1, .h1, .title { font-size: var(--nb-size-h1); }
+h2, .h2 { border-bottom: 0; font-size: var(--nb-size-h2); margin: var(--nb-space-7) 0 var(--nb-space-3); padding-bottom: 0; }
+h3, .h3 { font-size: var(--nb-size-h3); line-height: var(--nb-lh-h3); margin: var(--nb-space-6) 0 var(--nb-space-2); }
+h4, .h4 { font-size: var(--nb-size-text); line-height: var(--nb-lh-text); margin: var(--nb-space-5) 0 var(--nb-space-1); }
+
+/* Text blocks: one space between them, on the rhythm (Bootstrap's 1rem would
+   be 17px). Lists indent just enough for their markers. */
+p, ul, ol, dl, blockquote, figure, table, pre { margin: 0 0 var(--nb-space-4); }
+:where(#quarto-document-content) :is(ul, ol):not([class]) { padding-left: 1.25em; } /* em: the marker's width */
+:where(#quarto-document-content) ol:not([class]) { padding-left: 1.6em; } /* em: room for "10." */
+:where(#quarto-document-content) :is(ul, ol):not([class]) > li + li { margin-top: var(--nb-space-1); }
+
+/* Running text keeps to the measure; components may use the full column. */
+:where(#quarto-document-content) :is(p, li, dd, blockquote, .description) { max-width: var(--nb-measure); }
+
+hr { margin: var(--nb-space-6) 0; }
+
+/* Title block: the title, its subtitle, then 32px to the page's content. The
+   first heading after it starts flush, at every width (Quarto gives it 1rem
+   on narrow screens, and 17px is off the rhythm). */
+#title-block-header { margin-block-end: var(--nb-space-6); }
+#quarto-content main.content > section:first-of-type > h2:first-child { margin-top: 0; }
+@media (max-width: 991.98px) {
+  #quarto-content section:first-of-type h2:first-of-type { margin-top: var(--nb-space-7); }
+}
+#title-block-header.quarto-title-block.default .quarto-title-meta-heading { font-size: var(--nb-size-tiny); line-height: var(--nb-lh-tiny); margin-top: var(--nb-space-3); }
+.quarto-title-meta-contents p,
+.quarto-title-meta-contents .date { font-size: var(--nb-size-small); line-height: var(--nb-lh-small); }
+
+/* Callouts (About's "Proposal wording"): a box around text, so it hangs into
+   the gutter and its text stays on the text line, like code boxes. */
+.callout {
+  --hang: calc(5px + var(--nb-space-4));
+  margin: var(--nb-space-5) 0 var(--nb-space-5) calc(-1 * var(--hang));
+}
+.callout.callout-style-simple { padding: var(--nb-space-2) var(--nb-space-4); }
+.callout.callout-style-simple > div.callout-header { margin-bottom: 0; padding-top: 0; }
+#quarto-content .callout .callout-icon-container { padding-top: 0; }
+.callout .callout-title-container,
+.callout .callout-body { font-size: var(--nb-size-small); line-height: var(--nb-lh-small); }
+#quarto-content .callout .callout-btn-toggle { padding-block: 0 !important; } /* beats Bootstrap's .py-1 utility */
+@media (max-width: 639.98px) { .callout { margin-left: 0; } }
 
 /* Quiet underlines that firm up on hover. Visited links keep the one blue. */
 a {
@@ -113,21 +188,96 @@ main.content { margin-bottom: 0; }
   outline-offset: 2px;
 }
 
+/* ---------- Page frame: 12 columns ----------
+   Every page sits in one frame: 1040px at most, centred, with --nb-gutter at
+   each side, split into 12 columns with --nb-col-gap between them. The header
+   and footer use the same frame (below), so the logo starts on column 1.
+     columns 1-2   margin: the homepage's prompts; empty on reading pages
+     columns 3-10  text: titles and running text (capped at --nb-measure)
+     columns 3-12  wide: figures, tables, card grids, the timeline
+     columns 11-12 the table of contents, on pages that have one
+   Text sits on the column 3 line on every page. Boxes around text (code,
+   boxed facts, left rules) hang into the gutter so their text stays on it.
+   Touch tablets: the margin takes columns 1-3, for the run button.
+   Phones: one column; the margin collapses. */
+#quarto-content {
+  /* One grid column's width, for things sized in columns (News dates, the
+     About questions). Resolved inside the frame, so 100cqw is its width. */
+  --nb-col: calc((100cqw - 11 * var(--nb-col-gap)) / 12);
+  --nb-margin-cols: 2;
+  /* From the frame's inner edge to the text line: the margin columns and the
+     gap after them. What hanging items (News dates, the timeline) may use. */
+  --nb-margin-w: calc(var(--nb-margin-cols) * (var(--nb-col) + var(--nb-col-gap)));
+  column-gap: var(--nb-col-gap);
+  container-type: inline-size;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  margin-inline: auto;
+  max-width: var(--nb-max-width);
+  padding-inline: var(--nb-gutter);
+}
+
+#quarto-content > * { grid-column: 1 / -1; padding-top: 0; } /* Quarto pads each by 14px */
+/* Every page's content, and its table of contents, start 32px under the
+   header (Quarto: a 1rem margin plus 14px of padding). */
+#quarto-content > main.content,
+#quarto-content > #quarto-margin-sidebar { margin-top: var(--nb-space-6); }
+#quarto-content > main.content { grid-column: 3 / -1; grid-row: 1; }
+#quarto-content > #quarto-margin-sidebar { display: none; }
+
+@media (min-width: 1024px) {
+  #quarto-content:has(> #quarto-margin-sidebar) > main.content { grid-column: 3 / 11; }
+  #quarto-content > #quarto-margin-sidebar { display: block; grid-column: 11 / -1; grid-row: 1; }
+}
+
+/* The homepage notebook is the grid itself (see .notebook). */
+#quarto-content.page-layout-full { display: block; max-width: none; padding-inline: 0; }
+#quarto-content.page-layout-full > main.content { margin: 0; max-width: none; }
+
+@media (hover: none) and (min-width: 640px) and (max-width: 899.98px) {
+  #quarto-content { --nb-margin-cols: 3; }
+  #quarto-content > main.content { grid-column: 4 / -1; }
+}
+
+@media (max-width: 639.98px) {
+  #quarto-content { --nb-margin-w: 0px; grid-template-columns: minmax(0, 1fr); }
+  #quarto-content > main.content { grid-column: 1; }
+}
+
+/* Hang a box into the gutter so the text inside it stays on the text line.
+   --hang is the box's left border plus padding. Phones have no room. */
+.nb-hang { margin-left: calc(-1 * var(--hang)); }
+@media (max-width: 639.98px) { .nb-hang { margin-left: 0; } }
+
 /* ---------- Header: title row + menu bar ---------- */
 
 #quarto-header { box-shadow: var(--nb-shadow-1); }
 
 .navbar {
   border-bottom: 1px solid var(--nb-border);
-  padding-block: 4px;
+  padding-block: var(--nb-space-1);
+}
+
+/* The frame below sets the sides (Quarto pads the bar itself by 1em). */
+#quarto-header > nav.navbar { padding-inline: 0; }
+
+/* Header and footer content share the page frame, so the logo (or the phone
+   menu button), the menu and the text columns start on the frame's lines.
+   Borders stay full width. */
+.navbar > .navbar-container,
+footer.footer .nav-footer {
+  margin-inline: auto;
+  max-width: var(--nb-max-width);
+  padding-inline: var(--nb-gutter);
 }
 
 .navbar-brand-container { align-items: center; }
+.navbar-brand { padding-block: var(--nb-space-1); }
 
 .navbar-title {
   color: var(--nb-text);
-  font-size: 18px;
+  font-size: var(--nb-size-lead);
   font-weight: 500;
+  line-height: var(--nb-lh-lead);
 }
 
 .navbar-logo { height: 28px; width: 28px; }
@@ -135,8 +285,9 @@ main.content { margin-bottom: 0; }
 .navbar-nav .nav-link {
   border-radius: var(--nb-radius);
   color: var(--nb-text);
-  font-size: 15px;
-  padding: 10px 12px;
+  font-size: var(--nb-size-small);
+  line-height: var(--nb-lh-small);
+  padding: var(--nb-space-2) var(--nb-space-3);
 }
 
 .navbar-nav .nav-link:focus-visible,
@@ -167,9 +318,9 @@ main.content { margin-bottom: 0; }
 .nav-year {
   color: var(--nb-text-muted);
   font-family: var(--nb-font-code);
-  font-size: 11px;
+  font-size: var(--nb-size-tiny);
   position: relative;
-  top: -3px;
+  top: -3px; /* optical: a superscript-like tag */
 }
 
 /* Title row, placed by notebook.js: "Last checkpoint" beside the title, and
@@ -179,16 +330,17 @@ main.content { margin-bottom: 0; }
   align-items: center;
   color: var(--nb-text-muted);
   display: inline-flex;
-  font-size: 13px;
+  font-size: var(--nb-size-meta);
+  line-height: var(--nb-lh-meta);
   white-space: nowrap;
 }
 
-.nb-checkpoint { margin-left: 16px; }
+.nb-checkpoint { margin-left: var(--nb-space-4); }
 
 .nb-kernel {
   display: inline;
   margin-left: auto;
-  padding-left: 16px;
+  padding-left: var(--nb-space-4);
 }
 
 .nb-kernel-years { white-space: nowrap; }
@@ -203,8 +355,8 @@ main.content { margin-bottom: 0; }
   border-radius: 50%;
   display: inline-block;
   height: 12px;
-  margin-left: 8px;
-  vertical-align: -1px;
+  margin-left: var(--nb-space-2);
+  vertical-align: -1px; /* optical: centred on the text */
   width: 12px;
 }
 
@@ -219,24 +371,15 @@ main.content { margin-bottom: 0; }
 
   .navbar #navbarCollapse {
     border-top: 1px solid var(--nb-border);
-    margin-top: 4px;
+    margin-top: var(--nb-space-1);
   }
 
-  .navbar-nav .nav-link { padding: 4px 12px; }
-
-  /* Header and footer content share the notebook's frame, so the logo, menu
-     and prompt column start on one line. Borders stay full width. */
-  .navbar > .navbar-container,
-  footer.footer .nav-footer {
-    margin-inline: auto;
-    max-width: var(--nb-max-width);
-    padding-inline: var(--nb-gutter);
-  }
+  .navbar-nav .nav-link { padding: var(--nb-space-1) var(--nb-space-3); }
 
   .footer { border-top: 1px solid var(--nb-border); }
 
   /* Menu text lines up with the logo; the hover boxes overhang to the left. */
-  .navbar-nav { margin-left: -12px; }
+  .navbar-nav { margin-left: calc(-1 * var(--nb-space-3)); }
   .footer .nav-footer { border-top: 0; }
 }
 
@@ -252,8 +395,8 @@ main.content { margin-bottom: 0; }
   color: var(--nb-text);
   font-size: var(--nb-size-small);
   gap: var(--nb-space-3);
-  line-height: 1.5;
-  padding: 10px max(var(--nb-gutter), calc((100% - var(--nb-max-width)) / 2 + var(--nb-gutter)));
+  line-height: var(--nb-lh-small);
+  padding: var(--nb-space-3) max(var(--nb-gutter), calc((100% - var(--nb-max-width)) / 2 + var(--nb-gutter)));
 }
 
 #quarto-announcement a,
@@ -262,8 +405,8 @@ main.content { margin-bottom: 0; }
 #quarto-announcement .quarto-announcement-action {
   border-radius: var(--nb-radius);
   color: var(--nb-text-muted);
-  line-height: 1;
-  padding: 4px;
+  line-height: 1; /* an icon button: the box is the icon */
+  padding: var(--nb-space-1);
 }
 #quarto-announcement .quarto-announcement-action:hover { color: var(--nb-text); }
 
@@ -284,7 +427,7 @@ main.content { margin-bottom: 0; }
 
 @media (min-width: 992px) and (pointer: coarse) {
   /* Touch screens keep 44px menu targets. */
-  .navbar-nav .nav-link { padding-block: 10px; }
+  .navbar-nav .nav-link { padding-block: 10px; } /* touch target: 24px line + 20px = 44px */
 }
 
 @media (max-width: 991.98px) {
@@ -301,8 +444,8 @@ main.content { margin-bottom: 0; }
 
   .nb-kernel {
     flex-basis: 100%;
-    font-size: 12px;
-    margin: -4px 0 4px;
+    font-size: var(--nb-size-tiny);
+    margin: calc(-1 * var(--nb-space-1)) 0 var(--nb-space-1);
     padding-left: 0;
     white-space: normal;
   }
@@ -317,14 +460,16 @@ main.content { margin-bottom: 0; }
   border-top: 1px solid var(--nb-border);
   color: var(--nb-text-muted);
   column-gap: var(--nb-space-6);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: var(--nb-size-meta);
+  line-height: var(--nb-lh-meta);
   padding-block: var(--nb-space-6);
   row-gap: var(--nb-space-4);
   text-align: left;
 }
 
 .nav-footer p { margin: 0; }
+.nav-footer-left,
+.nav-footer-right { margin-bottom: 0; } /* the footer's row gap spaces them */
 .nav-footer-center { display: none; }
 .nav-footer-left,
 .nav-footer-right { text-align: left; }
@@ -361,11 +506,12 @@ main.content { margin-bottom: 0; }
   border: 1px solid var(--nb-brand);
   border-radius: var(--nb-radius);
   display: inline-flex;
-  font-size: 16px;
+  font-size: var(--nb-size-text);
   font-weight: 500;
   justify-content: center;
-  min-height: 44px;
-  padding: 8px 16px;
+  line-height: var(--nb-lh-small);
+  min-height: 44px; /* touch target */
+  padding: var(--nb-space-2) var(--nb-space-4);
   text-decoration: none;
 }
 
@@ -406,10 +552,11 @@ main.content { margin-bottom: 0; }
   color: var(--nb-text);
   cursor: pointer;
   display: inline-flex;
-  font-size: 15px;
-  gap: 6px;
-  min-height: 44px;
-  padding: 0 12px;
+  font-size: var(--nb-size-small);
+  gap: var(--nb-space-2);
+  line-height: var(--nb-lh-small);
+  min-height: 44px; /* touch target */
+  padding: 0 var(--nb-space-3);
 }
 
 .nb-tool svg { fill: var(--nb-text-muted); height: 16px; width: 16px; }
@@ -419,18 +566,39 @@ main.content { margin-bottom: 0; }
 /* ---------- Notebook ---------- */
 
 .notebook {
+  column-gap: var(--nb-col-gap);
   counter-reset: nb-cell;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   margin-inline: auto;
   max-width: var(--nb-max-width);
   padding: var(--nb-space-6) var(--nb-gutter) 0;
 }
 
+.notebook > * { grid-column: 1 / -1; }
+
+/* Each cell borrows the page's 12 columns: prompts in the margin (1-2),
+   code and output from the text line (3) to the frame's edge. */
 .notebook-cell {
   display: grid;
-  grid-template-columns: var(--nb-prompt-width) minmax(0, 1fr);
+  grid-template-columns: subgrid;
   margin-bottom: var(--nb-cell-gap);
-  padding: 8px 8px 8px 0;
+  padding: var(--nb-space-2) var(--nb-space-2) var(--nb-space-2) 0;
   scroll-margin-block: calc(var(--nb-header-h) + 72px) 24px;
+}
+
+.cell-prompt,
+.output-prompt { grid-column: 1 / 3; }
+.prose-cell > .cell-content,
+.code-input,
+.cell-output { grid-column: 3 / -1; }
+
+@media (hover: none) and (min-width: 640px) and (max-width: 899.98px) {
+  .cell-prompt,
+  .output-prompt { grid-column: 1 / 4; }
+  .prose-cell > .cell-content,
+  .code-input,
+  .cell-output { grid-column: 4 / -1; }
 }
 
 .notebook-cell:focus { outline: none; }
@@ -443,11 +611,7 @@ main.content { margin-bottom: 0; }
 }
 
 /* Prose cells (Jupyter markdown cells): no prompt, no box. */
-.prose-cell > .cell-content {
-  grid-column: 2;
-  min-width: 0;
-  padding-inline: 16px; /* text lines up with code and output text */
-}
+.prose-cell > .cell-content { min-width: 0; }
 
 .prose-cell p,
 .prose-cell li,
@@ -458,15 +622,15 @@ main.content { margin-bottom: 0; }
 
 /* Two lines on desktop, set a touch tight as large type should be. */
 .prose-cell h1 {
-  font-size: 52px;
+  font-size: var(--nb-size-display);
   letter-spacing: -0.02em;
-  line-height: 1.12;
+  line-height: var(--nb-lh-display);
   margin: 0 0 var(--nb-space-4);
   max-width: 30ch;
   text-wrap: balance;
 }
 
-.prose-cell h2 { margin: 0 0 12px; }
+.prose-cell h2 { margin: 0 0 var(--nb-space-3); }
 
 /* Homepage headline: notebook.js types "work", backspaces it and types "fail.".
    The real sentence stays in the h1, transparent while the typed copy (hidden
@@ -526,7 +690,8 @@ main.content { margin-bottom: 0; }
 .project-name {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
-  margin-bottom: 12px;
+  line-height: var(--nb-lh-small);
+  margin-bottom: var(--nb-space-3);
 }
 
 /* Facts list: scannable key-value facts (README, "Facts list"). Markup: a
@@ -534,39 +699,43 @@ main.content { margin-bottom: 0; }
    .lead: open, larger text (homepage hero). .boxed: in a light panel
    (Workshop, job ads). Plain .facts: open (About, acknowledgments). */
 .facts dl, dl.facts {
+  align-items: baseline; /* each key on the first line of its answer */
   display: grid;
-  gap: 8px 20px;
+  gap: var(--nb-space-2) var(--nb-space-5);
   grid-template-columns: max-content minmax(0, 1fr);
-  line-height: 1.5;
-  margin: 24px 0;
+  line-height: var(--nb-lh-text);
+  margin: var(--nb-space-5) 0;
 }
 .facts dt, dl.facts dt {
   color: var(--nb-in-prompt);
   font-family: var(--nb-font-code);
   font-size: var(--nb-size-code);
   font-weight: 400;
-  line-height: 1.7; /* sits on the first line of the answer */
+  white-space: nowrap; /* keys are 8 characters at most */
 }
 .facts dd, dl.facts dd { margin: 0; max-width: var(--nb-measure); }
-.facts.lead dl { font-size: 18px; }
+.facts.lead dl { font-size: var(--nb-size-lead); }
+/* Boxed: the panel hangs into the gutter, so keys sit on the text line. */
 .facts.boxed dl, dl.facts.boxed {
+  --hang: calc(1px + var(--nb-space-5));
   background: #FAFAFA;
   border: 1px solid var(--nb-border);
   border-radius: var(--nb-radius);
-  padding: 16px 20px;
+  margin-left: calc(-1 * var(--hang));
+  padding: var(--nb-space-4) var(--nb-space-5);
 }
-@media (max-width: 480px) {
-  .facts dl, dl.facts { gap: 6px 14px; }
-  .facts.lead dl { font-size: 17px; }
-  .facts.boxed dl, dl.facts.boxed { padding: 14px 16px; }
+@media (max-width: 639.98px) {
+  .facts dl, dl.facts { gap: var(--nb-space-2) var(--nb-space-4); }
+  .facts.lead dl { font-size: var(--nb-size-text); }
+  .facts.boxed dl, dl.facts.boxed { margin-left: 0; padding: var(--nb-space-4); }
 }
 
 .cell-actions {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-block: 24px;
+  gap: var(--nb-space-3);
+  margin-block: var(--nb-space-5);
 }
 
 .cell-actions > p { display: contents; } /* Pandoc wraps inline content in <p> */
@@ -585,11 +754,11 @@ main.content { margin-bottom: 0; }
 .latest-note {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
-  line-height: 1.5;
+  line-height: var(--nb-lh-small);
 }
 
 #latest-news { margin-bottom: var(--nb-space-2); }
-.behind-note { font-size: 13px; }
+.behind-note { font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); }
 .prose-cell .behind-note > p { max-width: none; }
 .behind-note a,
 .behind-note a:visited { color: inherit; }
@@ -619,7 +788,7 @@ main.content { margin-bottom: 0; }
 .email-note {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
-  line-height: 1.5;
+  line-height: var(--nb-lh-small);
   margin-top: var(--nb-space-2);
 }
 
@@ -634,20 +803,20 @@ main.content { margin-bottom: 0; }
 .output-prompt {
   font-family: var(--nb-font-code);
   font-size: var(--nb-size-prompt);
-  grid-column: 1;
-  padding: 12px 8px 0 0;
+  padding: var(--nb-space-3) var(--nb-space-2) 0 0;
   text-align: right;
 }
 
 /* Each prompt shares the line box of its neighbour, so their baselines match:
-   the code line (12px padding + 1px border, 24px line) or the output text. */
+   the code line (12px padding + 1px border, then a 24px line) or the output
+   text (a 28px line). */
 .cell-prompt {
   align-items: flex-start;
   color: var(--nb-in-prompt);
   display: flex;
   justify-content: flex-end;
-  line-height: 24px;
-  padding-top: 13px;
+  line-height: var(--nb-lh-code);
+  padding-top: calc(var(--nb-space-3) + 1px); /* + the code box's border */
   position: relative;
 }
 
@@ -655,7 +824,7 @@ main.content { margin-bottom: 0; }
 
 .output-prompt {
   color: var(--nb-out-prompt);
-  line-height: calc(var(--nb-size-text) * var(--nb-line-text));
+  line-height: var(--nb-lh-text);
 }
 
 .code-cell { counter-increment: nb-cell; }
@@ -709,18 +878,20 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 @media (hover: none) and (min-width: 640px) {
   /* Beside the label, overhanging its line so the prompt stays no taller than
      the code box and the output sits close under it. */
-  .cell-prompt { flex-direction: row-reverse; gap: 4px; justify-content: flex-start; }
-  .run-cell { margin-block: -10px; }
+  .cell-prompt { flex-direction: row-reverse; gap: var(--nb-space-1); justify-content: flex-start; }
+  .run-cell { margin-block: -10px; } /* the 44px button overhangs its 24px line by 10px each side */
 }
 
 /* Code input box */
 .code-input {
+  --hang: calc(1px + var(--nb-space-4));
   align-self: start;
   background: var(--nb-editor-bg);
   border: 1px solid var(--nb-border);
   border-radius: var(--nb-radius);
+  margin-left: calc(-1 * var(--hang)); /* code text on the text line */
   min-width: 0;
-  padding: 12px 16px;
+  padding: var(--nb-space-3) var(--nb-space-4);
 }
 
 .code-input p { margin: 0; }
@@ -730,7 +901,7 @@ html.has-notebook-js .run-cell { display: inline-flex; }
   background: none;
   color: var(--nb-text);
   font-size: var(--nb-size-code);
-  line-height: var(--nb-line-code);
+  line-height: var(--nb-lh-code);
   overflow-wrap: anywhere;
   padding: 0;
   white-space: pre-wrap;
@@ -752,35 +923,37 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 
 /* Outputs */
 .cell-output {
-  grid-column: 2;
   min-width: 0;
-  padding: 12px 16px 4px;
+  padding: var(--nb-space-3) 0 var(--nb-space-1);
 }
 
 .cell-output blockquote {
   border-left: 3px solid var(--nb-border);
   color: var(--nb-text);
-  font-size: 20px;
-  margin: 16px 0;
-  padding-left: 16px;
+  font-size: var(--nb-size-h3);
+  line-height: var(--nb-lh-h3);
+  margin: var(--nb-space-4) 0;
+  padding-left: var(--nb-space-4);
 }
 
 /* Homepage bar chart: forecast length before and after the fix, to scale
    (10 of 365 days). Labels carry the values, so the bars are decorative. */
-.forecast-chart { margin: 24px 0 8px; max-width: var(--nb-measure); }
+.forecast-chart { margin: var(--nb-space-5) 0 var(--nb-space-2); max-width: var(--nb-measure); }
 
 .forecast-chart figcaption {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
-  margin-bottom: 12px;
+  line-height: var(--nb-lh-small);
+  margin-bottom: var(--nb-space-3);
 }
 
-.bar-row + .bar-row { margin-top: 12px; }
+.bar-row + .bar-row { margin-top: var(--nb-space-3); }
 
 .bar-label {
   display: block;
   font-size: var(--nb-size-small);
-  margin-bottom: 4px;
+  line-height: var(--nb-lh-small);
+  margin-bottom: var(--nb-space-1);
 }
 
 .bar-label strong { font-weight: 600; }
@@ -802,12 +975,12 @@ html.has-notebook-js .run-cell { display: inline-flex; }
 
 /* Homepage illustration (cell 3): two globes drawn by notebook.js. Hidden
    without JS, where the canvases would stay blank. */
-.globe-figure { margin: 24px 0 8px; max-width: var(--nb-measure); }
+.globe-figure { margin: var(--nb-space-5) 0 var(--nb-space-2); max-width: var(--nb-measure); }
 html:not(.has-notebook-js) .globe-figure { display: none; }
 
 .globes {
   display: grid;
-  gap: 16px;
+  gap: var(--nb-space-4);
   grid-template-columns: repeat(2, minmax(0, 220px));
 }
 
@@ -825,15 +998,16 @@ html:not(.has-notebook-js) .globe-figure { display: none; }
 .globe-label {
   display: block;
   font-size: var(--nb-size-small);
-  margin-top: 4px;
+  line-height: var(--nb-lh-small);
+  margin-top: var(--nb-space-1);
   text-align: center;
 }
 
-.globe-controls { align-items: center; display: flex; gap: 12px; margin-top: 12px; }
+.globe-controls { align-items: center; display: flex; gap: var(--nb-space-3); margin-top: var(--nb-space-3); }
 .globe-controls > p { display: contents; } /* Pandoc wraps inline content in <p> */
-.globe-day { font-size: var(--nb-size-small); font-variant-numeric: tabular-nums; }
+.globe-day { font-size: var(--nb-size-small); font-variant-numeric: tabular-nums; line-height: var(--nb-lh-small); }
 .globe-day.is-unstable { color: var(--nb-error-text); font-weight: 600; }
-.globe-figure figcaption { color: var(--nb-text); font-size: var(--nb-size-small); line-height: 1.5; margin-top: 12px; }
+.globe-figure figcaption { color: var(--nb-text); font-size: var(--nb-size-small); line-height: var(--nb-lh-small); margin-top: var(--nb-space-3); }
 
 /* Pause / Play: a quiet chip, so it reads as a button on the pink output. */
 .globe-toggle {
@@ -853,8 +1027,8 @@ html:not(.has-notebook-js) .globe-figure { display: none; }
 .cell-output .cell-source {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
-  line-height: 1.5;
-  margin-top: 16px;
+  line-height: var(--nb-lh-small);
+  margin-top: var(--nb-space-4);
   max-width: var(--nb-measure);
 }
 
@@ -864,8 +1038,8 @@ html:not(.has-notebook-js) .globe-figure { display: none; }
 
 .error-line {
   background: var(--nb-error-bg);
-  margin: 0 -16px var(--nb-space-4);
-  padding: var(--nb-space-2) 16px;
+  margin: 0 0 var(--nb-space-4) calc(-1px - var(--nb-space-4)); /* left edge with the code box's */
+  padding: var(--nb-space-2) 0 var(--nb-space-2) calc(1px + var(--nb-space-4)); /* text on the code's line */
 }
 
 .error-line > p { margin: 0; }
@@ -895,26 +1069,40 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
    reduced motion it simply shows, complete. No script needed.
    Wide containers: one row. Narrow (under 640px): a column with down arrows. */
 .how-flow {
+  /* One centre line for every icon and arrow (row layout): the midpoint of
+     the two stacked icons. A step is its 56px icon, then 8px, the word (one
+     16px line), 4px and a one-line note (20px); interviews and documents
+     both have one-line notes. */
+  --hf-icon: 56px;
+  --hf-step: calc(var(--hf-icon) + var(--nb-space-2) + var(--nb-lh-tiny) + var(--nb-space-1) + var(--nb-lh-meta));
+  --hf-stack-gap: var(--nb-space-5);
+  --hf-axis: calc(var(--hf-icon) / 2 + (var(--hf-step) + var(--hf-stack-gap)) / 2);
   container-type: inline-size;
-  margin: 20px 0 24px;
+  margin: var(--nb-space-5) 0;
 }
 
 .hf-row {
-  align-items: center;
+  align-items: start;
   display: grid;
   grid-template-columns: auto minmax(20px, 1fr) auto minmax(20px, 1fr) auto minmax(36px, 1fr) auto minmax(20px, 1fr) auto;
   max-width: 880px;
 }
 
-.hf-col { display: grid; gap: 20px; }
+.hf-row > .hf-node { margin-top: calc(var(--hf-axis) - var(--hf-icon) / 2); }
+.hf-row > .hf-link { margin-top: calc(var(--hf-axis) - 1px); } /* half the 2px line */
+.hf-row > .hf-loop { margin-top: calc(var(--hf-axis) - 6px); } /* two 2px arrows, 8px apart */
+
+.hf-col { display: grid; gap: var(--hf-stack-gap); }
 
 .hf-node {
   display: grid;
-  gap: 6px;
+  gap: var(--nb-space-1);
   justify-items: center;
   text-align: center;
   width: 108px;
 }
+
+.hf-node > .hf-word { margin-top: var(--nb-space-1); } /* 8px under the icon */
 
 .hf-icon {
   background: var(--nb-page);
@@ -947,14 +1135,14 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .hf-word {
   color: var(--nb-in-prompt);
   font-family: var(--nb-font-code);
-  font-size: 14px;
-  line-height: 1.2;
+  font-size: var(--nb-size-meta);
+  line-height: var(--nb-lh-tiny);
 }
 
 .hf-note {
   color: var(--nb-text-muted);
-  font-size: 13px;
-  line-height: 1.3;
+  font-size: var(--nb-size-meta);
+  line-height: var(--nb-lh-meta);
 }
 
 /* Arrows: a 2px line with a CSS triangle head. */
@@ -976,7 +1164,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 }
 
 /* Framework <-> workshop: two arrows, and a dot that travels the loop. */
-.hf-loop { display: grid; gap: 10px; position: relative; }
+.hf-loop { display: grid; gap: var(--nb-space-2); position: relative; }
 .hf-back { transform-origin: right; }
 .hf-back::after { border-left: 0; border-right: 7px solid #BDBDBD; left: -1px; right: auto; }
 
@@ -1013,18 +1201,19 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   0% { left: 0; opacity: 0; top: -4px; }
   10% { opacity: 1; }
   45% { left: calc(100% - 10px); top: -4px; }
-  55% { left: calc(100% - 10px); top: 8px; }
-  90% { left: 0; opacity: 1; top: 8px; }
-  100% { left: 0; opacity: 0; top: 8px; }
+  55% { left: calc(100% - 10px); top: 6px; }
+  90% { left: 0; opacity: 1; top: 6px; }
+  100% { left: 0; opacity: 0; top: 6px; }
 }
 
 /* Narrow: a column, arrows pointing down. */
 @container (max-width: 640px) {
-  .hf-row { gap: 4px; grid-template-columns: 1fr; justify-items: center; }
-  .hf-col { gap: 24px; grid-auto-flow: column; }
-  .hf-link { height: 26px; transform-origin: top; width: 2px; }
+  .hf-row { gap: var(--nb-space-1); grid-template-columns: 1fr; justify-items: center; }
+  .hf-row > * { margin-top: 0; }
+  .hf-col { gap: var(--nb-space-5); grid-auto-flow: column; }
+  .hf-link { height: 24px; transform-origin: top; width: 2px; }
   .hf-link::after { border: 5px solid transparent; border-bottom: 0; border-top: 7px solid #BDBDBD; bottom: -1px; left: -4px; right: auto; top: auto; }
-  .hf-loop { gap: 14px; grid-auto-flow: column; }
+  .hf-loop { gap: var(--nb-space-3); grid-auto-flow: column; }
   .hf-back { transform-origin: bottom; }
   .hf-back::after { border: 5px solid transparent; border-bottom: 7px solid #BDBDBD; border-top: 0; bottom: auto; left: -4px; top: -1px; }
   .hf-dot { display: none; }
@@ -1101,11 +1290,11 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   bottom: calc(100% + 12px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   color: var(--nb-text);
-  font-size: 14px;
+  font-size: var(--nb-size-meta);
   left: 50%;
-  line-height: 1.45;
+  line-height: var(--nb-lh-meta);
   max-width: 290px;
-  padding: 10px 12px;
+  padding: var(--nb-space-2) var(--nb-space-3);
   pointer-events: none;
   position: absolute;
   text-align: left;
@@ -1115,11 +1304,10 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 }
 
 .hf-tip > span { display: block; }
-.hf-tip .hf-li { padding-left: 14px; text-indent: -14px; }
-.hf-tip .hf-li::before { color: var(--nb-text-muted); content: "–"; display: inline-block; text-indent: 0; width: 14px; }
-.hf-tip .hf-li + .hf-li { margin-top: 2px; }
-.hf-tip .hf-tip-title { color: var(--nb-in-prompt); font-family: var(--nb-font-code); font-size: 13px; margin-bottom: 2px; }
-.hf-tip .hf-tip-go { color: var(--nb-link); margin-top: 4px; }
+.hf-tip .hf-li { padding-left: var(--nb-space-3); text-indent: calc(-1 * var(--nb-space-3)); }
+.hf-tip .hf-li::before { color: var(--nb-text-muted); content: "–"; display: inline-block; text-indent: 0; width: var(--nb-space-3); }
+.hf-tip .hf-tip-title { color: var(--nb-in-prompt); font-family: var(--nb-font-code); font-size: var(--nb-size-tiny); line-height: var(--nb-lh-tiny); margin-bottom: var(--nb-space-1); }
+.hf-tip .hf-tip-go { color: var(--nb-link); margin-top: var(--nb-space-1); }
 
 /* The pointer under the bubble, aimed at the circle. */
 .hf-tip::after {
@@ -1209,17 +1397,22 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   border-radius: var(--nb-radius);
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: var(--nb-space-5);
 }
 
 /* The links line up along the bottom of the cards. */
 .project-card > p:last-child { margin: auto 0 0; }
 
-/* Specific enough to beat Quarto's narrow-screen margin on a page's first h2. */
-#quarto-content section.project-card > h2:first-of-type { font-size: 21px; margin: 0 0 8px; }
-.project-card p { font-size: 16px; line-height: 1.5; }
+/* Card titles: specific enough to beat Quarto's narrow-screen h2 margin. */
+#quarto-content section.project-card > h2:first-of-type { font-size: var(--nb-size-h3); line-height: var(--nb-lh-tight); margin: 0 0 var(--nb-space-2); }
+.project-card p { font-size: var(--nb-size-small); line-height: var(--nb-lh-small); }
 
 /* ---------- Reading pages ---------- */
+
+/* Table of contents (columns 11-12, on wide screens): meta type, one 28px
+   rhythm row per entry, its first line level with the page title's. */
+#TOC #toc-title { font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); margin: 0 0 var(--nb-space-1); }
+#TOC .nav-link { font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); padding-block: var(--nb-space-1); }
 
 .person {
   display: grid;
@@ -1240,7 +1433,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 }
 
 /* Name, role and institution sit close together; the bio follows. */
-.person h3 { font-size: 22px; margin: 0 0 var(--nb-space-1); }
+/* margin-top: the name's cap height lines up with the photo's top edge. */
+.person h3 { font-size: var(--nb-size-h3); margin: -0.23em 0 var(--nb-space-1); } /* -0.23em: optical, cap height on the photo's top */
 /* The opening we're hiring for: a grey placeholder and a muted name. */
 .person.is-forthcoming h3 { color: var(--nb-text-muted); font-weight: 500; }
 .person-text > p { margin: 0 0 var(--nb-space-3); max-width: var(--nb-measure); }
@@ -1249,8 +1443,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .person-text > p:has(.role) {
   color: var(--nb-text-muted);
   font-size: var(--nb-size-small);
-  line-height: 1.45;
-  margin-bottom: 2px;
+  line-height: var(--nb-lh-small);
+  margin-bottom: 0;
   max-width: none;
 }
 .person-text > p:last-child { margin-bottom: 0; }
@@ -1259,9 +1453,9 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   align-items: center;
   color: var(--nb-text-muted);
   display: flex;
-  font-size: 14px;
-  gap: 6px;
-  line-height: 1.45;
+  font-size: var(--nb-size-meta);
+  gap: var(--nb-space-2);
+  line-height: var(--nb-lh-meta);
 }
 
 /* Institution logos: the mark alone, no tile or border. Sizes are set where
@@ -1276,26 +1470,27 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .org .logo { height: 20px; width: 20px; }
 
 /* Advisory board and partners: tight two-column rows that are quick to scan. */
+/* Two across: half the text columns each, with the column gap between. */
 .advisor-grid,
 .partner-list {
   display: grid;
-  gap: var(--nb-space-4) var(--nb-space-6);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: var(--nb-space-4) var(--nb-col-gap);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   list-style: none;
   margin: var(--nb-space-4) 0 var(--nb-space-7);
   padding: 0;
 }
 
 /* Name first, with a small soft-grey logo after it, then institution and topic. */
-.advisor { line-height: 1.35; }
+.advisor { line-height: var(--nb-lh-small); }
 .advisor > a { color: var(--nb-text); font-weight: 500; }
 .advisor > a:hover { color: var(--nb-link); }
 
 .advisor .logo,
 .advisor .logo-text {
-  margin-left: 6px;
+  margin-left: var(--nb-space-2);
   opacity: 0.55;
-  vertical-align: -3px;
+  vertical-align: -3px; /* optical: centred on the name */
 }
 
 .advisor .logo { filter: grayscale(1); height: 18px; width: 18px; }
@@ -1306,17 +1501,17 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .logo-text::before {
   color: var(--nb-text);
   content: attr(data-mark);
-  font-size: 10px;
+  font-size: 10px; /* a logo mark, sized to the 18px logos, not text */
   font-weight: 700;
   letter-spacing: 0.04em;
   vertical-align: 1px;
 }
 
 .advisor .affiliation,
-.advisor .topic { display: block; font-size: 14px; }
+.advisor .topic { display: block; font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); }
 .advisor .affiliation { color: var(--nb-text-muted); }
 
-.partner-list li { align-items: center; display: flex; gap: var(--nb-space-3); line-height: 1.35; }
+.partner-list li { align-items: center; display: flex; gap: var(--nb-space-3); line-height: var(--nb-lh-small); }
 
 /* ---------- About: branch-and-merge timeline ----------
    Without JS (and on narrow screens) the timeline is one rail with a colored
@@ -1351,11 +1546,15 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 [data-branch="workshop"] { --branch: var(--c-workshop); --lane: 1; }
 
 /* The one-line "where are we" pointer above the timeline. */
+/* Marked blocks (this pointer, job openings): a 3px rule in the gutter, the
+   text on the text line. */
 .head-pointer {
+  --hang: calc(3px + var(--nb-space-3));
   border-left: 3px solid var(--nb-text);
   font-size: var(--nb-size-small);
-  margin: 16px 0 0;
-  padding: 2px 0 2px 10px;
+  line-height: var(--nb-lh-small);
+  margin: var(--nb-space-4) 0 0 calc(-1 * var(--hang));
+  padding: 0 0 0 var(--nb-space-3);
 }
 
 .head-pointer .head-latest { color: var(--nb-text-muted); display: block; }
@@ -1371,12 +1570,12 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   border-radius: var(--nb-radius);
   box-shadow: var(--nb-shadow-1);
   color: var(--nb-text);
-  font-size: 14px;
+  font-size: var(--nb-size-meta);
   left: 0;
-  line-height: 1.4;
+  line-height: var(--nb-lh-meta);
   max-width: min(300px, calc(100vw - 16px));
   opacity: 0;
-  padding: 6px 10px;
+  padding: var(--nb-space-2) var(--nb-space-3);
   pointer-events: none;
   position: fixed;
   top: 0;
@@ -1385,14 +1584,17 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 }
 
 .branch-tip.is-shown { opacity: 1; }
-.branch-tip code { background: none; color: var(--nb-text); font-size: 13px; font-weight: 600; margin-right: 4px; padding: 0; }
+.branch-tip code { background: none; color: var(--nb-text); font-size: var(--nb-size-meta); font-weight: 600; margin-right: var(--nb-space-1); padding: 0; }
 
 .git-timeline {
   --dot: 12px;
-  --lane-gap: 18px;
+  /* Lanes narrow to fit the margin columns, down to 12px apart. */
+  --lane-gap: clamp(12px, (var(--nb-margin-w) - 40px) / 6, 18px);
   --x: 7px; /* center of the rail */
   --gutter: 32px;
-  margin: 24px 0 48px;
+  /* The rail (and the lanes) hang into the margin columns, so each entry's
+     text sits on the text line. Phones have no margin: the rail stays in. */
+  margin: var(--nb-space-5) 0 var(--nb-space-7) calc(-1 * min(var(--gutter), var(--nb-margin-w)));
   position: relative;
   scroll-margin-top: calc(var(--nb-header-h) + 24px);
 }
@@ -1402,36 +1604,37 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .git-log { list-style: none; margin: 0; padding: 0; position: relative; }
 
 .commit {
-  max-width: calc(70ch + var(--gutter));
-  padding: 0 0 20px var(--gutter);
+  max-width: calc(var(--nb-measure) + var(--gutter));
+  padding: 0 0 var(--nb-space-5) var(--gutter);
   position: relative;
 }
 
 .commit p { margin: 0; }
-.commit-meta { color: var(--nb-text-muted); font-size: var(--nb-size-small); line-height: 1.6; }
-.commit-meta time { color: var(--nb-text); font-weight: 600; margin-right: 8px; }
+.commit-meta { color: var(--nb-text-muted); font-size: var(--nb-size-small); line-height: var(--nb-lh-small); }
+.commit-meta time { color: var(--nb-text); font-weight: 600; margin-right: var(--nb-space-2); }
 
 .branch-tag {
   border-left: 3px solid var(--branch);
   font-family: var(--nb-font-code);
-  font-size: 13px;
-  padding-left: 6px;
+  font-size: var(--nb-size-meta);
+  padding-left: var(--nb-space-2);
 }
 
-.commit-text { line-height: 1.5; }
-.commit-text .cite { color: var(--nb-text-muted); font-size: var(--nb-size-small); margin-left: 2px; }
-.commit-invite { font-size: var(--nb-size-small); margin-top: 4px !important; }
+.commit-text { line-height: var(--nb-lh-text); }
+.commit-text .cite { color: var(--nb-text-muted); font-size: var(--nb-size-small); margin-left: 2px; } /* a thin space before the citation */
+.commit-invite { font-size: var(--nb-size-small); line-height: var(--nb-lh-small); margin-top: var(--nb-space-1) !important; }
 
 .commit-talks {
   color: var(--nb-text-muted);
-  column-gap: 12px;
+  column-gap: var(--nb-space-3);
   display: flex;
   flex-wrap: wrap;
   font-size: var(--nb-size-small);
-  margin-top: 4px !important;
+  line-height: var(--nb-lh-small);
+  margin-top: var(--nb-space-1) !important;
 }
 
-.talk { align-items: center; display: inline-flex; gap: 4px; white-space: nowrap; }
+.talk { align-items: center; display: inline-flex; gap: var(--nb-space-1); white-space: nowrap; }
 
 .talk-icon {
   fill: none;
@@ -1451,8 +1654,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   border-radius: var(--nb-radius);
   display: inline-block;
   font-weight: 500;
-  margin-left: 4px;
-  padding: 2px 10px;
+  margin-left: var(--nb-space-1);
+  padding: 0 var(--nb-space-3); /* the chip keeps the line's height */
   text-decoration: none;
 }
 
@@ -1489,8 +1692,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .is-lanes .commit-dot { --x: calc(7px + var(--lane) * var(--lane-gap)); }
 
 .commit.merge .commit-dot { --dot: 16px; }
-.commit.merge .commit-text { font-size: 18px; }
-.commit.merge { padding-bottom: 24px; }
+.commit.merge .commit-text { font-size: var(--nb-size-lead); line-height: var(--nb-lh-lead); }
+.commit.merge { padding-bottom: var(--nb-space-5); }
 
 .head ~ .commit .commit-dot {
   background: var(--nb-page);
@@ -1502,12 +1705,13 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 .head {
   align-items: baseline;
   border-top: 1px solid var(--nb-text);
-  column-gap: 12px;
+  column-gap: var(--nb-space-3);
   display: flex;
   flex-wrap: wrap;
   font-size: var(--nb-size-small);
-  margin: 4px 0 24px;
-  padding: 16px 0 0 var(--gutter);
+  line-height: var(--nb-lh-small);
+  margin: var(--nb-space-1) 0 var(--nb-space-5);
+  padding: var(--nb-space-4) 0 0 var(--gutter);
   position: relative;
   scroll-margin-top: calc(var(--nb-header-h) + 30vh);
 }
@@ -1533,11 +1737,12 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   border-radius: var(--nb-radius);
   color: var(--nb-page);
   font-family: var(--nb-font-code);
-  font-size: 12px;
+  font-size: var(--nb-size-tiny);
   font-weight: 600;
   left: 0;
   letter-spacing: 0.02em;
-  padding: 1px 6px;
+  line-height: var(--nb-lh-tiny);
+  padding: 2px var(--nb-space-2); /* 2px: the tag stays a 20px chip */
   position: absolute;
   top: -10px;
 }
@@ -1554,7 +1759,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
    takes no space. notebook.js handles the jump (#how-it-started). */
 .timeline-jump {
   align-items: flex-start; /* the link keeps its own height in the 0-high row */
-  bottom: 16px;
+  bottom: var(--nb-space-4);
   display: flex;
   height: 0;
   justify-content: flex-end;
@@ -1571,7 +1776,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   color: var(--nb-link);
   font-size: var(--nb-size-small);
-  padding: 6px 14px;
+  line-height: var(--nb-lh-small);
+  padding: var(--nb-space-2) var(--nb-space-4);
   pointer-events: auto;
   text-decoration: none;
   transform: translateY(-100%);
@@ -1604,7 +1810,8 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   color: var(--nb-link);
   cursor: pointer;
   font-size: var(--nb-size-small);
-  margin-top: 2px;
+  line-height: var(--nb-lh-small);
+  margin-top: 0;
   min-height: 32px;
   padding: 0;
   text-decoration: underline;
@@ -1640,27 +1847,29 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 }
 
 /* About: card rows */
-.project-card h3 { font-size: 19px; margin: 0 0 8px; }
-.project-card .button { margin-top: 8px; }
+.project-card .button { margin-top: var(--nb-space-2); }
 
 /* About: the three questions. One icon (the How we work flow's circles), the
    question's code-style name and one short question each. Three across;
    below 600px, a list with each icon on the left. */
+/* Three across over 9 grid columns (3 each), so each question's centre sits
+   on the grid. */
 .questions {
   display: grid;
-  gap: 24px;
+  gap: var(--nb-col-gap);
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 24px 0 16px;
+  margin: var(--nb-space-5) 0 var(--nb-space-4);
+  max-width: calc(9 * var(--nb-col) + 8 * var(--nb-col-gap));
 }
 
 .question {
   display: grid;
-  gap: 10px;
+  gap: var(--nb-space-2);
   justify-items: center;
   text-align: center;
 }
 
-.question .hf-icon { margin-bottom: 2px; }
+.question .hf-icon { margin-bottom: var(--nb-space-1); }
 
 /* The names stay real h3 headings for the page outline and screen readers. */
 #quarto-content .question h3 {
@@ -1668,47 +1877,58 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   font-family: var(--nb-font-code);
   font-size: var(--nb-size-code);
   font-weight: 400;
-  line-height: 1.3;
+  line-height: var(--nb-lh-code);
   margin: 0;
 }
 
-.question p { line-height: 1.5; margin: 0; }
+.question p { line-height: var(--nb-lh-text); margin: 0; }
 
 @media (max-width: 599.98px) {
-  .questions { gap: 20px; grid-template-columns: minmax(0, 1fr); }
-  .question { column-gap: 16px; grid-template-columns: 56px minmax(0, 1fr); justify-items: start; row-gap: 2px; text-align: left; }
+  .questions { gap: var(--nb-space-5); grid-template-columns: minmax(0, 1fr); max-width: none; }
+  .question { column-gap: var(--nb-space-4); grid-template-columns: 56px minmax(0, 1fr); justify-items: start; row-gap: 0; text-align: left; }
   .question .hf-icon { grid-row: 1 / span 2; margin: 0; }
 }
 
 /* Acknowledgments: the institution's logo beside its name. */
-.ack-org { align-items: center; display: flex; gap: 10px; }
-.ack-org .logo { height: 28px; width: 28px; }
+/* Baseline-aligned, so the row's key sits on the name's first line; the logo
+   is moved down to centre on that line (transforms don't move the baseline). */
+.ack-org { align-items: baseline; display: flex; gap: var(--nb-space-3); }
+.ack-org .logo { align-self: flex-start; height: 28px; transform: translateY(calc((var(--nb-lh-text) - 28px) / 2)); width: 28px; }
 .ack-sites > span { display: block; }
 
 /* Get involved: four ways in, as a 2×2 grid that fits the first screen on
    phones too. Each card: title, one short line, a short button. */
+/* Two cards across = 6 grid columns each, with the column gap between them.
+   Each card's title, line and button share rows with the card beside it
+   (subgrid), so they line up even when one title wraps. */
 .involve-grid {
   display: grid;
-  gap: 12px;
+  gap: var(--nb-col-gap);
+  grid-auto-rows: auto;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 8px 0 12px;
+  margin: var(--nb-space-2) 0 var(--nb-space-3);
 }
 
-.involve-grid .project-card { padding: 16px; }
-#quarto-content .involve-grid .project-card > h2 { font-size: 19px; line-height: 1.25; margin: 0 0 6px; }
-.involve-grid .project-card p { font-size: 15px; margin: 0 0 12px; }
-.involve-grid .project-card > p:last-child { margin: auto 0 0; }
-.involve-grid .button { margin: 0; min-height: 40px; padding: 6px 14px; white-space: nowrap; }
+.involve-grid .project-card {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  padding: var(--nb-space-4);
+  row-gap: 0;
+}
+#quarto-content .involve-grid section.project-card > h2:first-of-type { font-size: var(--nb-size-lead); margin: 0 0 var(--nb-space-2); }
+.involve-grid .project-card p { font-size: var(--nb-size-small); line-height: var(--nb-lh-small); margin: 0 0 var(--nb-space-3); }
+.involve-grid .project-card > p:last-child { align-self: end; margin: 0; }
+.involve-grid .button { font-size: var(--nb-size-small); margin: 0; min-height: 40px; padding: var(--nb-space-2) var(--nb-space-3); white-space: nowrap; }
 
 @media (max-width: 639.98px) {
-  .involve-grid { gap: 10px; }
-  .involve-grid .project-card { padding: 12px; }
-  #quarto-content .involve-grid .project-card > h2 { font-size: 17px; }
-  .involve-grid .project-card p { font-size: 14px; line-height: 1.4; margin-bottom: 10px; }
-  .involve-grid .button { font-size: 15px; padding: 6px 10px; width: 100%; }
+  .involve-grid .project-card { padding: var(--nb-space-3); }
+  #quarto-content .involve-grid section.project-card > h2:first-of-type { font-size: var(--nb-size-text); }
+  .involve-grid .project-card p { font-size: var(--nb-size-meta); line-height: var(--nb-lh-meta); margin-bottom: var(--nb-space-3); }
+  .involve-grid .button { padding: var(--nb-space-2); width: 100%; }
 }
 
-.involve-grid + .email-note > p + p { margin-top: 8px; }
+.involve-grid + .email-note > p + p { margin-top: var(--nb-space-2); }
 
 /* Current openings: says so when none are listed. */
 .openings { margin-top: var(--nb-space-6); }
@@ -1716,72 +1936,107 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 /* Each opening is marked by a line down its left side. */
 .opening {
+  --hang: calc(3px + var(--nb-space-3));
   border-left: 3px solid var(--nb-brand);
-  margin-block: var(--nb-space-4);
-  padding-left: var(--nb-space-4);
+  margin: var(--nb-space-4) 0 var(--nb-space-4) calc(-1 * var(--hang));
+  padding-left: var(--nb-space-3);
 }
 #quarto-content .opening > :first-child { margin-top: 0; }
 .opening > :last-child { margin-bottom: 0; }
 .openings:not(:has(.opening)) .openings-empty { display: block; }
 
+/* News list: each date hangs in the margin columns, right-aligned on its
+   title's baseline; titles sit on the text line. Phones: the date above. */
+.quarto-listing-default .quarto-post {
+  align-items: baseline;
+  border-bottom: 1px solid var(--nb-border);
+  flex-direction: row;
+  gap: 0;
+  margin-bottom: var(--nb-space-5);
+  padding-bottom: var(--nb-space-4);
+}
+.quarto-listing-default .quarto-post .metadata {
+  --margin: calc(var(--nb-margin-w) - var(--nb-col-gap));
+  color: var(--nb-text-muted);
+  flex: 0 0 var(--margin);
+  font-size: var(--nb-size-meta);
+  line-height: var(--nb-lh-meta);
+  margin: 0 var(--nb-col-gap) 0 calc(-1 * (var(--margin) + var(--nb-col-gap)));
+  order: -1;
+  padding: 0;
+  text-align: right;
+}
+.quarto-listing-default .quarto-post .body { flex: 1 1 auto; min-width: 0; }
+.quarto-listing { padding-bottom: 0; }
+#quarto-content .quarto-post .delink { margin-bottom: 0; }
+#quarto-content .quarto-post .body h3.listing-title { font-size: var(--nb-size-h3); line-height: var(--nb-lh-h3); margin: 0 0 var(--nb-space-1); }
+.quarto-post .body .listing-description,
+.quarto-post .body .description { font-size: var(--nb-size-text); line-height: var(--nb-lh-text); }
+.quarto-post .body .listing-description > p:last-child { margin-bottom: 0; }
+
+@media (max-width: 639.98px) {
+  .quarto-listing-default .quarto-post { align-items: stretch; flex-direction: column; gap: var(--nb-space-1); }
+  .quarto-listing-default .quarto-post .metadata { flex: none; margin: 0; text-align: left; }
+}
+
 /* Outputs: who each planned output is for. */
-.audience-table table { margin-block: 16px 24px; }
+.audience-table table { margin-block: var(--nb-space-4) var(--nb-space-5); }
 .audience-table th,
-.audience-table td { padding: 8px 16px 8px 0; vertical-align: top; }
+.audience-table td { line-height: var(--nb-lh-text); padding: var(--nb-space-2) var(--nb-space-4) var(--nb-space-2) 0; vertical-align: top; }
 .audience-table td:first-child { white-space: nowrap; }
 
 .reference-list ul { padding-left: 0; }
-.reference-list li { font-size: var(--nb-size-small); list-style: none; margin-bottom: 10px; padding-left: 24px; text-indent: -24px; }
+.reference-list li { font-size: var(--nb-size-small); line-height: var(--nb-lh-small); list-style: none; margin-bottom: var(--nb-space-3); padding-left: var(--nb-space-5); text-indent: calc(-1 * var(--nb-space-5)); }
 .reference-list li:target { background: var(--nb-button-hover); }
 
 /* ---------- Breakpoints ---------- */
 
 @media (max-width: 639.98px) {
-  h1, .h1, .title { font-size: 30px; }
-  h2, .h2 { font-size: 26px; }
-  h3, .h3 { font-size: 21px; }
+  .notebook { padding-top: var(--nb-space-5); }
 
-  .notebook { padding-top: 24px; }
+  /* One column: the prompt sits on its own line above the cell. The cell's
+     selection bar sits in the gutter, so text starts on the frame's edge. */
+  .notebook { grid-template-columns: minmax(0, 1fr); }
 
-  /* One column: the prompt sits on its own line above the cell. */
   .notebook-cell {
     grid-template-columns: minmax(0, 1fr);
-    padding: 8px 0 8px 12px;
+    margin-left: calc(-1 * var(--nb-space-3));
+    padding: var(--nb-space-2) 0 var(--nb-space-2) var(--nb-space-3);
   }
 
   .prose-cell > .cell-content,
   .cell-prompt,
   .output-prompt,
+  .code-input,
   .cell-output {
     grid-column: 1;
   }
 
+  .code-input { margin-left: 0; }
+
   .cell-prompt {
     align-items: center;
-    gap: 4px;
+    gap: var(--nb-space-1);
     justify-content: flex-start;
-    padding: 0 0 4px;
+    padding: 0 0 var(--nb-space-1);
   }
 
   .output-prompt {
-    padding: 8px 0 0;
+    padding: var(--nb-space-2) 0 0;
     text-align: left;
   }
 
-  .prose-cell > .cell-content,
-  .cell-output { padding-inline: 0; }
-  .error-line { margin-inline: 0; }
+  .error-line { margin-left: 0; padding-left: var(--nb-space-4); }
   .cell-actions .button { flex: 1 1 100%; }
 
-  main.content { margin-top: var(--nb-space-5); }
-  .prose-cell h1 { font-size: 36px; }
+  #quarto-content > main.content { margin-top: var(--nb-space-5); }
 
   /* Photo beside the name, role and institution; bio and email full width. */
   .person { gap: 0 var(--nb-space-4); grid-template-columns: 80px minmax(0, 1fr); }
   .person > p:first-child { grid-row: 1 / span 3; }
   .person > p:first-child img { height: 80px; width: 80px; }
   .advisor-grid,
-  .partner-list { gap: var(--nb-space-3); }
+  .partner-list { gap: var(--nb-space-3); grid-template-columns: minmax(0, 1fr); }
   .person-text { display: contents; }
   .person-text > * { grid-column: 2; }
   .person-text > :nth-child(n + 4) { grid-column: 1 / -1; }

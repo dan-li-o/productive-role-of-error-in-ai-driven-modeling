@@ -49,6 +49,107 @@ other pages are plain reading pages in the same style.
 To preview locally (optional): install [Quarto](https://quarto.org) and run
 `quarto preview`.
 
+## Layout and type
+
+Every page follows one standard. Two scripts check it (see **Checks** below),
+so new pages and components keep to it. The tokens are in `:root` at the top
+of `notebook.scss`.
+
+**The frame: 12 columns.** Every page, its header and its footer sit in one
+frame: 1040px at most, centred, with a 24px gutter at each side (16px on
+phones), split into 12 columns with 24px between them (`--nb-col-gap`).
+
+| Columns | Region | Holds |
+|---|---|---|
+| 1–2 | margin | the homepage's `In [n]:` prompts, News dates, About's timeline lanes; empty on reading pages |
+| 3–10 | text | titles and running text, capped at `--nb-measure` (64ch, about 70 characters) |
+| 3–12 | wide | figures, tables, card grids, the timeline |
+| 11–12 | contents | the table of contents, on pages that have one (1024px and wider) |
+
+- **One text line.** Text starts on the column-3 line on every page at every
+  width, so titles don't jump sideways between pages.
+- **Hang the box, not the text.** Code boxes, boxed facts, callouts and the
+  left rules (the "where we are" pointer, job openings) move left into the
+  gutter by their border plus padding (`--hang`). Their text stays on the
+  text line. About's timeline hangs its rail and lanes into the margin
+  columns the same way.
+- **Touch tablets** (640–899px, no hover) take columns 1–3 for the margin, to
+  fit the run button beside `In [n]:`. **Phones** (under 640px) have one
+  column. The margin collapses there, and prompts and dates sit above their
+  cells and titles.
+- **Breakpoints:** 600, 640, 900, 992 (Quarto's menu) and 1024px only.
+
+**Type: one scale.** A major third (×1.25) from the 17px body, used in half
+steps. Sizes are in `rem`, so they follow the reader's browser text size
+(`html` is 106.25%, which is 17px at the default). Use a token, never a
+number.
+
+| Token | Size | Line | For |
+|---|---|---|---|
+| `--nb-size-tiny` | 12.2px | 16px | badges, the year tag, bubble titles |
+| `--nb-size-meta` | 13.6px | 20px | footer, notes, tooltips, the contents, dates |
+| `--nb-size-small` | 15.2px | 24px | code, prompts, captions, card text, menus |
+| `--nb-size-text` | 17px | 28px | body text, lists, facts answers |
+| `--nb-size-lead` | 19px | 28px | the hero facts, merge entries, the site title |
+| `--nb-size-h3` | 21.25px | 28px | h3, card titles, News titles |
+| `--nb-size-h2` | 23.8–26.6px | ≈1.2em | h2 (fluid between 390 and 1040px wide) |
+| `--nb-size-h1` | 29.7–33.2px | ≈1.2em | page titles |
+| `--nb-size-display` | 37.1–51.9px | ≈1.08em | the homepage headline only |
+
+Each size has a matching line height, `--nb-lh-*` (the same name). Headings
+take `--nb-lh-tight`, which is 1.2em rounded to the 4px unit, so it suits a
+fluid size.
+
+**Rhythm: a 4px unit.** Every line height is a whole number of units
+(`--nb-u`, 4px at the default text size). So is every space: margins, padding
+and gaps use `--nb-space-1` to `-8` (4, 8, 12, 16, 24, 32, 48, 64px), or the
+grid's `--nb-col-gap` and `--nb-gutter`. Headings have more space above than
+below, so each sits with its text. A label beside text shares its baseline
+(facts keys, prompts, News dates) or its centre line (the icon flow).
+
+**Typesetting.**
+- Curly quotes and apostrophes: ’ ‘ “ ”. Markdown converts them, but in raw
+  HTML (```` ```{=html} ```` blocks) you type them yourself.
+- Dates: "2 November 2026" everywhere (`date-format` in `_quarto.yml`), and
+  "Tuesday 1 December 2026" with a weekday.
+- Lists indent 1.25em (numbered lists 1.6em). Headings use
+  `text-wrap: balance`, paragraphs `text-wrap: pretty`.
+
+**Adding a component.** Pick the region it spans (text or wide). Set its type
+with one size token and its line height with the matching `--nb-lh-*`. Space
+it with `--nb-space-*`. Give a box around text a `--hang`, so its text stays
+on the line. A grid of cards uses `--nb-col-gap` between items. Give the
+element a class in the page and style it in `notebook.scss`; inline `style=""`
+may only set custom properties (like `--d` in the icon flow).
+
+**Exceptions.** Some values are deliberately off the scale: a 1–3px hairline
+or optical nudge, a 44px touch target, a logo's own size. Write the value with
+a comment on the same line saying why; the checker accepts a commented
+declaration.
+
+### Checks
+
+```sh
+python3 _checks/check_style.py           # the CSS and the pages (runs before every push)
+quarto render
+python3 _checks/check_style.py --site    # also the rendered text: straight quotes
+pip install websocket-client
+python3 _checks/check_layout.py          # measures the rendered site in Chromium
+```
+
+- `check_style.py` reads `notebook.scss` and the `.qmd` pages. It needs only
+  Python, and checks sizes, line heights, spacing, fonts, undefined tokens,
+  breakpoints, inline styles and (with `--site`) straight quotes. The
+  pre-push hook runs it and stops a push that breaks a rule. CI runs it with
+  `--site` and warns.
+- `check_layout.py` serves `_site` and opens every page in headless Chromium
+  at 1280, 1024, 768 (mouse and touch) and 390px. It checks the text line,
+  line heights on the unit, baselines (facts, prompts, News), the icon flow's
+  centre line, Get involved's buttons, sideways scrolling and script errors.
+  Run it by hand after a layout change. Options: `--shots DIR` saves
+  full-page screenshots; `--base https://productive-error.org` measures the
+  live site (a "before"); `--text-size 20` checks a larger browser text size.
+
 ## Domain
 
 The site is live at <https://productive-error.org/>. The domain is set in the

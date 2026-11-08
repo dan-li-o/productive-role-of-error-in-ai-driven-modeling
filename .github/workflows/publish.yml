@@ -36,6 +36,11 @@ jobs:
           python3 _social-cards/make_cards.py --verify || echo "::warning::Some social preview cards are out of date (see above). Run python3 _social-cards/make_cards.py and push."
       - name: Render website
         uses: quarto-dev/quarto-actions/render@v2
+      # A warning only, like the cards: the pre-push hook enforces the CSS
+      # rules, and a stray straight quote shouldn't hold up a deploy.
+      - name: Check the style standard
+        continue-on-error: true
+        run: python3 _checks/check_style.py --site || echo "::warning::The site breaks the layout and type standard (see above; README, \"Layout and type\")."
       - name: Upload website artifact
         uses: actions/upload-pages-artifact@v3
         with:
