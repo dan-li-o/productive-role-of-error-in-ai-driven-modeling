@@ -85,7 +85,7 @@ $footer-fg: #616161;
   --nb-max-width: 1040px;
   --nb-gutter: 24px;      /* frame padding at each side */
   --nb-col-gap: 24px;     /* between the 12 columns */
-  --nb-measure: 64ch;     /* running text; on the page it is also capped at the text region (#quarto-content) */
+  --nb-measure: 64ch;     /* fallback outside the page frame; on the page, the text region (#quarto-content) */
   --nb-active-bar: 6px;
   --nb-radius: 2px;
   --nb-cell-gap: var(--nb-space-4);
@@ -138,7 +138,6 @@ p, ul, ol, dl, blockquote, figure, table, pre { margin: 0 0 var(--nb-space-4); }
    region (README, "Layout and type"). Hung boxes add their --hang. */
 :where(#quarto-document-content) :is(p, dd, blockquote, .description) { max-width: var(--nb-measure); }
 :where(#quarto-document-content) :where(h1, h2, h3, h4, hr, table, ul, ol), :where(#title-block-header) { max-width: var(--nb-text-w); } /* :where: no specificity, so a component's own width wins */
-:where(#quarto-document-content) li { max-width: min(64ch, 100%); } /* within its list's indent */
 
 hr { margin: var(--nb-space-6) 0; }
 
@@ -159,7 +158,7 @@ hr { margin: var(--nb-space-6) 0; }
 .callout {
   --hang: calc(5px + var(--nb-space-4));
   margin: var(--nb-space-5) 0 var(--nb-space-5) calc(-1 * var(--hang));
-  max-width: calc(var(--nb-text-w) + var(--hang));
+  max-width: calc(var(--nb-box-w) + var(--hang));
 }
 .callout.callout-style-simple { padding: var(--nb-space-2) var(--nb-space-4); }
 .callout.callout-style-simple > div.callout-header { margin-bottom: 0; padding-top: 0; }
@@ -197,7 +196,8 @@ main.content { margin-bottom: 0; }
    each side, split into 12 columns with --nb-col-gap between them. The header
    and footer use the same frame (below), so the logo starts on column 1.
      columns 1-2   margin: the homepage's prompts; empty on reading pages
-     columns 3-10  text: titles and running text (capped at --nb-measure)
+     columns 3-12  text: titles, running text, lists, tables, the timeline
+     columns 3-10  boxes: cards, boxed facts, callouts (short items)
      columns 3-12  wide: figures, tables, card grids, the timeline
      columns 11-12 a table of contents, on a page that opts in (toc: true)
    Text sits on the column 3 line on every page. Boxes around text (code,
@@ -212,12 +212,13 @@ main.content { margin-bottom: 0; }
   /* From the frame's inner edge to the text line: the margin columns and the
      gap after them. What hanging items (News dates, the timeline) may use. */
   --nb-margin-w: calc(var(--nb-margin-cols) * (var(--nb-col) + var(--nb-col-gap)));
-  /* The text region: from the text line to column 10's right edge (8
-     columns; 7 on touch tablets). Everything that holds text ends here:
-     paragraphs, headings, cards, boxed facts, tables, lists, rules. Running
-     text is also capped at 64ch, so small type keeps a short line. */
-  --nb-text-w: calc((10 - var(--nb-margin-cols)) * var(--nb-col) + (9 - var(--nb-margin-cols)) * var(--nb-col-gap));
-  --nb-measure: min(64ch, var(--nb-text-w));
+  /* The text region: from the text line to the frame's right edge (columns
+     3-12; 4-12 on touch tablets). Everything that holds text ends here. Boxes
+     of short items (cards, boxed facts, callouts) take the narrower box
+     region, columns 3-10, so they don't look sparse. */
+  --nb-text-w: calc((12 - var(--nb-margin-cols)) * var(--nb-col) + (11 - var(--nb-margin-cols)) * var(--nb-col-gap));
+  --nb-box-w: calc((10 - var(--nb-margin-cols)) * var(--nb-col) + (9 - var(--nb-margin-cols)) * var(--nb-col-gap));
+  --nb-measure: var(--nb-text-w);
   column-gap: var(--nb-col-gap);
   container-type: inline-size;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -249,7 +250,7 @@ main.content { margin-bottom: 0; }
 }
 
 @media (max-width: 639.98px) {
-  #quarto-content { --nb-margin-w: 0px; --nb-text-w: 100%; grid-template-columns: minmax(0, 1fr); }
+  #quarto-content { --nb-margin-w: 0px; --nb-text-w: 100%; --nb-box-w: 100%; grid-template-columns: minmax(0, 1fr); }
   #quarto-content > main.content { grid-column: 1; }
 }
 
@@ -743,7 +744,7 @@ footer.footer .nav-footer {
   border: 1px solid var(--nb-border);
   border-radius: var(--nb-radius);
   margin-left: calc(-1 * var(--hang));
-  max-width: calc(var(--nb-text-w) + var(--hang));
+  max-width: calc(var(--nb-box-w) + var(--hang));
   padding: var(--nb-space-4) var(--nb-space-5);
 }
 @media (max-width: 639.98px) {
@@ -1614,7 +1615,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 .git-timeline.is-lanes { --gutter: calc(var(--lane-gap) * 6 + 40px); }
 
-.git-log { list-style: none; margin: 0; padding: 0; position: relative; }
+.git-log { list-style: none; margin: 0; max-width: none; padding: 0; position: relative; } /* hung with the timeline; each entry has its own limit */
 
 .commit {
   max-width: calc(var(--nb-text-w) + var(--gutter));
@@ -1912,10 +1913,9 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
 
 /* Get involved: four ways in, as a 2×2 grid that fits the first screen on
    phones too. Each card: title, one short line, a standard button.
-   The cards hold running text, so the grid takes the text region, not the
-   wide one. Like any box around text it hangs by its border and padding: the
-   first card's text starts on the text line, and the grid's right edge is the
-   text region's. Each card's title, line and button share rows with the
+   A box of short items, so the grid takes the box region (columns 3-10).
+   Like any box around text it hangs by its border and padding: the first
+   card's text starts on the text line. Each card's title, line and button share rows with the
    card beside it (subgrid), so they line up when one title wraps. */
 .involve-grid {
   --hang: calc(1px + var(--nb-space-4));
@@ -1924,7 +1924,7 @@ html.has-notebook-js .code-cell:not(.is-revealed) .output-prompt {
   grid-auto-rows: auto;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: var(--nb-space-5) 0 var(--nb-space-4) calc(-1 * var(--hang));
-  max-width: calc(var(--nb-text-w) + var(--hang));
+  max-width: calc(var(--nb-box-w) + var(--hang));
 }
 
 .involve-grid .project-card {

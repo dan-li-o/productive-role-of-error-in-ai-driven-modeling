@@ -62,23 +62,20 @@ phones), split into 12 columns with 24px between them (`--nb-col-gap`).
 | Columns | Region | Holds |
 |---|---|---|
 | 1–2 | margin | the homepage's `In [n]:` prompts, News dates, About's timeline lanes; empty on reading pages |
-| 3–10 | text (`--nb-text-w`) | everything that holds text: titles, headings, paragraphs, lists, tables, cards, boxed facts, marked blocks, callouts, rules. 653px on desktop: about 73 characters of body text |
-| 3–12 | wide | things that aren't running text: code boxes and outputs, figures, the icon flow, the timeline's lanes, the homepage headline |
+| 3–12 | text (`--nb-text-w`) | titles, headings, paragraphs, lists, references, tables, the timeline, marked blocks, rules; also code, figures and the icon flow. 823px on desktop |
+| 3–10 | boxes (`--nb-box-w`) | boxes of short items: Get involved's cards, boxed facts, callouts. 653px on desktop, so they don't look sparse |
 | 11–12 | contents | a table of contents, only on a long page that opts in with `toc: true` (off site-wide; 1024px and wider) |
 
-- **One text line, one text edge.** Text starts on the column-3 line and
-  ends by column 10's right edge, on every page at every width, so nothing
-  jumps sideways between pages and nothing reaches past the text beside it.
-  Running text is also capped at `--nb-measure` (`min(64ch, --nb-text-w)`), so
-  small type keeps a short line. Don't widen it: lines longer than about 75
-  characters get harder to read. A page looks wider only where it has wide
-  items, like the homepage's code.
+- **One text line, one right edge.** Text starts on the column-3 line and
+  ends at column 12's right edge (the frame's), on every page at every width,
+  so nothing jumps sideways between pages. Boxes of short items end at column
+  10. Nothing reaches past the frame.
 - **Hang the box, not the text.** Code boxes, boxed facts, callouts and
   marked blocks move left into the gutter by their border plus padding
   (`--hang`). Their text stays on the text line. About's timeline hangs its
   rail and lanes into the margin columns the same way.
 - **Touch tablets** (640–899px, no hover) take columns 1–3 for the margin, to
-  fit the run button beside `In [n]:`; text is then columns 4–10. **Phones**
+  fit the run button beside `In [n]:`; text is then columns 4–12. **Phones**
   (under 640px) have one column. The margin collapses there, prompts and
   dates sit above their cells and titles, and text takes the full width.
 - **Breakpoints:** 640, 900, 992 (Quarto's menu) and 1024px only.
@@ -127,14 +124,12 @@ Get involved. Add the class to any block, in Markdown
 any extra class for that component's own type or behaviour, but never draw
 another left bar.
 
-**Adding a component.** Pick the region it spans: text (anything with words
-in it) or wide (anything else). In the text region, cap it with
-`max-width: var(--nb-text-w)`. Set its type with one size token and its line
+**Adding a component.** Pick the region it spans: text, or boxes for a box of
+short items. Cap it with `max-width: var(--nb-text-w)` (or `--nb-box-w`). Set its type with one size token and its line
 height with the matching `--nb-lh-*`. Space it with `--nb-space-*`. Give a
 box around text a `--hang`: it moves left into the gutter by that much and
-ends at the text region's edge (`max-width: calc(var(--nb-text-w) +
-var(--hang))`), so its text stays on the line and its border doesn't reach
-past the text. Phones have no room, so boxes don't hang there. A grid of
+ends at its region's edge (`max-width: calc(var(--nb-box-w) +
+var(--hang))`), so its text stays on the line. Phones have no room, so boxes don't hang there. A grid of
 cards (Get involved) is such a box, with `--nb-col-gap` between the cards;
 card titles take `--nb-size-h3`, card text `--nb-size-small`, and buttons
 stay the standard 44px. Give the element a class in the page and style it in
@@ -164,7 +159,7 @@ python3 _checks/check_layout.py          # measures the rendered site in Chromiu
   `--site` and warns.
 - `check_layout.py` serves `_site` and opens every page in headless Chromium
   at 1280, 1024, 768 (mouse and touch) and 390px. It checks the text line,
-  the text region's right edge (nothing that holds text reaches past it),
+  the right edges (text by column 12, boxes by column 10),
   that nothing leaves the frame, line heights on the unit, baselines (facts,
   prompts, News), the icon flow's centre line, Get involved's buttons,
   sideways scrolling and script errors.
